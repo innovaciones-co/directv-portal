@@ -1,0 +1,92 @@
+
+/* Estilos generales del formulario */
+.form-container {
+    
+    max-width: 400px; /* Tamaño máximo para la caja */
+    margin: 50px auto; /* Centrado en la pantalla */
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); /* Sombra alrededor de la caja */
+    margin-top: 250px; 
+  }
+  h2 {
+    text-align: center;
+    font-size: 24px;
+    margin-bottom: 20px; /* Espacio entre el título y el formulario */
+    color: #333; /* Color del texto */
+    font-weight: bold; /* Enfatizar el título */
+  }
+  
+  /* Estilo para los campos de texto */
+  .form-group {
+    margin-bottom: 20px;
+  }
+  
+  label {
+    display: block;
+    font-size: 16px;
+    margin-bottom: 8px;
+  }
+  
+  input {
+    width: 100%;
+    padding: 10px;
+    font-size: 16px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    box-sizing: border-box;
+  }
+  
+  input:focus {
+    border-color: #4CAF50; /* Cambio de color del borde al enfocarse */
+    outline: none;
+  }
+  
+  /* Estilo para los errores */
+  .error {
+    color: #888; /* Gris para los errores */
+    font-size: 12px;
+    margin-top: 5px;
+  }
+  
+  /* Botones */
+  .buttons {
+    display: flex;
+    justify-content: space-between;
+    gap: 10px;
+  }
+  
+  button {
+    padding: 12px 20px;
+    border: none;
+    border-radius: 4px;
+    font-size: 16px;
+    cursor: pointer;
+    width: 48%; /* Para que los botones se ajusten y estén juntos */
+  }
+  
+  /* Botón de Aceptar (Solicitar NIP) */
+  .submit-button {
+    background-color: #4CAF50; /* Color verde */
+    color: white;
+  }
+  
+  .submit-button:disabled {
+    background-color: #ccc; /* Deshabilitar el botón con un color gris claro */
+  }
+  
+  .submit-button:hover {
+    background-color: #45a049; /* Color más oscuro cuando se pasa el ratón */
+  }
+  
+  /* Botón de Cancelar */
+  .cancel-button {
+    background-color: #f44336; /* Color rojo */
+    color: white;
+  }
+  
+  .cancel-button:hover {
+    background-color: #e53935; /* Color más oscuro cuando se pasa el ratón */
+  }
+  

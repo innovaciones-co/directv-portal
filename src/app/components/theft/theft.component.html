@@ -1,0 +1,128 @@
+<form #theftForm="ngForm" (ngSubmit)="onSubmit()" class="form-container">
+    <h2 class="full-width">Formulario de pérdida o robo de dispositivo</h2>
+
+    <div class="form-grid">
+        <div class="form-group">
+            <label for="phoneNumber">Número DirecTV</label>
+            <input 
+                type="text" 
+                id="phoneNumber" 
+                [(ngModel)]="formData.phoneNumber" 
+                name="phoneNumber"
+                (input)="onPhoneNumberChange()" 
+                placeholder="Ingresa tu número"
+                required
+            />
+        </div>
+
+        <div class="form-group">
+            <label for="reportDate">Fecha de reporte:</label>
+            <input type="date" id="reportDate" name="reportDate" [(ngModel)]="formData.reportDate" required>
+        </div>
+
+        <div class="form-group">
+            <label for="reportType">Tipo de bloqueo:</label>
+            <select id="reportType" name="reportType" [(ngModel)]="formData.reportType" required>
+                <option value="Hurto">Hurto</option>
+                <option value="Extravío">Extravío</option>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label for="address">Dirección:</label>
+            <input type="text" id="address" name="address" [(ngModel)]="formData.address" required>
+        </div>
+
+        <div class="form-group">
+            <label for="city">Ciudad:</label>
+            <input type="text" id="city" name="city" [(ngModel)]="formData.city" required>
+        </div>
+
+        <div class="form-group">
+            <label for="state">Estado:</label>
+            <input type="text" id="state" name="state" [(ngModel)]="formData.state" required>
+        </div>
+
+        <div class="form-group">
+            <label for="name">Nombre:</label>
+            <input type="text" id="name" name="name" [(ngModel)]="formData.name" required>
+        </div>
+
+        <div class="form-group">
+            <label for="phone">Teléfono:</label>
+            <input type="text" id="phone" name="phone" [(ngModel)]="formData.phone" required>
+        </div>
+
+        <div class="form-group">
+            <label for="type">Tipo de documento:</label>
+            <select id="type" name="type" [(ngModel)]="formData.type" required>
+                <option value="C.C">C.C</option>
+                <option value="C.E">C.E</option>
+                <option value="NIT">NIT</option>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label for="id">Número de documento:</label>
+            <input type="number" id="id" name="id" [(ngModel)]="formData.id" required>
+        </div>
+
+        <div class="form-group">
+            <label for="email">Correo electrónico:</label>
+            <input type="email" id="email" name="email" [(ngModel)]="formData.email" required>
+        </div>
+
+        <div class="form-group">
+            <label for="victimMinor">¿Víctima menor de edad?</label>
+            <select id="victimMinor" name="victimMinor" [(ngModel)]="formData.minorVictim" required>
+                <option value="SI">SI</option>
+                <option value="NO">NO</option>
+            </select>
+        </div>
+
+        <div class="form-group full-width">
+            <label for="violenceApplied">¿Se aplicó violencia?</label>
+            <select id="violenceApplied" name="violenceApplied" [(ngModel)]="formData.violenceApplied"
+                (change)="onViolenceChange()" required>
+                <option value="">Seleccione una opción</option>
+                <option value="SI">Sí</option>
+                <option value="NO">No</option>
+            </select>
+        </div>
+
+        <div class="form-group full-width" *ngIf="showWeaponType">
+            <label for="weaponApplied">Tipo de arma utilizada:</label>
+            <select id="weaponApplied" name="weaponApplied" [(ngModel)]="formData.weaponApplied">
+                <option value="">Seleccione una opción</option>
+                <option value="Arma de fuego">Arma de fuego</option>
+                <option value="Arma blanca">Arma blanca</option>
+                <option value="Otros">Otros</option>
+            </select>
+        </div>
+    </div>
+
+    <!-- Tabla de IMEIs -->
+    <div class="imei-table" *ngIf="imeiList.length > 0 && formData.phoneNumber">
+        <table>
+            <caption>Por favor selecciona el IMEI que deseas bloquear</caption>
+            <tr *ngFor="let imei of imeiList">
+                <td>
+                    <input type="radio" name="selectedImei" [value]="imei.imei" [(ngModel)]="selectedImei">
+                    {{ imei.imei }}
+                </td>
+            </tr>
+        </table>
+    </div>
+
+    <!-- Checkbox de política de datos -->
+    <div class="policy-container">
+        <input type="checkbox" id="policyCheckbox" name="acceptPolicy" [(ngModel)]="acceptPolicy">
+        <label for="policyCheckbox">
+            Acepto la <a href="#href" target="_blank">política de tratamiento de datos</a>
+        </label>
+    </div>
+
+    <button type="submit" [disabled]="!acceptPolicy">
+        Enviar
+    </button>
+</form>

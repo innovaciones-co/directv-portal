@@ -1,0 +1,64 @@
+.form-container {
+    max-width: 400px;
+    margin: 150px auto; // Ajuste automático con margen superior e inferior de 50px
+    padding: 20px;
+    background: white;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    text-align: center;
+    position: relative;
+  }
+  
+  .form-wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    height: calc(100vh - 100px); // 100vh menos los 50px del header y 50px del footer
+    overflow-y: auto; // Permite scroll si el formulario es largo
+    padding-top: 20px;
+    padding-bottom: 20px;
+  }
+  
+  .form-group {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 15px;
+  
+    label {
+      font-weight: bold;
+      margin-bottom: 5px;
+    }
+  
+    input, select {
+      padding: 8px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+    }
+  }
+  
+  button {
+    background-color: black;
+    color: white;
+    padding: 10px;
+    border: none;
+    cursor: pointer;
+    width: 100%;
+    border-radius: 4px;
+  
+    &:hover {
+      background-color: #0056b3; // Azul oscuro al hacer hover
+    }
+  
+    &:active {
+      background-color: rgb(177, 177, 177); // Se vuelve gris al hacer click
+      color: #007bff; // Texto azul para contraste
+    }
+  }
+  
+  .error {
+    color: red;
+    font-size: 12px;
+    margin-top: 5px;
+  }
+  
