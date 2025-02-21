@@ -1,5 +1,93 @@
 <header class="header">
-    <div class="container">
-      <h1>DirecTV</h1>
+  <div class="container">
+    <div class="logo">
+      <a href="https://www.directvla.com/co">
+        <img src="/dtv-logo-blue.svg" alt="Directv Logo" />
+      </a>
     </div>
-  </header>
+    <!-- Menú de escritorio: visible en pantallas a partir de 1090px -->
+    <nav class="desktop-menu">
+      <ul class="menu">
+        <li><a href="#">¿Quiénes Somos?</a></li>
+        <li><a href="#">Planes</a></li>
+        <li><a href="#">Consulta y registra tu equipo</a></li>
+        <li><a href="/port-on">Pórtate a DirecTV</a></li>
+        <li class="dropdown">
+          <a href="#" (click)="toggleDropdown('info', $event)">Información Importante para Usuarios</a>
+          <ul class="submenu" [class.show]="dropdownStates['info']">
+            <li><a href="https://coberturadigital-uat-co.tigocloud.net/">Mapa de cobertura</a></li>
+            <li><a href="https://www.speedtest.net/">Medidor de Velocidad</a></li>
+            <li><a href="#">Comparador de Planes y Tarifas</a></li>
+            <li><a href="#">Factores de limitación de la velocidad de internet</a></li>
+            <li class="dropdown">
+              <a href="#" (click)="toggleDropdown('homologacion', $event)">Homologación de equipo</a>
+              <ul class="submenu submenu-right" [class.show]="dropdownStates['homologacion']">
+                <li><a href="https://www.tramitescrcom.gov.co/tramites/comun/guia.xhtml">Verifica si tu equipo está homologado</a></li>
+                <li><a href="https://www.tramitescrcom.gov.co/tramites/comun/guia.xhtml">Homologa tu equipo</a></li>
+              </ul>
+            </li>
+            <li><a href="#">Procedimiento y Trámites PQR</a></li>
+            <li><a href="#">Prácticas de gestión de tráfico</a></li>
+            <li><a href="#">Indicaciones de calidad en la atención</a></li>
+            <li><a href="#">Histórico de promociones</a></li>
+            <li><a href="#">Indicadores de calidad del servicio de Internet</a></li>
+            <li><a href="#">Trámites digitalizados</a></li>
+          </ul>
+        </li>
+        <li class="dropdown">
+          <a href="#" (click)="toggleDropdown('pqr', $event)">PQR</a>
+          <ul class="submenu" [class.show]="dropdownStates['pqr']">
+            <li><a href="/new-pqr">Radica PQR</a></li>
+            <li><a href="/query-pqr">Consulta CUN</a></li>
+          </ul>
+        </li>
+        <li><a href="/questions">Preguntas frecuentes</a></li>
+      </ul>
+    </nav>
+    <!-- Ícono de menú: visible en móviles -->
+    <div class="menu-icon" (click)="toggleMenu($event)">
+      <span></span>
+      <span></span>
+      <span></span>
+    </div>
+  </div>
+  <!-- Menú móvil: se desliza desde el borde derecho -->
+  <nav class="mobile-menu" [class.open]="menuOpen">
+    <ul class="menu">
+      <li><a href="#">¿Quiénes Somos?</a></li>
+      <li><a href="#">Planes</a></li>
+      <li><a href="#">Consulta y registra tu equipo</a></li>
+      <li><a href="/port-on">Pórtate a DirecTV</a></li>
+      <li class="dropdown">
+        <a href="#" (click)="toggleDropdown('info', $event)">Información Importante para Usuarios</a>
+        <ul class="submenu" [class.show]="dropdownStates['info']">
+          <li><a href="https://coberturadigital-uat-co.tigocloud.net/">Mapa de cobertura</a></li>
+          <li><a href="https://www.speedtest.net/">Medidor de Velocidad</a></li>
+          <li><a href="#">Comparador de Planes y Tarifas</a></li>
+          <li><a href="#">Factores de limitación de la velocidad de internet</a></li>
+          <li class="dropdown">
+            <a href="#" (click)="toggleDropdown('homologacion', $event)">Homologación de equipo</a>
+            <ul class="submenu submenu-right" [class.show]="dropdownStates['homologacion']">
+              <li><a href="https://www.tramitescrcom.gov.co/tramites/comun/guia.xhtml">Verifica si tu equipo está homologado</a></li>
+              <li><a href="https://www.tramitescrcom.gov.co/tramites/comun/guia.xhtml">Homologa tu equipo</a></li>
+            </ul>
+          </li>
+          <li><a href="#">Procedimiento y Trámites PQR</a></li>
+          <li><a href="#">Prácticas de gestión de tráfico</a></li>
+          <li><a href="#">Indicaciones de calidad en la atención</a></li>
+          <li><a href="#">Histórico de promociones</a></li>
+          <li><a href="#">Indicadores de calidad del servicio de Internet</a></li>
+          <li><a href="#">Trámites digitalizados</a></li>
+        </ul>
+      </li>
+      <li class="dropdown">
+        <a href="#" (click)="toggleDropdown('pqr', $event)">PQR</a>
+        <ul class="submenu" [class.show]="dropdownStates['pqr']">
+          <li><a href="/new-pqr">Radica PQR</a></li>
+          <li><a href="/query-pqr">Consulta CUN</a></li>
+        </ul>
+      </li>
+      <li><a href="/questions">Preguntas frecuentes</a></li>
+    </ul>
+  </nav>
+</header>

@@ -1,11 +1,149 @@
 .header {
-    background-color: black;
-    color: white;
-    padding: 10px 0;
-    text-align: center;
-    position: fixed;
-    top: 0;
-    width: 100%;
-    z-index: 1000;
+  background-color: #000;
+  border-bottom: 1px solid #ccc;
+  position: relative;
+  z-index: 1000;
+
+  .container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px 20px;
   }
-  
+
+  .logo {
+    a {
+      display: inline-block;
+    }
+    img {
+      max-height: 50px; // Ajusta según sea necesario
+    }
+  }
+
+  /* Menú de escritorio: visible en pantallas a partir de 1090px */
+  .desktop-menu {
+    display: flex;
+  }
+
+  /* Ícono de menú: visible en móviles */
+  .menu-icon {
+    cursor: pointer;
+    display: none;
+    span {
+      display: block;
+      width: 25px;
+      height: 3px;
+      background-color: #fff;
+      margin: 4px 0;
+    }
+  }
+
+  /* Estilos comunes para ambos menús */
+  nav ul.menu {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+  }
+
+  /* Reducir el margen entre ítems para que estén más juntos */
+  nav ul.menu li {
+    margin: 0 5px;
+    position: relative;
+  }
+
+  nav ul.menu li a {
+    display: block;
+    text-decoration: none;
+    color: #fff;
+    padding: 5px 10px;
+    transition: color 0.3s ease;
+  }
+
+  nav ul.menu li a:hover {
+    color: #ADD8E6;
+  }
+
+  /* Submenús (Desktop: siguen siendo absolutamente posicionados) */
+  nav ul.menu li.dropdown {
+    a {
+      cursor: pointer;
+    }
+    ul.submenu {
+      display: none;
+      position: absolute;
+      top: 100%;
+      left: 0;
+      background-color: #000;
+      list-style: none;
+      padding: 10px 0;
+      margin: 0;
+      z-index: 9999;
+      li a {
+        padding: 5px 20px;
+        white-space: nowrap;
+      }
+      &.show {
+        display: block;
+      }
+    }
+  }
+
+  .submenu-right {
+    left: auto;
+    right: 0;
+  }
+
+  /* Estilos para pantallas móviles */
+  @media (max-width: 1089px) {
+    .desktop-menu {
+      display: none;
+    }
+    .menu-icon {
+      display: block;
+    }
+    .mobile-menu {
+      display: block;
+      position: fixed;
+      top: 0;
+      right: 0;
+      width: 80%;
+      max-width: 350px; /* Ancho máximo de 350px */
+      height: 100%;
+      background-color: #000;
+      transform: translateX(100%);
+      transition: transform 0.3s ease-in-out;
+      z-index: 1100;
+      overflow-y: auto; /* Habilita scroll si el contenido excede el alto */
+    }
+    .mobile-menu.open {
+      transform: translateX(0);
+    }
+    .mobile-menu ul.menu {
+      flex-direction: column;
+      padding: 20px;
+    }
+    .mobile-menu ul.menu li {
+      margin: 5px 0; /* Menor margen vertical entre ítems */
+    }
+    .mobile-menu ul.menu li a {
+      padding: 10px 20px;
+    }
+    /* Para el menú móvil, las subopciones se listan en línea y empujan el contenido hacia abajo */
+    .mobile-menu ul.menu li.dropdown ul.submenu {
+      position: static;   /* Quita posicionamiento absoluto */
+      display: none;      /* Oculto por defecto */
+      margin-left: 10px;  /* Indentación para sub-ítems */
+      padding: 0;
+    }
+    .mobile-menu ul.menu li.dropdown ul.submenu.show {
+      display: block;
+    }
+  }
+
+  @media (min-width: 1090px) {
+    .mobile-menu {
+      display: none;
+    }
+  }
+}
