@@ -28,6 +28,51 @@ export class TheftComponent {
     violenceApplied: '',
     weaponApplied: ''
   };
+  // Listado de ciudades y estados de Colombia
+  states: string[] = [
+    'Amazonas', 'Antioquia', 'Arauca', 'Atlántico', 'Bogotá D.C', 'Bolívar', 'Boyacá', 'Caldas', 
+    'Caquetá', 'Casanare', 'Cauca', 'Cesar', 'Chocó', 'Córdoba', 'Cundinamarca', 'Guainía', 
+    'Guaviare', 'Huila', 'La Guajira', 'Magdalena', 'Meta', 'Nariño', 'Norte de Santander', 
+    'Putumayo', 'Quindío', 'Risaralda', 'San Andrés y Providencia', 'Santander', 'Sucre', 
+    'Tolima', 'Valle del Cauca', 'Vaupés', 'Vichada'
+  ];
+
+  cities: { [key: string]: string[] } = {
+    'Amazonas': ['Leticia'],
+    'Antioquia': ['Medellín', 'Bello', 'Itagüí', 'Envigado', 'Rionegro', 'Apartadó', 'Turbo', 'Caucasia'],
+    'Arauca': ['Arauca'],
+    'Atlántico': ['Barranquilla', 'Soledad', 'Malambo', 'Sabanalarga'],
+    'Bogotá D.C': ['Bogotá'],
+    'Bolívar': ['Cartagena', 'Magangué', 'Turbaco'],
+    'Boyacá': ['Tunja', 'Duitama', 'Sogamoso', 'Chiquinquirá'],
+    'Caldas': ['Manizales', 'La Dorada', 'Chinchiná'],
+    'Caquetá': ['Florencia'],
+    'Casanare': ['Yopal'],
+    'Cauca': ['Popayán', 'Santander de Quilichao'],
+    'Cesar': ['Valledupar', 'Aguachica'],
+    'Chocó': ['Quibdó'],
+    'Córdoba': ['Montería', 'Lorica', 'Sahagún'],
+    'Cundinamarca': ['Soacha', 'Fusagasugá', 'Girardot', 'Chía', 'Zipaquirá'],
+    'Guainía': ['Inírida'],
+    'Guaviare': ['San José del Guaviare'],
+    'Huila': ['Neiva', 'Pitalito', 'Garzón'],
+    'La Guajira': ['Riohacha', 'Maicao', 'Uribia'],
+    'Magdalena': ['Santa Marta', 'Ciénaga'],
+    'Meta': ['Villavicencio', 'Acacías', 'Granada'],
+    'Nariño': ['Pasto', 'Ipiales', 'Tumaco'],
+    'Norte de Santander': ['Cúcuta', 'Ocaña', 'Pamplona'],
+    'Putumayo': ['Mocoa'],
+    'Quindío': ['Armenia'],
+    'Risaralda': ['Pereira', 'Dosquebradas'],
+    'San Andrés y Providencia': ['San Andrés'],
+    'Santander': ['Bucaramanga', 'Floridablanca', 'Girón', 'Piedecuesta', 'Barrancabermeja'],
+    'Sucre': ['Sincelejo'],
+    'Tolima': ['Ibagué', 'Espinal'],
+    'Valle del Cauca': ['Cali', 'Buenaventura', 'Palmira', 'Tuluá', 'Buga', 'Cartago'],
+    'Vaupés': ['Mitú'],
+    'Vichada': ['Puerto Carreño']
+  };
+
 
   showWeaponType: boolean = false;
   acceptPolicy = false;
@@ -41,6 +86,23 @@ export class TheftComponent {
     private blockSimService: PutBlockSimByNumberService,
     private router: Router
   ) {}
+
+  onCityChange() {
+    for (let state in this.cities) {
+      if (this.cities[state].includes(this.formData.city)) {
+        this.formData.state = state;
+        break;
+      }
+    }
+  }
+
+  onStateChange() {
+    if (this.formData.state === 'Bogotá D.C') {
+      this.formData.city = 'Bogotá';
+    } else {
+      this.formData.city = '';
+    }
+  }
 
   onPhoneNumberChange() {
     let phoneNumber = this.formData.phoneNumber.trim();

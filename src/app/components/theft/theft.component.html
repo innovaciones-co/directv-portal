@@ -4,15 +4,8 @@
     <div class="form-grid">
         <div class="form-group">
             <label for="phoneNumber">Número DirecTV</label>
-            <input 
-                type="text" 
-                id="phoneNumber" 
-                [(ngModel)]="formData.phoneNumber" 
-                name="phoneNumber"
-                (input)="onPhoneNumberChange()" 
-                placeholder="Ingresa tu número"
-                required
-            />
+            <input type="text" id="phoneNumber" [(ngModel)]="formData.phoneNumber" name="phoneNumber"
+                (input)="onPhoneNumberChange()" placeholder="Ingresa tu número" required />
         </div>
 
         <div class="form-group">
@@ -33,15 +26,24 @@
             <input type="text" id="address" name="address" [(ngModel)]="formData.address" required>
         </div>
 
+        <!-- Ciudad Dropdown -->
         <div class="form-group">
             <label for="city">Ciudad:</label>
-            <input type="text" id="city" name="city" [(ngModel)]="formData.city" required>
+            <select id="city" name="city" [(ngModel)]="formData.city" (change)="onCityChange()" required>
+                <option value="" disabled selected>Seleccione una ciudad</option>
+                <option *ngFor="let city of cities[formData.state] || []" [value]="city">{{ city }}</option>
+            </select>
         </div>
 
+        <!-- Estado Dropdown -->
         <div class="form-group">
             <label for="state">Estado:</label>
-            <input type="text" id="state" name="state" [(ngModel)]="formData.state" required>
+            <select id="state" name="state" [(ngModel)]="formData.state" (change)="onStateChange()" required>
+                <option value="" disabled selected>Seleccione un estado</option>
+                <option *ngFor="let state of states" [value]="state">{{ state }}</option>
+            </select>
         </div>
+
 
         <div class="form-group">
             <label for="name">Nombre:</label>
@@ -56,9 +58,10 @@
         <div class="form-group">
             <label for="type">Tipo de documento:</label>
             <select id="type" name="type" [(ngModel)]="formData.type" required>
-                <option value="C.C">C.C</option>
-                <option value="C.E">C.E</option>
+                <option value="ID">C.C</option>
                 <option value="NIT">NIT</option>
+                <option value="FOREIGN_ID">C.E</option>
+                <option value="PASSPORT">Pasaporte</option>
             </select>
         </div>
 
@@ -114,7 +117,7 @@
         </table>
     </div>
 
-    <!-- Checkbox de política de datos -->
+    <!-- Checkbox de política de datos (con fondo azul) -->
     <div class="policy-container">
         <input type="checkbox" id="policyCheckbox" name="acceptPolicy" [(ngModel)]="acceptPolicy">
         <label for="policyCheckbox">
