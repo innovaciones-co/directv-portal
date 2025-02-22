@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { Observable, throwError } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
 import { ConfigService } from './config.service';
@@ -16,10 +16,10 @@ export class PutPortInRequestService {
 
   sendPortInRequest(portInData: any): Observable<any> {
     const url = `${this.apiBaseUrl}/api/portInRequest`;
-    
     return this.http.put<any>(url, portInData).pipe(
       map(response => {
-        if (response.responseCode === 0) {
+        // Se asume que response.responseCode es 0 para éxito.
+        if (response.responseCode === 0 || response.responseCode === '0') {
           return response;
         } else {
           throw new Error(response.responseDetail || 'Error desconocido en la solicitud de portabilidad');
