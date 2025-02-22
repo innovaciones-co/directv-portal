@@ -203,5 +203,20 @@
     text-align: center;
     margin-top: 10px;
 }
-  
+mat-form-field {
+  width: 100%;
+  font-size: 14px;
+
+  .mat-form-field-wrapper {
+    padding-bottom: 5px; // Reduce el espacio inferior
+  }
+
+  .mat-form-field-infix {
+    padding: 0px 8px; // Reduce el padding interno del campo
+  }
+
+  .mat-select-value, .mat-input-element {
+    font-size: 14px; // Reduce el tamaño de fuente
+  }
+}
   

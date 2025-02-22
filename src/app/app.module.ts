@@ -7,7 +7,7 @@ import { provideAnimationsAsync } from '@angular/platform-browser/animations/asy
 import { HeaderComponent } from './components/header/header.component';
 import { FooterComponent } from './components/footer/footer.component';
 import { PortOnComponent } from './components/port-on/port-on.component';
-import { FormsModule } from '@angular/forms';
+import { FormsModule,ReactiveFormsModule  } from '@angular/forms';
 
 import { HttpClientModule } from '@angular/common/http';
 import { GetCustomersBySubscriptionService } from './services/get-customers-by-subscription.service';
@@ -17,9 +17,16 @@ import { PortinRequestComponent } from './components/portin-request/portin-reque
 import { TheftComponent } from './components/theft/theft.component';
 
 
+import { MatSelectModule } from '@angular/material/select';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
+import { MatCheckboxModule } from '@angular/material/checkbox';
+import { MatButtonModule } from '@angular/material/button';
+
+
 @NgModule({
   declarations: [
-    AppComponent,
+    AppComponent,    
     HeaderComponent,
     FooterComponent,
     PortOnComponent,
@@ -30,14 +37,22 @@ import { TheftComponent } from './components/theft/theft.component';
     BrowserModule,
     AppRoutingModule,
     FormsModule,
-    HttpClientModule
+    ReactiveFormsModule,
+    HttpClientModule,
+    MatSelectModule,
+    MatFormFieldModule,
+    MatSelectModule,   
+    MatInputModule,
+    MatCheckboxModule,
+    MatButtonModule
   ],
   providers: [
     provideClientHydration(),
     provideAnimationsAsync(),
     GetCustomersBySubscriptionService,
     GetNetworkOperatorService,
-    PostSendAuthenticationService
+    PostSendAuthenticationService,
+    provideAnimationsAsync('noop')
   ],
   bootstrap: [AppComponent]
 })
