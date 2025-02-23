@@ -16,7 +16,7 @@ export class PostSendAuthenticationService {
   }
 
   sendAuthentication(subscriberId: number, phoneNumber: string, operatorCode: string): Observable<any> {
-    const url = `${this.apiBaseUrl}/api/postSendAuthentication`;
+    const url = `${this.apiBaseUrl}/api-dtv/postSendAuthentication`;
     const body = {
       phoneNumber: phoneNumber,
       subscriberId:subscriberId,    

@@ -29,7 +29,7 @@ export class GetCustomersBySubscriptionService {
 
   // Método para obtener los datos del cliente basado en el número de teléfono
   getCustomerData(phoneNumber: string): Observable<any> {
-    const url = `${this.apiBaseUrl}/api/getCustomersBySubscription?phoneNumber=${phoneNumber}`;
+    const url = `${this.apiBaseUrl}/api-dtv/getCustomersBySubscription?phoneNumber=${phoneNumber}`;
     return this.http.get<any>(url).pipe(
       tap(response => {
         console.log(response);

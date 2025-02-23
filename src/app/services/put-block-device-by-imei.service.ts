@@ -15,7 +15,7 @@ export class PutBlockDeviceByImeiService {
   }
 
   blockDeviceByImei(data: any): Observable<any> {
-    const url = `${this.apiBaseUrl}/api/blockDeviceByImei`;
+    const url = `${this.apiBaseUrl}/api-dtv/blockDeviceByImei`;
     const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
 
     return this.http.put<any>(url, data, { headers }).pipe(

@@ -15,7 +15,7 @@ export class QueryImeiService {
   }
 
 queryImei(data: { phoneNumber: string }): Observable<any> {
-  const url = `${this.apiBaseUrl}/api/queryImei`;
+  const url = `${this.apiBaseUrl}/api-dtv/queryImei`;
   return this.http.post<any>(url, data).pipe(
     map(response => response),
     catchError(error => {

@@ -15,7 +15,7 @@ export class PutBlockSimByNumberService {
   }
 
   blockSimByPhoneNumber(data: { phoneNumber: string }): Observable<any> {
-    const url = `${this.apiBaseUrl}/api/blockSimByPhoneNumber`;
+    const url = `${this.apiBaseUrl}/api-dtv/blockSimByPhoneNumber`;
     const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
 
     return this.http.put<any>(url, data, { headers }).pipe(

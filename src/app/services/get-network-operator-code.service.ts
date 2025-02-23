@@ -20,7 +20,7 @@ export class GetNetworkOperatorService {
   }
 
   getOperator(phoneNumber: string): Observable<any> {
-    const url = `${this.apiBaseUrl}/api/getNetworkOperator?phoneNumber=${phoneNumber}`;
+    const url = `${this.apiBaseUrl}/api-dtv/getNetworkOperator?phoneNumber=${phoneNumber}`;
     const headers = new HttpHeaders({
       'accept': 'application/json'
     });

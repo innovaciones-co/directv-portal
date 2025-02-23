@@ -15,7 +15,7 @@ export class PutPortInRequestService {
   }
 
   sendPortInRequest(portInData: any): Observable<any> {
-    const url = `${this.apiBaseUrl}/api/portInRequest`;
+    const url = `${this.apiBaseUrl}/api-dtv/portInRequest`;
     return this.http.put<any>(url, portInData).pipe(
       map(response => {
         // Se asume que response.responseCode es 0 para éxito.
