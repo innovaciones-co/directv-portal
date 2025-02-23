@@ -11,7 +11,7 @@
         <li><a href="#">¿Quiénes Somos?</a></li>
         <li><a href="#">Planes</a></li>
         <li><a href="#">Consulta y registra tu equipo</a></li>
-        <li><a href="/port-on">Pórtate a DirecTV</a></li>
+        <li><a routerLink="/port-on">Pórtate a DirecTV</a></li>
         <li class="dropdown">
           <a href="#" (click)="toggleDropdown('info', $event)">Información Importante para Usuarios</a>
           <ul class="submenu" [class.show]="dropdownStates['info']">
@@ -32,17 +32,17 @@
             <li><a href="#">Histórico de promociones</a></li>
             <li><a href="#">Indicadores de calidad del servicio de Internet</a></li>
             <li><a href="#">Trámites digitalizados</a></li>
-            <li><a href="/theft">Reporta la pérdida o robo de tu equipo</a></li>
+            <li><a routerLink="/theft">Reporta la pérdida o robo de tu equipo</a></li>
           </ul>
         </li>
         <li class="dropdown">
           <a href="#" (click)="toggleDropdown('pqr', $event)">PQR</a>
           <ul class="submenu" [class.show]="dropdownStates['pqr']">
-            <li><a href="/new-pqr">Radica PQR</a></li>
-            <li><a href="/query-pqr">Consulta CUN</a></li>
+            <li><a routerLink="/new-pqr">Radica PQR</a></li>
+            <li><a routerLink="/query-pqr">Consulta CUN</a></li>
           </ul>
         </li>
-        <li><a href="/questions">Preguntas frecuentes</a></li>
+        <li><a routerLink="/questions">Preguntas frecuentes</a></li>
       </ul>
     </nav>
     <!-- Ícono de menú: visible en móviles -->
@@ -58,7 +58,7 @@
       <li><a href="#">¿Quiénes Somos?</a></li>
       <li><a href="#">Planes</a></li>
       <li><a href="#">Consulta y registra tu equipo</a></li>
-      <li><a href="/port-on">Pórtate a DirecTV</a></li>
+      <li><a routerLink="/port-on">Pórtate a DirecTV</a></li>
       <li class="dropdown">
         <a href="#" (click)="toggleDropdown('info', $event)">Información Importante para Usuarios</a>
         <ul class="submenu" [class.show]="dropdownStates['info']">
@@ -79,17 +79,17 @@
           <li><a href="#">Histórico de promociones</a></li>
           <li><a href="#">Indicadores de calidad del servicio de Internet</a></li>
           <li><a href="#">Trámites digitalizados</a></li>
-          <li><a href="/theft">Reporta la pérdida o robo de tu equipo</a></li>
+          <li><a routerLink="/theft">Reporta la pérdida o robo de tu equipo</a></li>
         </ul>
       </li>
       <li class="dropdown">
         <a href="#" (click)="toggleDropdown('pqr', $event)">PQR</a>
         <ul class="submenu" [class.show]="dropdownStates['pqr']">
-          <li><a href="/new-pqr">Radica PQR</a></li>
-          <li><a href="/query-pqr">Consulta CUN</a></li>
+          <li><a routerLink="/new-pqr">Radica PQR</a></li>
+          <li><a routerLink="/query-pqr">Consulta CUN</a></li>
         </ul>
       </li>
-      <li><a href="/questions">Preguntas frecuentes</a></li>
+      <li><a routerLink="/questions">Preguntas frecuentes</a></li>
     </ul>
   </nav>
 </header>
