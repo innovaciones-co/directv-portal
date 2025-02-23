@@ -3,11 +3,13 @@ import { RouterModule, Routes } from '@angular/router';
 import { PortOnComponent } from './components/port-on/port-on.component';
 import { PortinRequestComponent } from './components/portin-request/portin-request.component';
 import { TheftComponent } from './components/theft/theft.component';
+import { PqrComponent } from './components/pqr/pqr.component';
 
 const routes: Routes = [
   { path: 'port-on', component: PortOnComponent },
   { path: 'portin-request', component: PortinRequestComponent },
-  { path: 'theft', component: TheftComponent },  
+  { path: 'theft', component: TheftComponent },
+  { path: 'pqr', component: PqrComponent },  
   { path: '', redirectTo: '/home', pathMatch: 'full' }
 ];
 

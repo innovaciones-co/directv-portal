@@ -1,0 +1,100 @@
+<form #pqrForm="ngForm" (ngSubmit)="onSubmit(pqrForm)" class="form-container">
+    <!-- Sección de Información de contacto -->
+    <h2 class="section-title">Información de contacto</h2>
+    <div class="contact-grid">
+      <!-- Tu Nombre o Razón Social de la Compañía -->
+      <mat-form-field appearance="fill">
+        <mat-label>Tu Nombre o Razón Social de la Compañía</mat-label>
+        <input matInput type="text" name="firstName" [(ngModel)]="formData.firstName" required>
+      </mat-form-field>
+      <!-- Apellido -->
+      <mat-form-field appearance="fill">
+        <mat-label>Apellido</mat-label>
+        <input matInput type="text" name="lastName" [(ngModel)]="formData.lastName" required>
+      </mat-form-field>
+      <!-- Tipo de documento -->
+      <mat-form-field appearance="fill">
+        <mat-label>Tipo de documento</mat-label>
+        <mat-select name="documentType" [(ngModel)]="formData.documentType" required>
+          <mat-option value="C.C">C.C</mat-option>
+          <mat-option value="NIT">NIT</mat-option>
+          <mat-option value="C.E">C.E</mat-option>
+        </mat-select>
+      </mat-form-field>
+      <!-- Número de documento -->
+      <mat-form-field appearance="fill">
+        <mat-label>Número de documento</mat-label>
+        <input matInput type="text" name="documentNumber" [(ngModel)]="formData.documentNumber" pattern="^[0-9]*$" required>
+      </mat-form-field>
+      <!-- Correo electrónico -->
+      <mat-form-field appearance="fill">
+        <mat-label>Correo electrónico</mat-label>
+        <input matInput type="email" name="email" [(ngModel)]="formData.email" required>
+      </mat-form-field>
+      <!-- Tu Número Directv -->
+      <mat-form-field appearance="fill">
+        <mat-label>Tu Número Directv</mat-label>
+        <input matInput type="text" name="contactPhone" [(ngModel)]="formData.contactPhone" pattern="^[0-9]*$" required>
+      </mat-form-field>
+      <!-- Departamento -->
+      <mat-form-field appearance="fill">
+        <mat-label>Departamento</mat-label>
+        <mat-select name="department" [(ngModel)]="formData.department" (selectionChange)="onDepartmentChange()" required>
+          <mat-option *ngFor="let dept of departments" [value]="dept">{{ dept }}</mat-option>
+        </mat-select>
+      </mat-form-field>
+      <!-- Municipio/Ciudad -->
+      <mat-form-field appearance="fill">
+        <mat-label>Municipio/Ciudad</mat-label>
+        <mat-select name="city" [(ngModel)]="formData.city" required>
+          <mat-option *ngFor="let city of cities[formData.department] || []" [value]="city">{{ city }}</mat-option>
+        </mat-select>
+      </mat-form-field>
+      <!-- Barrio -->
+      <mat-form-field appearance="fill">
+        <mat-label>Barrio</mat-label>
+        <input matInput type="text" name="neighborhood" [(ngModel)]="formData.neighborhood" required>
+      </mat-form-field>
+      <!-- Dirección -->
+      <mat-form-field appearance="fill">
+        <mat-label>Dirección</mat-label>
+        <input matInput type="text" name="address" [(ngModel)]="formData.address" required>
+      </mat-form-field>
+    </div>
+  
+    <!-- Sección de Queja -->
+    <h2 class="section-title">Queja</h2>
+    <div class="complaint-grid">
+      <!-- Título de tu queja (ocupa ambas columnas) -->
+      <mat-form-field appearance="fill" class="full-width">
+        <mat-label>Título de tu queja</mat-label>
+        <input matInput type="text" name="complaintTitle" [(ngModel)]="formData.complaintTitle" required>
+      </mat-form-field>
+      <!-- Descripción de tu queja (ocupa ambas columnas) -->
+      <mat-form-field appearance="fill" class="full-width">
+        <mat-label>Descripción de tu queja</mat-label>
+        <textarea matInput name="complaintDescription" [(ngModel)]="formData.complaintDescription" required></textarea>
+      </mat-form-field>
+      <!-- Categoría -->
+      <mat-form-field appearance="fill" class="full-width">
+        <mat-label>Categoría</mat-label>
+        <mat-select name="categoryId" [(ngModel)]="formData.categoryId" required>
+          <mat-option *ngFor="let cat of categories" [value]="cat['ser:categoryId']">
+            {{ cat['ser:categoryName'] }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+  
+    <!-- Checkbox de política de datos -->
+    <mat-checkbox name="acceptPolicy" [(ngModel)]="formData.acceptPolicy" required>
+      Acepto la <a href="#" target="_blank">política de tratamiento de datos personales</a>
+    </mat-checkbox>
+  
+    <!-- Botón Enviar -->
+    <button mat-raised-button color="primary" type="submit" 
+            [disabled]="!pqrForm.valid || !formData.acceptPolicy">
+      Enviar
+    </button>
+  </form>
+  
