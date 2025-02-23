@@ -1,141 +1,189 @@
 <form #theftForm="ngForm" (ngSubmit)="onSubmit()" class="form-container">
     <h2 class="full-width">Formulario de pérdida o robo de dispositivo</h2>
-
+  
     <div class="form-grid">
-
-        <!-- Número DirecTV -->
-        <mat-form-field>
-            <mat-label>Número DirecTV</mat-label>
-            <input matInput type="text" id="phoneNumber" name="phoneNumber" [(ngModel)]="formData.phoneNumber"
-                (input)="onPhoneNumberChange()" required>
-        </mat-form-field>
-
-        <!-- Fecha de Reporte -->
-        <mat-form-field>
-            <mat-label>Fecha de reporte</mat-label>
-            <input matInput type="date" id="reportDate" name="reportDate" [(ngModel)]="formData.reportDate" required>
-        </mat-form-field>
-
-        <!-- Tipo de Bloqueo -->
-        <mat-form-field>
-            <mat-label>Tipo de bloqueo</mat-label>
-            <mat-select id="reportType" name="reportType" [(ngModel)]="formData.reportType" required>
-                <mat-option value="Hurto">Hurto</mat-option>
-                <mat-option value="Extravío">Extravío</mat-option>
-            </mat-select>
-        </mat-form-field>
-
-        <!-- Dirección -->
-        <mat-form-field>
-            <mat-label>Dirección</mat-label>
-            <input matInput type="text" id="address" name="address" [(ngModel)]="formData.address" required>
-        </mat-form-field>
-
-        <!-- Departamento -->
-        <mat-form-field>
-            <mat-label>Departamento</mat-label>
-            <mat-select [(ngModel)]="formData.state" (selectionChange)="onStateChange()" name="state" required>
-                <mat-option *ngFor="let state of states" [value]="state">{{ state }}</mat-option>
-            </mat-select>
-        </mat-form-field>
-
-        <!-- Ciudad -->
-        <mat-form-field>
-            <mat-label>Ciudad</mat-label>
-            <mat-select [(ngModel)]="formData.city" name="city" required>
-                <mat-option *ngFor="let city of (cities[formData.state] || [])" [value]="city">{{ city }}</mat-option>
-            </mat-select>
-        </mat-form-field>
-
-        <!-- Nombre -->
-        <mat-form-field>
-            <mat-label>Nombre</mat-label>
-            <input matInput type="text" id="name" name="name" [(ngModel)]="formData.name" required>
-        </mat-form-field>
-
-        <!-- Teléfono -->
-        <mat-form-field>
-            <mat-label>Teléfono</mat-label>
-            <input matInput type="text" id="phone" name="phone" [(ngModel)]="formData.phone" required>
-        </mat-form-field>
-
-        <!-- Tipo de Documento -->
-        <mat-form-field>
-            <mat-label>Tipo de documento</mat-label>
-            <mat-select id="type" name="type" [(ngModel)]="formData.type" required>
-                <mat-option value="ID">C.C</mat-option>
-                <mat-option value="NIT">NIT</mat-option>
-                <mat-option value="FOREIGN_ID">C.E</mat-option>
-                <mat-option value="PASSPORT">Pasaporte</mat-option>
-            </mat-select>
-        </mat-form-field>
-
-        <!-- Número de Documento -->
-        <mat-form-field>
-            <mat-label>Número de documento</mat-label>
-            <input matInput type="number" id="id" name="id" [(ngModel)]="formData.id" required>
-        </mat-form-field>
-
-        <!-- Correo Electrónico -->
-        <mat-form-field>
-            <mat-label>Correo electrónico</mat-label>
-            <input matInput type="email" id="email" name="email" [(ngModel)]="formData.email" required>
-        </mat-form-field>
-
-        <!-- ¿Víctima menor de edad? -->
-        <mat-form-field>
-            <mat-label>¿Víctima menor de edad?</mat-label>
-            <mat-select id="victimMinor" name="victimMinor" [(ngModel)]="formData.minorVictim" required>
-                <mat-option value="SI">SI</mat-option>
-                <mat-option value="NO">NO</mat-option>
-            </mat-select>
-        </mat-form-field>
-
-        <!-- ¿Se aplicó violencia? -->
-        <mat-form-field class="full-width">
-            <mat-label>¿Se aplicó violencia?</mat-label>
-            <mat-select id="violenceApplied" name="violenceApplied" [(ngModel)]="formData.violenceApplied"
-                (selectionChange)="onViolenceChange()" required>
-                <mat-option value="">Seleccione una opción</mat-option>
-                <mat-option value="SI">SI</mat-option>
-                <mat-option value="NO">NO</mat-option>
-            </mat-select>
-        </mat-form-field>
-
-        <!-- Tipo de arma utilizada -->
-        <mat-form-field class="full-width" *ngIf="showWeaponType">
-            <mat-label>Tipo de arma utilizada</mat-label>
-            <mat-select id="weaponApplied" name="weaponApplied" [(ngModel)]="formData.weaponApplied">
-                <mat-option value="">Seleccione una opción</mat-option>
-                <mat-option value="Arma de fuego">Arma de fuego</mat-option>
-                <mat-option value="Arma blanca">Arma blanca</mat-option>
-                <mat-option value="Otros">Otros</mat-option>
-            </mat-select>
-        </mat-form-field>
-
+  
+      <!-- Número DirecTV -->
+      <mat-form-field>
+        <mat-label>Número DirecTV</mat-label>
+        <input matInput 
+               type="text" 
+               id="phoneNumber" 
+               name="phoneNumber" 
+               [(ngModel)]="formData.phoneNumber"
+               (input)="onPhoneNumberChange()"
+               (keypress)="onlyNumber($event)"
+               pattern="^[0-9]*$"
+               required>
+      </mat-form-field>
+  
+      <!-- Fecha de Reporte -->
+      <mat-form-field>
+        <mat-label>Fecha de reporte</mat-label>
+        <input matInput 
+               type="date" 
+               id="reportDate" 
+               name="reportDate" 
+               [(ngModel)]="formData.reportDate" 
+               required>
+      </mat-form-field>
+  
+      <!-- Tipo de Bloqueo -->
+      <mat-form-field>
+        <mat-label>Tipo de bloqueo</mat-label>
+        <mat-select id="reportType" name="reportType" [(ngModel)]="formData.reportType" required>
+          <mat-option value="Hurto">Hurto</mat-option>
+          <mat-option value="Extravío">Extravío</mat-option>
+        </mat-select>
+      </mat-form-field>
+  
+      <!-- Dirección -->
+      <mat-form-field>
+        <mat-label>Dirección</mat-label>
+        <input matInput 
+               type="text" 
+               id="address" 
+               name="address" 
+               [(ngModel)]="formData.address" 
+               required>
+      </mat-form-field>
+  
+      <!-- Departamento -->
+      <mat-form-field>
+        <mat-label>Departamento</mat-label>
+        <mat-select [(ngModel)]="formData.state" 
+                    (selectionChange)="onStateChange()" 
+                    name="state" 
+                    required>
+          <mat-option *ngFor="let state of states" [value]="state">{{ state }}</mat-option>
+        </mat-select>
+      </mat-form-field>
+  
+      <!-- Ciudad -->
+      <mat-form-field>
+        <mat-label>Ciudad</mat-label>
+        <mat-select [(ngModel)]="formData.city" name="city" required>
+          <mat-option *ngFor="let city of (cities[formData.state] || [])" [value]="city">
+            {{ city }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+  
+      <!-- Nombre -->
+      <mat-form-field>
+        <mat-label>Nombre</mat-label>
+        <input matInput 
+               type="text" 
+               id="name" 
+               name="name" 
+               [(ngModel)]="formData.name" 
+               required>
+      </mat-form-field>
+  
+      <!-- Teléfono -->
+      <mat-form-field>
+        <mat-label>Teléfono</mat-label>
+        <input matInput 
+               type="text" 
+               id="phone" 
+               name="phone" 
+               [(ngModel)]="formData.phone"
+               (keypress)="onlyNumber($event)"
+               pattern="^[0-9]*$"
+               required>
+      </mat-form-field>
+  
+      <!-- Tipo de Documento -->
+      <mat-form-field>
+        <mat-label>Tipo de documento</mat-label>
+        <mat-select id="type" name="type" [(ngModel)]="formData.type" required>
+          <mat-option value="ID">C.C</mat-option>
+          <mat-option value="NIT">NIT</mat-option>
+          <mat-option value="FOREIGN_ID">C.E</mat-option>
+          <mat-option value="PASSPORT">Pasaporte</mat-option>
+        </mat-select>
+      </mat-form-field>
+  
+      <!-- Número de Documento -->
+      <mat-form-field>
+        <mat-label>Número de documento</mat-label>
+        <input matInput 
+               type="text" 
+               id="id" 
+               name="id" 
+               [(ngModel)]="formData.id"
+               (keypress)="onlyNumber($event)"
+               pattern="^[0-9]*$"
+               required>
+      </mat-form-field>
+  
+      <!-- Correo Electrónico -->
+      <mat-form-field>
+        <mat-label>Correo electrónico</mat-label>
+        <input matInput 
+               type="email" 
+               id="email" 
+               name="email" 
+               [(ngModel)]="formData.email"
+               pattern="^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$"
+               required>
+      </mat-form-field>
+  
+      <!-- ¿Víctima menor de edad? -->
+      <mat-form-field>
+        <mat-label>¿Víctima menor de edad?</mat-label>
+        <mat-select id="victimMinor" name="victimMinor" [(ngModel)]="formData.minorVictim" required>
+          <mat-option value="SI">SI</mat-option>
+          <mat-option value="NO">NO</mat-option>
+        </mat-select>
+      </mat-form-field>
+  
+      <!-- ¿Se aplicó violencia? -->
+      <mat-form-field class="full-width">
+        <mat-label>¿Se aplicó violencia?</mat-label>
+        <mat-select id="violenceApplied" name="violenceApplied" [(ngModel)]="formData.violenceApplied"
+                    (selectionChange)="onViolenceChange()" required>
+          <mat-option value="">Seleccione una opción</mat-option>
+          <mat-option value="SI">SI</mat-option>
+          <mat-option value="NO">NO</mat-option>
+        </mat-select>
+      </mat-form-field>
+  
+      <!-- Tipo de arma utilizada -->
+      <mat-form-field class="full-width" *ngIf="showWeaponType">
+        <mat-label>Tipo de arma utilizada</mat-label>
+        <mat-select id="weaponApplied" name="weaponApplied" [(ngModel)]="formData.weaponApplied">
+          <mat-option value="">Seleccione una opción</mat-option>
+          <mat-option value="Arma de fuego">Arma de fuego</mat-option>
+          <mat-option value="Arma blanca">Arma blanca</mat-option>
+          <mat-option value="Otros">Otros</mat-option>
+        </mat-select>
+      </mat-form-field>
+  
     </div>
-
+  
     <!-- Tabla de IMEIs -->
     <div class="imei-table" *ngIf="imeiList.length > 0 && formData.phoneNumber">
-        <table>
-            <caption>Por favor selecciona el IMEI que deseas bloquear</caption>
-            <tr *ngFor="let imei of imeiList">
-                <td>
-                    <input type="radio" name="selectedImei" [value]="imei.imei" [(ngModel)]="selectedImei">
-                    {{ imei.imei }}
-                </td>
-            </tr>
-        </table>
+      <table>
+        <caption>Por favor selecciona el IMEI que deseas bloquear</caption>
+        <tr *ngFor="let imei of imeiList">
+          <td>
+            <input type="radio" name="selectedImei" [value]="imei.imei" [(ngModel)]="selectedImei">
+            {{ imei.imei }}
+          </td>
+        </tr>
+      </table>
     </div>
-
+  
     <!-- Checkbox de política de datos -->
     <div class="policy-container">
-        <mat-checkbox [(ngModel)]="acceptPolicy" name="acceptPolicy">
-            Acepto la <a href="#href" target="_blank">política de tratamiento de datos</a>
-        </mat-checkbox>
+      <mat-checkbox [(ngModel)]="acceptPolicy" name="acceptPolicy">
+        Acepto la <a href="#href" target="_blank">política de tratamiento de datos</a>
+      </mat-checkbox>
     </div>
-
+  
     <button color="primary" type="submit" [disabled]="!acceptPolicy">
-        Enviar
+      Enviar
     </button>
-</form>
+  </form>
+  

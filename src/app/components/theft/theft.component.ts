@@ -250,4 +250,11 @@ export class TheftComponent {
       }
     });
   }
+  onlyNumber(event: KeyboardEvent): void {
+    const charCode = event.charCode;
+    // Permitir solo dígitos (ASCII 48 a 57)
+    if (charCode < 48 || charCode > 57) {
+      event.preventDefault();
+    }
+  }
 }

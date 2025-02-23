@@ -1,6 +1,5 @@
 <div class="form-container">
   <h2>Solicitud de Portabilidad</h2>
-
   <form #portForm="ngForm" (ngSubmit)="onSubmit()">
     <!-- Tipo de Documento -->
     <div class="form-group">
@@ -15,31 +14,56 @@
       <div class="error" *ngIf="!portRequest.documentType && portForm.submitted">Campo obligatorio</div>
     </div>
 
-    <!-- Número de Documento -->
+    <!-- Número de Documento (solo numérico) -->
     <div class="form-group">
       <label for="documentNumber">Número de Documento</label>
-      <input type="text" id="documentNumber" [(ngModel)]="portRequest.documentNumber" name="documentNumber" required>
+      <input 
+        type="text" 
+        id="documentNumber" 
+        name="documentNumber" 
+        [(ngModel)]="portRequest.documentNumber" 
+        required
+        pattern="^[0-9]*$"
+        (keypress)="onlyNumber($event)" />
       <div class="error" *ngIf="!portRequest.documentNumber && portForm.submitted">Campo obligatorio</div>
     </div>
 
     <!-- Fecha de Expedición del Documento -->
     <div class="form-group">
-      <label for="subscriberIdentityIssue">Fecha de Expedición</label>
-      <input type="date" id="subscriberIdentityIssue" [(ngModel)]="portRequest.subscriberIdentityIssue" name="subscriberIdentityIssue" required>
+      <label for="subscriberIdentityIssue">Fecha de Expedición del Documento</label>
+      <input 
+        type="date" 
+        id="subscriberIdentityIssue" 
+        [(ngModel)]="portRequest.subscriberIdentityIssue" 
+        name="subscriberIdentityIssue" 
+        required />
       <div class="error" *ngIf="!portRequest.subscriberIdentityIssue && portForm.submitted">Campo obligatorio</div>
     </div>
 
-    <!-- NIP -->
+    <!-- NIP (solo numérico) -->
     <div class="form-group">
       <label for="authCode">NIP</label>
-      <input type="text" id="authCode" [(ngModel)]="portRequest.authCode" name="authCode" required>
+      <input 
+        type="text" 
+        id="authCode" 
+        [(ngModel)]="portRequest.authCode" 
+        name="authCode" 
+        required
+        pattern="^[0-9]*$"
+        (keypress)="onlyNumber($event)" />
       <div class="error" *ngIf="!portRequest.authCode && portForm.submitted">Campo obligatorio</div>
     </div>
 
     <!-- Ventana de Portabilidad -->
     <div class="form-group">
       <label for="portWindow">Ventana de Portabilidad</label>
-      <input type="date" id="portWindow" [(ngModel)]="portRequest.portWindow" name="portWindow" [min]="minPortDate" required>
+      <input 
+        type="date" 
+        id="portWindow" 
+        [(ngModel)]="portRequest.portWindow" 
+        name="portWindow" 
+        [min]="minPortDate" 
+        required />
       <div class="error" *ngIf="!portRequest.portWindow && portForm.submitted">Campo obligatorio</div>
     </div>
 
@@ -57,14 +81,24 @@
     <!-- Nombre del Subscriptor -->
     <div class="form-group">
       <label for="subscriberName">Nombre del Subscriptor</label>
-      <input type="text" id="subscriberName" [(ngModel)]="portRequest.subscriberName" name="subscriberName" required>
+      <input 
+        type="text" 
+        id="subscriberName" 
+        [(ngModel)]="portRequest.subscriberName" 
+        name="subscriberName" 
+        required />
       <div class="error" *ngIf="!portRequest.subscriberName && portForm.submitted">Campo obligatorio</div>
     </div>
 
     <!-- Dirección -->
     <div class="form-group">
       <label for="subscriberAddress">Dirección</label>
-      <input type="text" id="subscriberAddress" [(ngModel)]="portRequest.subscriberAddress" name="subscriberAddress" required>
+      <input 
+        type="text" 
+        id="subscriberAddress" 
+        [(ngModel)]="portRequest.subscriberAddress" 
+        name="subscriberAddress" 
+        required />
       <div class="error" *ngIf="!portRequest.subscriberAddress && portForm.submitted">Campo obligatorio</div>
     </div>
 
