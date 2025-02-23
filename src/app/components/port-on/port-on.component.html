@@ -1,54 +1,53 @@
 <form (ngSubmit)="onSubmit()" #nipForm="ngForm" class="form-container">
-    <h2>Solicitud de NIP</h2>
-    <div class="form-group">
-      <label for="phoneNumber">Número Telefónico a Portar</label>
-      <input
-        type="text"
-        id="phoneNumber"
-        name="phoneNumber"
-        [(ngModel)]="phoneNumberToPort"
-        #evaluateNumbertoPort="ngModel"
-        required
-        minlength="10"
-        maxlength="12"
-        pattern="^[0-9]*$"
-      />
-      <!-- Mostrar los errores solo si el formulario está tocado o sucio -->
-      <div *ngIf="evaluateNumbertoPort.touched && evaluateNumbertoPort.invalid" class="error">
-        <small *ngIf="evaluateNumbertoPort.errors?.['required']">El número es obligatorio.</small>
-        <small *ngIf="evaluateNumbertoPort.errors?.['minlength']">El número debe tener al menos 10 dígitos.</small>
-        <small *ngIf="evaluateNumbertoPort.errors?.['maxlength']">El número no puede tener más de 12 dígitos.</small>
-        <small *ngIf="evaluateNumbertoPort.errors?.['pattern']">Solo se permiten números.</small>
-      </div>
+  <h2>Solicitud de NIP</h2>
+  <div class="form-group">
+    <label for="phoneNumber">Número Telefónico a Portar</label>
+    <input
+      type="text"
+      id="phoneNumber"
+      name="phoneNumber"
+      [(ngModel)]="phoneNumberToPort"
+      #evaluateNumbertoPort="ngModel"
+      required
+      minlength="10"
+      maxlength="12"
+      pattern="^[0-9]*$"
+      (keypress)="onlyNumber($event)"
+    />
+    <!-- Mostrar los errores solo si el formulario está tocado o sucio -->
+    <div *ngIf="evaluateNumbertoPort.touched && evaluateNumbertoPort.invalid" class="error">
+      <small *ngIf="evaluateNumbertoPort.errors?.['required']">El número es obligatorio.</small>
+      <small *ngIf="evaluateNumbertoPort.errors?.['minlength']">El número debe tener al menos 10 dígitos.</small>
+      <small *ngIf="evaluateNumbertoPort.errors?.['maxlength']">El número no puede tener más de 12 dígitos.</small>
+      <small *ngIf="evaluateNumbertoPort.errors?.['pattern']">Solo se permiten números.</small>
     </div>
+  </div>
 
-    <div class="form-group">
-        <label for="phoneNumber">Número Telefónico Actual</label>
-        <input
-          type="text"
-          id="phoneNumber"
-          name="phoneNumber"
-          [(ngModel)]="CurrentPhoneNumber"
-          #EvaluateCurrentPhoneNumber="ngModel"
-          required
-          minlength="10"
-          maxlength="12"
-          pattern="^[0-9]*$"
-        />
-        <!-- Mostrar los errores solo si el formulario está tocado o sucio -->
-        <div *ngIf="EvaluateCurrentPhoneNumber.touched && EvaluateCurrentPhoneNumber.invalid" class="error">
-          <small *ngIf="EvaluateCurrentPhoneNumber.errors?.['required']">El número es obligatorio.</small>
-          <small *ngIf="EvaluateCurrentPhoneNumber.errors?.['minlength']">El número debe tener al menos 10 dígitos.</small>
-          <small *ngIf="EvaluateCurrentPhoneNumber.errors?.['maxlength']">El número no puede tener más de 12 dígitos.</small>
-          <small *ngIf="EvaluateCurrentPhoneNumber.errors?.['pattern']">Solo se permiten números.</small>
-        </div>
-      </div>
-
-  
-    <div class="buttons">
-      <button type="submit" [disabled]="nipForm.invalid" class="submit-button">Solicitar NIP</button>
-      <button type="button" (click)="onCancel()" class="cancel-button">Cancelar</button>
+  <div class="form-group">
+    <label for="phoneNumberCurrent">Número DirecTV</label>
+    <input
+      type="text"
+      id="phoneNumberCurrent"
+      name="phoneNumberCurrent"
+      [(ngModel)]="CurrentPhoneNumber"
+      #EvaluateCurrentPhoneNumber="ngModel"
+      required
+      minlength="10"
+      maxlength="12"
+      pattern="^[0-9]*$"
+      (keypress)="onlyNumber($event)"
+    />
+    <!-- Mostrar los errores solo si el formulario está tocado o sucio -->
+    <div *ngIf="EvaluateCurrentPhoneNumber.touched && EvaluateCurrentPhoneNumber.invalid" class="error">
+      <small *ngIf="EvaluateCurrentPhoneNumber.errors?.['required']">El número es obligatorio.</small>
+      <small *ngIf="EvaluateCurrentPhoneNumber.errors?.['minlength']">El número debe tener al menos 10 dígitos.</small>
+      <small *ngIf="EvaluateCurrentPhoneNumber.errors?.['maxlength']">El número no puede tener más de 12 dígitos.</small>
+      <small *ngIf="EvaluateCurrentPhoneNumber.errors?.['pattern']">Solo se permiten números.</small>
     </div>
-  </form>
-  
-  
+  </div>
+
+  <div class="buttons">
+    <button type="submit" [disabled]="nipForm.invalid" class="submit-button">Solicitar NIP</button>
+    <button type="button" (click)="onCancel()" class="cancel-button">Cancelar</button>
+  </div>
+</form>

@@ -167,4 +167,11 @@ export class PortOnComponent {
       }
     });
   }
+  onlyNumber(event: KeyboardEvent): void {
+    const charCode = event.charCode;
+    // Permitir solo números (códigos del 48 al 57)
+    if (charCode < 48 || charCode > 57) {
+      event.preventDefault();
+    }
+  }
 }
