@@ -1,5 +1,20 @@
+<!-- Encabezado del componente -->
+<div class="header-text">
+  <!-- Título del encabezado -->
+  <h1 class="header-title">¡Cámbiate a DirecTV con tu mismo número!</h1>
+  <!-- Descripción debajo del título -->
+  <p class="header-description">
+    En DirecTV sabemos lo importante que es mantener tu identidad. Con la portabilidad numérica, puedes cambiarte sin perder tu número telefónico. Es sencillo: solicita tu NIP, confírmalo y en pocos pasos comienza a disfrutar de nuestra calidad de imagen, canales exclusivos y el mejor servicio al cliente. ¡Únete a DirecTV y vive la experiencia sin complicaciones!
+  </p>
+  <!-- Línea divisoria que separa el encabezado del formulario -->
+  <hr class="header-divider">
+</div>
+
+<!-- Formulario principal -->
 <form (ngSubmit)="onSubmit()" #nipForm="ngForm" class="form-container">
   <h2>Solicitud de NIP</h2>
+  
+  <!-- Campo: Número Telefónico a Portar -->
   <div class="form-group">
     <label for="phoneNumber">Número Telefónico a Portar</label>
     <input
@@ -14,8 +29,8 @@
       pattern="^[0-9]*$"
       (keypress)="onlyNumber($event)"
     />
-    <!-- Mostrar los errores solo si el formulario está tocado o sucio -->
-    <div *ngIf="evaluateNumbertoPort.touched && evaluateNumbertoPort.invalid" class="error">
+    <!-- Errores de validación -->
+    <div class="error" *ngIf="evaluateNumbertoPort.touched && evaluateNumbertoPort.invalid">
       <small *ngIf="evaluateNumbertoPort.errors?.['required']">El número es obligatorio.</small>
       <small *ngIf="evaluateNumbertoPort.errors?.['minlength']">El número debe tener al menos 10 dígitos.</small>
       <small *ngIf="evaluateNumbertoPort.errors?.['maxlength']">El número no puede tener más de 12 dígitos.</small>
@@ -23,6 +38,7 @@
     </div>
   </div>
 
+  <!-- Campo: Número DirecTV -->
   <div class="form-group">
     <label for="phoneNumberCurrent">Número DirecTV</label>
     <input
@@ -37,8 +53,8 @@
       pattern="^[0-9]*$"
       (keypress)="onlyNumber($event)"
     />
-    <!-- Mostrar los errores solo si el formulario está tocado o sucio -->
-    <div *ngIf="EvaluateCurrentPhoneNumber.touched && EvaluateCurrentPhoneNumber.invalid" class="error">
+    <!-- Errores de validación -->
+    <div class="error" *ngIf="EvaluateCurrentPhoneNumber.touched && EvaluateCurrentPhoneNumber.invalid">
       <small *ngIf="EvaluateCurrentPhoneNumber.errors?.['required']">El número es obligatorio.</small>
       <small *ngIf="EvaluateCurrentPhoneNumber.errors?.['minlength']">El número debe tener al menos 10 dígitos.</small>
       <small *ngIf="EvaluateCurrentPhoneNumber.errors?.['maxlength']">El número no puede tener más de 12 dígitos.</small>
@@ -46,6 +62,7 @@
     </div>
   </div>
 
+  <!-- Botones del formulario -->
   <div class="buttons">
     <button type="submit" [disabled]="nipForm.invalid" class="submit-button">Solicitar NIP</button>
     <button type="button" (click)="onCancel()" class="cancel-button">Cancelar</button>

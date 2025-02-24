@@ -1,5 +1,34 @@
+.header-text {
+  width: 100%;
+max-width: 800px;       // Igual que el ancho máximo del formulario
+margin: 0 auto 20px;     // Centrados horizontalmente con margen inferior
+text-align: center;
+padding: 10px;
+
+.header-title {
+  font-size: 2.5em;      // Título más grande
+  color: #0072C6;        // Azul, similar al logo de Directv Colombia
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+
+.header-description {
+  font-size: 1em;
+  color: #000;           // Texto en negro
+  margin-bottom: 10px;
+}
+
+.header-divider {
+  border: none;
+  height: 2px;
+  background-color: #66AADD;  // Azul claro para la línea divisoria
+  width: 100%;                // Igual al ancho del contenedor/formulario
+  margin: 0 auto;
+}
+}
+
 .form-container {
-    max-width: 600px;
+    max-width: 800px;
     margin: 150px auto;
     padding: 20px;
     background: white;

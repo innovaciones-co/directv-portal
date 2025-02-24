@@ -1,92 +1,120 @@
+/* Encabezado del componente */
+.header-text {
+    width: 100%;
+  max-width: 600px;       // Igual que el ancho máximo del formulario
+  margin: 0 auto 20px;     // Centrados horizontalmente con margen inferior
+  text-align: center;
+  padding: 10px;
+
+  .header-title {
+    font-size: 2.5em;      // Título más grande
+    color: #0072C6;        // Azul, similar al logo de Directv Colombia
+    font-weight: bold;
+    margin-bottom: 10px;
+  }
+
+  .header-description {
+    font-size: 1em;
+    color: #000;           // Texto en negro
+    margin-bottom: 10px;
+  }
+
+  .header-divider {
+    border: none;
+    height: 2px;
+    background-color: #66AADD;  // Azul claro para la línea divisoria
+    width: 100%;                // Igual al ancho del contenedor/formulario
+    margin: 0 auto;
+  }
+}
 
 /* Estilos generales del formulario */
 .form-container {
-    
-    max-width: 400px; /* Tamaño máximo para la caja */
-    margin: 50px auto; /* Centrado en la pantalla */
-    padding: 20px;
-    background-color: #fff;
-    border-radius: 8px;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); /* Sombra alrededor de la caja */
-    margin-top: 250px; 
-  }
-  h2 {
-    text-align: center;
-    font-size: 24px;
-    margin-bottom: 20px; /* Espacio entre el título y el formulario */
-    color: #333; /* Color del texto */
-    font-weight: bold; /* Enfatizar el título */
-  }
-  
-  /* Estilo para los campos de texto */
-  .form-group {
-    margin-bottom: 20px;
-  }
-  
-  label {
-    display: block;
-    font-size: 16px;
-    margin-bottom: 8px;
-  }
-  
-  input {
-    width: 100%;
-    padding: 10px;
-    font-size: 16px;
-    border: 1px solid #ddd;
-    border-radius: 4px;
-    box-sizing: border-box;
-  }
-  
-  input:focus {
-    border-color: #001799; /* Cambio de color del borde al enfocarse */
-    outline: none;
-  }
-  
-  /* Estilo para los errores */
-  .error {
-    color: #888; /* Gris para los errores */
-    font-size: 12px;
-    margin-top: 5px;
-  }
-  
-  /* Botones */
-  .buttons {
-    display: flex;
-    justify-content: space-between;
-    gap: 10px;
-  }
-  
-  button {
-    padding: 12px 20px;
-    border: none;
-    border-radius: 4px;
-    font-size: 16px;
-    cursor: pointer;
-    width: 48%; /* Para que los botones se ajusten y estén juntos */
-  }
-  
-  /* Botón de Aceptar (Solicitar NIP) */
-  .submit-button {
-    background-color: #074b94; /* Color verde */
-    color: white;
-  }
-  
-  .submit-button:disabled {
-    background-color: #ccc; /* Deshabilitar el botón con un color gris claro */
-  }
-  
-  .submit-button:hover {
-    background-color: #053261; /* Color más oscuro cuando se pasa el ratón */
-  }
-  
-  /* Botón de Cancelar */
-  .cancel-button {
-    background-color: #f44336; /* Color rojo */
-    color: white;
-  }
-  
-  .cancel-button:hover {
-    background-color: #e53935; /* Color más oscuro cuando se pasa el ratón */
-  }
-  
+  max-width: 600px;    // Ancho máximo del formulario
+  margin: 50px auto 0;  // Centrados horizontalmente, con margen superior
+  padding: 20px;
+  background-color: #fff;
+  border-radius: 8px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  margin-top: 50px;
+}
+
+h2 {
+  text-align: center;
+  font-size: 24px;
+  margin-bottom: 20px;
+  color: #333;
+  font-weight: bold;
+}
+
+/* Estilo para los campos del formulario */
+.form-group {
+  margin-bottom: 20px;
+}
+
+label {
+  display: block;
+  font-size: 16px;
+  margin-bottom: 8px;
+}
+
+input {
+  width: 100%;
+  padding: 10px;
+  font-size: 16px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  box-sizing: border-box;
+}
+
+input:focus {
+  border-color: #001799;
+  outline: none;
+}
+
+/* Estilos para mostrar errores */
+.error {
+  color: #888;
+  font-size: 12px;
+  margin-top: 5px;
+}
+
+/* Estilo para los botones */
+.buttons {
+  display: flex;
+  justify-content: space-between;
+  gap: 10px;
+}
+
+button {
+  padding: 12px 20px;
+  border: none;
+  border-radius: 4px;
+  font-size: 16px;
+  cursor: pointer;
+  width: 48%;
+}
+
+/* Botón de Solicitar NIP */
+.submit-button {
+  background-color: #074b94;
+  color: white;
+}
+
+.submit-button:disabled {
+  background-color: #ccc;
+}
+
+.submit-button:hover {
+  background-color: #053261;
+}
+
+/* Botón de Cancelar */
+.cancel-button {
+  background-color: #f44336;
+  color: white;
+}
+
+.cancel-button:hover {
+  background-color: #e53935;
+}
