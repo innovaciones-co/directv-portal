@@ -1,129 +1,144 @@
+<!-- Encabezado del componente -->
 <div class="header-text">
-  <!-- Título del encabezado -->
   <h1 class="header-title">¡Formulario de Solicitud de Portabilidad!</h1>
-  <!-- Descripción debajo del título -->
   <p class="header-description">
-    Ya que te hemos enviado un NIP, continuemos con tu proceso de portabilidad. Por favor, diligencia el siguiente formulario
+    Ya que te hemos enviado un NIP, continuemos con tu proceso de portabilidad. Por favor, diligencia el siguiente formulario.
   </p>
-  <!-- Línea divisoria que separa el encabezado del formulario -->
   <hr class="header-divider">
 </div>
 
-
 <div class="form-container">
-   <form #portForm="ngForm" (ngSubmit)="onSubmit()">
-    <!-- Tipo de Documento -->
-    <div class="form-group">
-      <label for="documentType">Tipo de Documento</label>
-      <select id="documentType" [(ngModel)]="portRequest.documentType" name="documentType" required>
-        <option value="" disabled selected>Seleccione</option>
-        <option value="ID">C.C</option>
-        <option value="NIT">NIT</option>
-        <option value="FOREIGN_ID">C.E</option>
-        <option value="PASSPORT">Pasaporte</option>
-      </select>
-      <div class="error" *ngIf="!portRequest.documentType && portForm.submitted">Campo obligatorio</div>
-    </div>
+  <form #portForm="ngForm" (ngSubmit)="onSubmit()">
+    <div class="form-grid">
+      <!-- Campo: NIP (authCode) -->
+      <mat-form-field appearance="fill" class="full-width">
+        <mat-label>NIP</mat-label>
+        <input matInput 
+               type="text" 
+               name="authCode" 
+               [(ngModel)]="portRequest.authCode"
+               required 
+               pattern="^[0-9]*$"
+               (keypress)="onlyNumber($event)">
+        <mat-error *ngIf="portForm.submitted && !portRequest.authCode">
+          Campo obligatorio
+        </mat-error>
+      </mat-form-field>
 
-    <!-- Número de Documento (solo numérico) -->
-    <div class="form-group">
-      <label for="documentNumber">Número de Documento</label>
-      <input 
-        type="text" 
-        id="documentNumber" 
-        name="documentNumber" 
-        [(ngModel)]="portRequest.documentNumber" 
-        required
-        pattern="^[0-9]*$"
-        (keypress)="onlyNumber($event)" />
-      <div class="error" *ngIf="!portRequest.documentNumber && portForm.submitted">Campo obligatorio</div>
-    </div>
+      <!-- Campo: Fecha de Solicitud (requestedFutureDate) -->
+      <mat-form-field appearance="fill" class="full-width">
+        <mat-label>Fecha de Solicitud</mat-label>
+        <input matInput 
+               type="date" 
+               name="requestedFutureDate" 
+               [(ngModel)]="portRequest.portWindow"
+               required>
+        <mat-error *ngIf="portForm.submitted && !portRequest.portWindow">
+          Campo obligatorio
+        </mat-error>
+      </mat-form-field>
 
-    <!-- Fecha de Expedición del Documento -->
-    <div class="form-group">
-      <label for="subscriberIdentityIssue">Fecha de Expedición del Documento</label>
-      <input 
-        type="date" 
-        id="subscriberIdentityIssue" 
-        [(ngModel)]="portRequest.subscriberIdentityIssue" 
-        name="subscriberIdentityIssue" 
-        required />
-      <div class="error" *ngIf="!portRequest.subscriberIdentityIssue && portForm.submitted">Campo obligatorio</div>
-    </div>
+      <!-- Campo: Tipo de Subscriptor -->
+      <mat-form-field appearance="fill" class="full-width">
+        <mat-label>Tipo de Subscriptor</mat-label>
+        <mat-select name="subscriberType" [(ngModel)]="portRequest.subscriberType" required>
+          <mat-option value="" disabled>Seleccione</mat-option>
+          <mat-option value="NATURAL">Natural</mat-option>
+          <mat-option value="COMPANY">Empresa</mat-option>
+        </mat-select>
+        <mat-error *ngIf="portForm.submitted && !portRequest.subscriberType">
+          Campo obligatorio
+        </mat-error>
+      </mat-form-field>
 
-    <!-- NIP (solo numérico) -->
-    <div class="form-group">
-      <label for="authCode">NIP</label>
-      <input 
-        type="text" 
-        id="authCode" 
-        [(ngModel)]="portRequest.authCode" 
-        name="authCode" 
-        required
-        pattern="^[0-9]*$"
-        (keypress)="onlyNumber($event)" />
-      <div class="error" *ngIf="!portRequest.authCode && portForm.submitted">Campo obligatorio</div>
-    </div>
+      <!-- Campo: Tipo de Documento -->
+      <mat-form-field appearance="fill" class="full-width">
+        <mat-label>Tipo de Documento</mat-label>
+        <mat-select name="subscriberIdentityType" [(ngModel)]="portRequest.transparentData.subscriberIdentityType" required>
+          <mat-option value="" disabled>Seleccione</mat-option>
+          <mat-option value="ID">C.C</mat-option>
+          <mat-option value="NIT">NIT</mat-option>
+          <mat-option value="FOREIGN_ID">C.E</mat-option>
+          <mat-option value="PASSPORT">Pasaporte</mat-option>
+        </mat-select>
+        <mat-error *ngIf="portForm.submitted && !portRequest.transparentData.subscriberIdentityType">
+          Campo obligatorio
+        </mat-error>
+      </mat-form-field>
 
-    <!-- Ventana de Portabilidad -->
-    <div class="form-group">
-      <label for="portWindow">Ventana de Portabilidad</label>
-      <input 
-        type="date" 
-        id="portWindow" 
-        [(ngModel)]="portRequest.portWindow" 
-        name="portWindow" 
-        [min]="minPortDate" 
-        required />
-      <div class="error" *ngIf="!portRequest.portWindow && portForm.submitted">Campo obligatorio</div>
-    </div>
+      <!-- Campo: Número de Documento -->
+      <mat-form-field appearance="fill" class="full-width">
+        <mat-label>Número de Documento</mat-label>
+        <input matInput 
+               type="text" 
+               name="subscriberIdentity" 
+               [(ngModel)]="portRequest.transparentData.subscriberIdentity"
+               required
+               pattern="^[0-9]+$"
+               (keypress)="onlyNumber($event)">
+        <mat-error *ngIf="portForm.submitted && !portRequest.transparentData.subscriberIdentity">
+          Campo obligatorio
+        </mat-error>
+      </mat-form-field>
 
-    <!-- Tipo de Subscriptor -->
-    <div class="form-group">
-      <label for="subscriberType">Tipo de Subscriptor</label>
-      <select id="subscriberType" [(ngModel)]="portRequest.subscriberType" name="subscriberType" required>
-        <option value="" disabled selected>Seleccione</option>
-        <option value="NATURAL">Natural</option>
-        <option value="COMPANY">Empresa</option>
-      </select>
-      <div class="error" *ngIf="!portRequest.subscriberType && portForm.submitted">Campo obligatorio</div>
-    </div>
+      <!-- Campo: Fecha de Expedición del Documento (YYYY/MM/DD) -->
+      <mat-form-field appearance="fill" class="full-width">
+        <mat-label>Fecha de Expedición (YYYY/MM/DD)</mat-label>
+        <input matInput 
+               type="text" 
+               name="subscriberIdentityIssue" 
+               [(ngModel)]="portRequest.transparentData.subscriberIdentityIssue"
+               placeholder="2010/04/20"
+               required
+               pattern="^(19|20)\d\d\/(0[1-9]|1[012])\/(0[1-9]|[12][0-9]|3[01])$">
+        <mat-error *ngIf="portForm.submitted && !portRequest.transparentData.subscriberIdentityIssue">
+          Campo obligatorio
+        </mat-error>
+        <mat-error *ngIf="portRequest.transparentData.subscriberIdentityIssue && !isIdentityIssueValid(portRequest.transparentData.subscriberIdentityIssue)">
+          Formato inválido, use YYYY/MM/DD
+        </mat-error>
+      </mat-form-field>
 
-    <!-- Nombre del Subscriptor -->
-    <div class="form-group">
-      <label for="subscriberName">Nombre del Subscriptor</label>
-      <input 
-        type="text" 
-        id="subscriberName" 
-        [(ngModel)]="portRequest.subscriberName" 
-        name="subscriberName" 
-        required />
-      <div class="error" *ngIf="!portRequest.subscriberName && portForm.submitted">Campo obligatorio</div>
-    </div>
+      <!-- Campo: Nombre del Subscriptor -->
+      <mat-form-field appearance="fill" class="full-width">
+        <mat-label>Nombre del Subscriptor</mat-label>
+        <input matInput 
+               type="text" 
+               name="subscriberName" 
+               [(ngModel)]="portRequest.transparentData.subscriberName"
+               required>
+        <mat-error *ngIf="portForm.submitted && !portRequest.transparentData.subscriberName">
+          Campo obligatorio
+        </mat-error>
+      </mat-form-field>
 
-    <!-- Dirección -->
-    <div class="form-group">
-      <label for="subscriberAddress">Dirección</label>
-      <input 
-        type="text" 
-        id="subscriberAddress" 
-        [(ngModel)]="portRequest.subscriberAddress" 
-        name="subscriberAddress" 
-        required />
-      <div class="error" *ngIf="!portRequest.subscriberAddress && portForm.submitted">Campo obligatorio</div>
-    </div>
+      <!-- Campo: Dirección -->
+      <mat-form-field appearance="fill" class="full-width">
+        <mat-label>Dirección</mat-label>
+        <input matInput 
+               type="text" 
+               name="subscriberAddress" 
+               [(ngModel)]="portRequest.transparentData.subscriberAddress"
+               required>
+        <mat-error *ngIf="portForm.submitted && !portRequest.transparentData.subscriberAddress">
+          Campo obligatorio
+        </mat-error>
+      </mat-form-field>
 
-    <!-- Tipo de Servicio -->
-    <div class="form-group">
-      <label for="subscriberServiceType">Tipo de Servicio</label>
-      <select id="subscriberServiceType" [(ngModel)]="portRequest.subscriberServiceType" name="subscriberServiceType" required>
-        <option value="" disabled selected>Seleccione</option>
-        <option value="PREPAID">Prepago</option>
-        <option value="POSTPAID">Pospago</option>
-      </select>
-      <div class="error" *ngIf="!portRequest.subscriberServiceType && portForm.submitted">Campo obligatorio</div>
+      <!-- Campo: Tipo de Servicio -->
+      <mat-form-field appearance="fill" class="full-width">
+        <mat-label>Tipo de Servicio</mat-label>
+        <mat-select name="subscriberServiceType" [(ngModel)]="portRequest.subscriberServiceType" required>
+          <mat-option value="" disabled>Seleccione</mat-option>
+          <mat-option value="PREPAID">Prepago</mat-option>
+          <mat-option value="POSTPAID">Pospago</mat-option>
+        </mat-select>
+        <mat-error *ngIf="portForm.submitted && !portRequest.subscriberServiceType">
+          Campo obligatorio
+        </mat-error>
+      </mat-form-field>
     </div>
-
-    <button type="submit">Enviar</button>
+    
+    <button type="submit" class="submit-button">Enviar</button>
   </form>
 </div>

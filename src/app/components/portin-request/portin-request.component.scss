@@ -1,94 +1,103 @@
 /* Encabezado del componente */
 .header-text {
   width: 100%;
-max-width: 600px;       // Igual que el ancho máximo del formulario
-margin: 0 auto 20px;     // Centrados horizontalmente con margen inferior
-text-align: center;
-padding: 10px;
+  max-width: 600px;       // Igual que el ancho máximo del formulario
+  margin: 0 auto 20px;     // Centrados horizontalmente con margen inferior
+  text-align: center;
+  padding: 10px;
 
-.header-title {
-  font-size: 2.5em;      // Título más grande
-  color: #0072C6;        // Azul, similar al logo de Directv Colombia
-  font-weight: bold;
-  margin-bottom: 10px;
-}
-
-.header-description {
-  font-size: 1em;
-  color: #000;           // Texto en negro
-  margin-bottom: 10px;
-}
-
-.header-divider {
-  border: none;
-  height: 2px;
-  background-color: #66AADD;  // Azul claro para la línea divisoria
-  width: 100%;                // Igual al ancho del contenedor/formulario
-  margin: 0 auto;
-}
-}
-
-.form-container {
-    max-width: 600px;
-    margin: 50px auto; // Ajuste automático con margen superior e inferior de 50px
-    padding: 20px;
-    background: white;
-    border-radius: 8px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-    text-align: center;
-    position: relative;
+  .header-title {
+    font-size: 2.5em;      // Título más grande
+    color: #0072C6;        // Azul, similar al logo de Directv Colombia
+    font-weight: bold;
+    margin-bottom: 10px;
   }
-  
-  .form-wrapper {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: flex-start;
-    height: calc(100vh - 100px); // 100vh menos los 50px del header y 50px del footer
-    overflow-y: auto; // Permite scroll si el formulario es largo
-    padding-top: 20px;
-    padding-bottom: 20px;
+
+  .header-description {
+    font-size: 1em;
+    color: #000;           // Texto en negro
+    margin-bottom: 10px;
   }
-  
-  .form-group {
-    display: flex;
-    flex-direction: column;
-    margin-bottom: 15px;
-  
-    label {
-      font-weight: bold;
-      margin-bottom: 5px;
-    }
-  
-    input, select {
-      padding: 8px;
-      border: 1px solid #ccc;
-      border-radius: 4px;
-    }
-  }
-  
-  button {
-    background-color: black;
-    color: white;
-    padding: 10px;
+
+  .header-divider {
     border: none;
-    cursor: pointer;
+    height: 2px;
+    background-color: #66AADD;  // Azul claro para la línea divisoria
+    width: 100%;                // Igual al ancho del contenedor/formulario
+    margin: 0 auto;
+  }
+}
+
+/* Estilos generales del formulario */
+.form-container {
+  max-width: 600px;
+  margin: 50px auto; /* Ajuste automático con margen superior e inferior de 50px */
+  padding: 20px;
+  background: white;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  text-align: center;
+  position: relative;
+}
+
+/* Organización de los campos en una cuadrícula */
+.form-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 300px);  // Cada input tendrá 300px de ancho
+  column-gap: 30px;                          // Separación horizontal de 30px
+  row-gap: 30px;                             // Separación vertical de 30px
+  justify-content: center;                    // Centrar la cuadrícula dentro del contenedor
+}
+
+/* Responsive: Una sola columna en pantallas pequeñas */
+@media (max-width: 650px) {
+  .form-grid {
+    grid-template-columns: 300px;
+  }
+}
+
+/* Estilo para los grupos de campos */
+.form-group {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 15px;
+
+  label {
+    font-weight: bold;
+    margin-bottom: 5px;
+  }
+
+  input, select {
     width: 100%;
+    padding: 8px;
+    border: 1px solid #ccc;
     border-radius: 4px;
-  
-    &:hover {
-      background-color: #0056b3; // Azul oscuro al hacer hover
-    }
-  
-    &:active {
-      background-color: rgb(177, 177, 177); // Se vuelve gris al hacer click
-      color: #007bff; // Texto azul para contraste
-    }
+    box-sizing: border-box;
   }
-  
-  .error {
-    color: red;
-    font-size: 12px;
-    margin-top: 5px;
+}
+
+/* Estilo para los botones */
+button {
+  background-color: black;
+  color: white;
+  padding: 10px;
+  border: none;
+  cursor: pointer;
+  width: 100%;
+  border-radius: 4px;
+
+  &:hover {
+    background-color: #0056b3; // Azul oscuro al hacer hover
   }
-  
+
+  &:active {
+    background-color: rgb(177, 177, 177); // Se vuelve gris al hacer click
+    color: #007bff; // Texto azul para contraste
+  }
+}
+
+.error {
+  color: red;
+  font-size: 12px;
+  margin-top: 5px;
+}

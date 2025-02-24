@@ -11,9 +11,32 @@ export class PutPortInRequestService {
   private apiBaseUrl: string;
 
   constructor(private http: HttpClient, private configService: ConfigService) {
+    // La URL base se carga desde la configuración
     this.apiBaseUrl = configService.apiBaseUrl;
   }
 
+  /**
+   * Envía la solicitud de portabilidad (portInRequest) al backend.
+   * El payload debe tener la siguiente estructura:
+   * {
+   *   "subscriberId":
+   *   "authCode": 
+   *   "donorOperator": 
+   *   "newMsisdn": 
+   *   "recipientOperator": 
+   *   "requestedFutureDate": 
+   *   "subscriberType": 
+   *   "transparentData": {
+   *       "subscriberIdentityType": 
+   *       "subscriberIdentity":
+   *       "subscriberIdentityIssue": 
+   *       "nip": "56399",
+   *       "subscriberName": 
+   *       "subscriberAddress": 
+   *       "subscriberServiceType": 
+   *   }
+   * }
+   */
   sendPortInRequest(portInData: any): Observable<any> {
     const url = `${this.apiBaseUrl}/api-dtv/portInRequest`;
     return this.http.put<any>(url, portInData).pipe(
