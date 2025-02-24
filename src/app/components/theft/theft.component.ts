@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { QueryImeiService } from '../../services/query-imei.service';
 import { PutBlockDeviceByImeiService } from '../../services/put-block-device-by-imei.service';
 import { PutBlockSimByNumberService } from '../../services/put-block-sim-by-number.service';
+import { GetCustomersBySubscriptionService } from '../../services/get-customers-by-subscription.service';
 import Swal from 'sweetalert2';
 import { Router } from '@angular/router';
 import { format } from 'date-fns';
@@ -21,19 +22,20 @@ export class TheftComponent {
     name: '',
     phone: '',
     state: '',
-    type: '',
-    id: '',
+    type: '',  // Valor que ingresa el usuario ("C.C", "NIT", etc.)
+    id: '',    // Número de documento que ingresa el usuario
     email: '',
     minorVictim: '',
     violenceApplied: '',
     weaponApplied: ''
   };
-  // Listado de ciudades y estados de Colombia
+
+  // Listado de estados y ciudades de Colombia (simplificado)
   states: string[] = [
-    'Amazonas', 'Antioquia', 'Arauca', 'Atlántico', 'Bogotá D.C', 'Bolívar', 'Boyacá', 'Caldas', 
-    'Caquetá', 'Casanare', 'Cauca', 'Cesar', 'Chocó', 'Córdoba', 'Cundinamarca', 'Guainía', 
-    'Guaviare', 'Huila', 'La Guajira', 'Magdalena', 'Meta', 'Nariño', 'Norte de Santander', 
-    'Putumayo', 'Quindío', 'Risaralda', 'San Andrés y Providencia', 'Santander', 'Sucre', 
+    'Amazonas', 'Antioquia', 'Arauca', 'Atlántico', 'Bogotá D.C', 'Bolívar', 'Boyacá', 'Caldas',
+    'Caquetá', 'Casanare', 'Cauca', 'Cesar', 'Chocó', 'Córdoba', 'Cundinamarca', 'Guainía',
+    'Guaviare', 'Huila', 'La Guajira', 'Magdalena', 'Meta', 'Nariño', 'Norte de Santander',
+    'Putumayo', 'Quindío', 'Risaralda', 'San Andrés y Providencia', 'Santander', 'Sucre',
     'Tolima', 'Valle del Cauca', 'Vaupés', 'Vichada'
   ];
 
@@ -73,17 +75,26 @@ export class TheftComponent {
     'Vichada': ['Puerto Carreño']
   };
 
-
   showWeaponType: boolean = false;
   acceptPolicy = false;
 
   imeiList: { imei: string }[] = [];
   selectedImei: string | null = null;
 
+  // Mapeo para convertir el valor diligenciado por el usuario en el campo Tipo de documento
+  // a lo que retorna el servicio.
+  private documentTypeMapping: { [key: string]: string } = {
+    "C.C": "ID",
+    "NIT": "NIT",
+    "C.E": "FOREIGN_ID",
+    "PASSPORT": "PASSPORT"
+  };
+
   constructor(
     private queryImeiService: QueryImeiService,
     private blockDeviceService: PutBlockDeviceByImeiService,
     private blockSimService: PutBlockSimByNumberService,
+    private getCustomerService: GetCustomersBySubscriptionService,
     private router: Router
   ) {}
 
@@ -107,13 +118,12 @@ export class TheftComponent {
   onPhoneNumberChange() {
     let phoneNumber = this.formData.phoneNumber.trim();
 
-  // Validar longitud del número antes de agregar el '57'
-  if (phoneNumber.length >= 10 && phoneNumber.length <= 12) {
-    if (phoneNumber.length === 10) {
-      phoneNumber = '57' + phoneNumber;
+    // Validar longitud del número antes de agregar el '57'
+    if (phoneNumber.length >= 10 && phoneNumber.length <= 12) {
+      if (phoneNumber.length === 10) {
+        phoneNumber = '57' + phoneNumber;
+      }
     }
-  }
-
     this.formData.phoneNumber = phoneNumber;
 
     if (phoneNumber.length === 12) {
@@ -159,100 +169,144 @@ export class TheftComponent {
     this.showWeaponType = this.formData.violenceApplied === 'SI';
   }
 
+  // Modificación de onSubmit para validar identificación antes de continuar
   onSubmit(): void {
-    if (!this.selectedImei) {
-      Swal.fire({
-        icon: 'error',
-        title: 'Error',
-        text: 'Debes seleccionar un IMEI antes de continuar.',
-        confirmButtonText: 'OK'
-      });
-      return;
-    }
-
-    const reportDate = new Date();
-    const formattedReportDate = format(reportDate, "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'");
-
-    const reportTypeMapping: { [key: string]: string } = {
-      'Hurto': 'THEFT_DEVICE',
-      'Extravío': 'LOST_DEVICE'
-    };
-
-    const documentTypeMapping: { [key: string]: number } = {
-      'C.C': 1,
-      'NIT': 2,
-      'C.E': 3
-    };
-
-    const weaponTypeMapping: { [key: string]: string } = {
-      'Arma de fuego': 'FIREARM',
-      'Arma blanca': 'BLADE'
-    };
-
-    const requestData = {
-      phoneNumber: this.formData.phoneNumber,
-      imei: this.selectedImei,
-      eventDate: this.formData.reportDate ? format(new Date(this.formData.reportDate), "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'") : null,
-      reportDate: formattedReportDate,
-      reportType: reportTypeMapping[this.formData.reportType] || 'ADMINISTRATIVE_BLOCKING',
-      reporter: {
-        address: this.formData.address,
-        city: this.formData.city,
-        name: this.formData.name,
-        phone: this.formData.phone,
-        state: this.formData.state
-      },
-      reporterDocument: {
-        id: this.formData.id,
-        type: documentTypeMapping[this.formData.type] || 1
-      },
-      victimEmail: this.formData.email,
-      victimMinor: this.formData.minorVictim === 'SI',
-      violenceApplied: this.formData.violenceApplied === 'SI',
-      weaponApplied: weaponTypeMapping[this.formData.weaponApplied] || null
-    };
-
-    this.blockDeviceService.blockDeviceByImei(requestData).subscribe({
+    // Primero, consumimos el servicio para obtener la información del cliente
+    this.getCustomerService.getCustomerData(this.formData.phoneNumber).subscribe({
       next: response => {
-        console.log('Bloqueo de dispositivo exitoso:', response);
-        this.blockSimService.blockSimByPhoneNumber({ phoneNumber: this.formData.phoneNumber }).subscribe({
-          next: simResponse => {
-            console.log('Bloqueo de SIM exitoso:', simResponse);
-            Swal.fire({
-              icon: 'success',
-              title: 'Bloqueo exitoso',
-              text: 'El bloqueo del dispositivo y la SIM se realizaron con éxito.',
-              confirmButtonText: 'OK'
-            }).then(() => {
-              this.router.navigate(['/home']);
+        if (response && response.payload && response.payload.document) {
+          const customerDocument = response.payload.document;
+          const expectedDocType = this.documentTypeMapping[this.formData.type] || this.formData.type;
+          if (customerDocument.id === this.formData.id && customerDocument.type === expectedDocType) {
+            // Si la identificación coincide, procedemos con el proceso de bloqueo
+
+            if (!this.selectedImei) {
+              Swal.fire({
+                icon: 'error',
+                title: 'Error',
+                text: 'Debes seleccionar un IMEI antes de continuar.',
+                confirmButtonText: 'OK'
+              });
+              return;
+            }
+
+            const reportDate = new Date();
+            const formattedReportDate = format(reportDate, "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'");
+
+            const reportTypeMapping: { [key: string]: string } = {
+              'Hurto': 'THEFT_DEVICE',
+              'Extravío': 'LOST_DEVICE'
+            };
+
+            const documentTypeMapping: { [key: string]: number } = {
+              'C.C': 1,
+              'NIT': 2,
+              'FOREIGN_ID': 3,
+              'PASSPORT': 4
+            };
+
+            const weaponTypeMapping: { [key: string]: string } = {
+              'Arma de fuego': 'FIREARM',
+              'Arma blanca': 'BLADE'
+            };
+
+            const requestData = {
+              phoneNumber: this.formData.phoneNumber,
+              imei: this.selectedImei,
+              eventDate: this.formData.reportDate ? format(new Date(this.formData.reportDate), "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'") : null,
+              reportDate: formattedReportDate,
+              reportType: reportTypeMapping[this.formData.reportType] || 'ADMINISTRATIVE_BLOCKING',
+              reporter: {
+                address: this.formData.address,
+                city: this.formData.city,
+                name: this.formData.name,
+                phone: this.formData.phone,
+                state: this.formData.state
+              },
+              reporterDocument: {
+                id: this.formData.id,
+                type: documentTypeMapping[this.formData.type] || 1
+              },
+              victimEmail: this.formData.email,
+              victimMinor: this.formData.minorVictim === 'SI',
+              violenceApplied: this.formData.violenceApplied === 'SI',
+              weaponApplied: weaponTypeMapping[this.formData.weaponApplied] || null
+            };
+
+            this.blockDeviceService.blockDeviceByImei(requestData).subscribe({
+              next: response => {
+                console.log('Bloqueo de dispositivo exitoso:', response);
+                this.blockSimService.blockSimByPhoneNumber({ phoneNumber: this.formData.phoneNumber }).subscribe({
+                  next: simResponse => {
+                    console.log('Bloqueo de SIM exitoso:', simResponse);
+                    Swal.fire({
+                      icon: 'success',
+                      title: 'Bloqueo exitoso',
+                      text: 'El bloqueo del dispositivo y la SIM se realizaron con éxito.',
+                      confirmButtonText: 'OK'
+                    }).then(() => {
+                      this.router.navigate(['/home']);
+                    });
+                  },
+                  error: simError => {
+                    console.error('Error en el bloqueo de la SIM:', simError);
+                    Swal.fire({
+                      icon: 'error',
+                      title: 'Error en el bloqueo de la SIM',
+                      text: 'El bloqueo del dispositivo fue exitoso, pero hubo un problema con el bloqueo de la SIM.',
+                      confirmButtonText: 'OK'
+                    }).then(() => {
+                      this.router.navigate(['/home']);
+                    });
+                  }
+                });
+              },
+              error: error => {
+                Swal.fire({
+                  icon: 'error',
+                  title: 'Error en el bloqueo',
+                  text: 'Hubo un problema al intentar bloquear el dispositivo.',
+                  confirmButtonText: 'OK'
+                });
+              }
             });
-          },
-          error: simError => {
-            console.error('Error en el bloqueo de la SIM:', simError);
+          } else {
+            // Si la identificación no coincide, mostramos un error y reiniciamos el formulario
             Swal.fire({
               icon: 'error',
-              title: 'Error en el bloqueo de la SIM',
-              text: 'El bloqueo del dispositivo fue exitoso, pero hubo un problema con el bloqueo de la SIM.',
+              title: 'Identificación fallida',
+              text: 'Los datos de identificación no coinciden, por favor verifique e intente de nuevo.',
               confirmButtonText: 'OK'
             }).then(() => {
-              this.router.navigate(['/home']);
+              // Reiniciamos los campos críticos del formulario
+              this.formData.id = '';
+              this.formData.type = '';
+              // También podrías reiniciar el formulario completo según tu lógica
             });
           }
-        });
+        } else {
+          Swal.fire({
+            icon: 'error',
+            title: 'Error',
+            text: 'No se pudo obtener la información del cliente.',
+            confirmButtonText: 'OK'
+          });
+        }
       },
-      error: error => {
+      error: err => {
         Swal.fire({
           icon: 'error',
-          title: 'Error en el bloqueo',
-          text: 'Hubo un problema al intentar bloquear el dispositivo.',
+          title: 'Error',
+          text: 'No se pudo obtener la información del cliente.',
           confirmButtonText: 'OK'
         });
       }
     });
   }
+
   onlyNumber(event: KeyboardEvent): void {
     const charCode = event.charCode;
-    // Permitir solo dígitos (ASCII 48 a 57)
+    // Permitir solo dígitos (códigos ASCII 48 a 57)
     if (charCode < 48 || charCode > 57) {
       event.preventDefault();
     }
