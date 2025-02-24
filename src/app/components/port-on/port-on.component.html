@@ -61,7 +61,31 @@
       <small *ngIf="EvaluateCurrentPhoneNumber.errors?.['pattern']">Solo se permiten números.</small>
     </div>
   </div>
-
+  
+  <!-- Nuevo campo: Últimos 4 dígitos del serial de tu SIM -->
+  <div class="form-group">
+    <label for="simLast4">Últimos 4 dígitos del serial de tu SIM</label>
+    <input
+      type="text"
+      id="simLast4"
+      name="simLast4"
+      [(ngModel)]="simLast4"
+      #evaluateSimLast4="ngModel"
+      required
+      minlength="4"
+      maxlength="4"
+      pattern="^[0-9]*$"
+      (keypress)="onlyNumber($event)"
+    />
+    <div class="error" *ngIf="evaluateSimLast4.touched && evaluateSimLast4.invalid">
+      <small *ngIf="evaluateSimLast4.errors?.['required']">Este campo es obligatorio.</small>
+      <small *ngIf="evaluateSimLast4.errors?.['minlength'] || evaluateSimLast4.errors?.['maxlength']">
+        Debe contener 4 dígitos.
+      </small>
+      <small *ngIf="evaluateSimLast4.errors?.['pattern']">Solo se permiten números.</small>
+    </div>
+  </div>
+  
   <!-- Botones del formulario -->
   <div class="buttons">
     <button type="submit" [disabled]="nipForm.invalid" class="submit-button">Solicitar NIP</button>

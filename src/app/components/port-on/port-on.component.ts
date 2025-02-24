@@ -10,9 +10,12 @@ import { PostSendAuthenticationService } from '../../services/post-send-authenti
   templateUrl: './port-on.component.html',
   styleUrls: ['./port-on.component.scss'],
 })
-export class PortOnComponent {
+export class PortOnComponent implements OnInit {
   phoneNumberToPort: string = '';
   CurrentPhoneNumber: string = '';
+  // Nuevo campo para los últimos 4 dígitos del serial de la SIM
+  simLast4: string = '';
+
   subscriberId: number | null = null;
   operatorCode: string | null = null;
 
@@ -24,22 +27,26 @@ export class PortOnComponent {
   ) {}
 
   ngOnInit(): void {
-    this.getCustomersBySubscriptionService.subscriberId$.subscribe(id => {
+    // Suscripción al observable para obtener el Subscriber ID
+    this.getCustomersBySubscriptionService.subscriberId$.subscribe((id) => {
       this.subscriberId = id;
-      console.log(`Subscriber ID recibido en el componente: ${id}`);
+      console.log(`Subscriber ID recibido: ${id}`);
       if (id !== null) {
         this.getNetworkOperatorService.getOperator(this.phoneNumberToPort).subscribe();
       }
     });
 
-    this.getNetworkOperatorService.operatorCode$.subscribe(code => {
+    // Suscripción para obtener el Operator Code
+    this.getNetworkOperatorService.operatorCode$.subscribe((code) => {
       this.operatorCode = code;
-      console.log(`Operator Code recibido en el componente: ${code}`);
+      console.log(`Operator Code recibido: ${code}`);
+      // Si la validación de ICCID ya pasó, se procede con la autenticación
       this.trySendAuthentication();
     });
   }
 
   onSubmit() {
+    // Validar phoneNumberToPort
     if (this.phoneNumberToPort.length >= 10 && this.phoneNumberToPort.length <= 12) {
       if (this.phoneNumberToPort.length === 10) {
         this.phoneNumberToPort = '57' + this.phoneNumberToPort;
@@ -54,28 +61,63 @@ export class PortOnComponent {
       return;
     }
 
+    // Validar CurrentPhoneNumber
     if (this.CurrentPhoneNumber.length >= 10 && this.CurrentPhoneNumber.length <= 12) {
       if (this.CurrentPhoneNumber.length === 10) {
         this.CurrentPhoneNumber = '57' + this.CurrentPhoneNumber;
       }
 
+      // Consumir el servicio para obtener datos del cliente
       this.getCustomersBySubscriptionService.getCustomerData(this.CurrentPhoneNumber).subscribe({
-        next: response => {
+        next: (response) => {
           console.log('Datos de suscripción obtenidos:', response);
-        },
-        error: err => {
-          console.error('Error al obtener datos de suscripción:', err);
-          if (err?.error?.message === 'Error al obtener datos de suscripción') {
+
+          // Acceder al primer elemento del array subscriptions para obtener el iccid
+          const subscriptions = response.payload?.subscriptions;
+          if (subscriptions && subscriptions.length > 0 && subscriptions[0].iccid) {
+            const iccid: string = subscriptions[0].iccid;
+            // Eliminar el último carácter del iccid
+            const truncatedIccid = iccid.slice(0, -1);
+            // Obtener los últimos 4 dígitos del ICCID
+            const expectedSimLast4 = truncatedIccid.slice(-4);
+            if (this.simLast4 !== expectedSimLast4) {
+              Swal.fire({
+                title: 'Identificación fallida',
+                text: 'Los últimos 4 dígitos del serial de tu SIM no coinciden, por favor verifica e intenta de nuevo.',
+                icon: 'error',
+                confirmButtonText: 'OK'
+              }).then(() => {
+                this.resetFormData();
+              });
+              // No se continúa con el proceso, se reinicia el formulario.
+              return;
+            }
+          } else {
             Swal.fire({
               title: 'Error',
-              text: 'Parece que su numero no es DirecTV.',
+              text: 'No se pudo obtener el serial de tu SIM.',
               icon: 'error',
               confirmButtonText: 'OK'
+            }).then(() => {
+              this.resetFormData();
             });
+            return;
           }
-        }
+          // Si la validación de ICCID es exitosa, se procede con el envío de autenticación
+          this.trySendAuthentication();
+        },
+        error: (err) => {
+          console.error('Error al obtener datos de suscripción:', err);
+          Swal.fire({
+            title: 'Error',
+            text: 'No se pudo obtener la información del cliente.',
+            icon: 'error',
+            confirmButtonText: 'OK'
+          }).then(() => {
+            this.resetFormData();
+          });
+        },
       });
-
     } else {
       Swal.fire({
         title: 'Error',
@@ -88,35 +130,37 @@ export class PortOnComponent {
 
   trySendAuthentication() {
     if (this.subscriberId !== null && this.operatorCode !== null && this.phoneNumberToPort) {
-      this.postSendAuthenticationService.sendAuthentication(this.subscriberId, this.phoneNumberToPort, this.operatorCode).subscribe({
-        next: response => {
-          console.log(`Response Code: ${response.responseCode}`);
-
-          if (response.message === 'Error al enviar autenticación NIP') {
-            this.handleErrorResponse(response);
-          } else {
+      this.postSendAuthenticationService
+        .sendAuthentication(this.subscriberId, this.phoneNumberToPort, this.operatorCode)
+        .subscribe({
+          next: (response) => {
+            console.log(`Response Code: ${response.responseCode}`);
+            if (response.message === 'Error al enviar autenticación NIP') {
+              this.handleErrorResponse(response);
+            } else {
+              Swal.fire({
+                title: 'NIP solicitado',
+                text: `El NIP ha sido solicitado correctamente para el número ${this.phoneNumberToPort}`,
+                icon: 'success',
+                confirmButtonText: 'OK'
+              }).then((result) => {
+                if (result.isConfirmed) {
+                  this.resetFormData();
+                  this.router.navigate(['/portin-request']);
+                }
+              });
+            }
+          },
+          error: (err) => {
+            console.error('Error al solicitar el NIP:', err);
             Swal.fire({
-              title: 'NIP solicitado',
-              text: `El NIP ha sido solicitado correctamente para el número ${this.phoneNumberToPort}`,
-              icon: 'success',
+              title: 'Error en la solicitud de NIP',
+              text: 'Ocurrió un problema al procesar la solicitud.',
+              icon: 'error',
               confirmButtonText: 'OK'
-            }).then((result) => {
-              if (result.isConfirmed) {
-                this.router.navigate(['/portin-request']);
-              }
-            });;
-          }
-        },
-        error: err => {
-          console.error('Error al solicitar el NIP:', err);
-          Swal.fire({
-            title: 'Error en la solicitud de NIP',
-            text: 'Ocurrió un problema al procesar la solicitud.',
-            icon: 'error',
-            confirmButtonText: 'OK'
-          });
-        }
-      });
+            });
+          },
+        });
     }
   }
 
@@ -143,13 +187,16 @@ export class PortOnComponent {
       1037000001: 'No existe suscripción para el proveedor.'
     };
 
-    const errorMessage = errorMessages[response.responseCode] || response.error?.message || 'Ocurrió un error desconocido.';
+    const errorMessage =
+      errorMessages[response.responseCode] ||
+      response.error?.message ||
+      'Ocurrió un error desconocido.';
 
     Swal.fire({
       title: 'Error en la solicitud de NIP',
       text: errorMessage,
       icon: 'error',
-      confirmButtonText: 'OK'
+      confirmButtonText: 'OK',
     });
   }
 
@@ -161,17 +208,24 @@ export class PortOnComponent {
       showCancelButton: true,
       confirmButtonText: 'Sí, cancelar',
       cancelButtonText: 'No, regresar'
-    }).then(result => {
+    }).then((result) => {
       if (result.isConfirmed) {
+        this.resetFormData();
         this.router.navigate(['/home']);
       }
     });
   }
+
   onlyNumber(event: KeyboardEvent): void {
     const charCode = event.charCode;
-    // Permitir solo números (códigos del 48 al 57)
     if (charCode < 48 || charCode > 57) {
       event.preventDefault();
     }
+  }
+
+  private resetFormData(): void {
+    this.phoneNumberToPort = '';
+    this.CurrentPhoneNumber = '';
+    this.simLast4 = '';
   }
 }
