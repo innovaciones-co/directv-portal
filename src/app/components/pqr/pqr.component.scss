@@ -74,3 +74,34 @@ button {
     grid-template-columns: 1fr;
   }
 }
+.header-text {
+  width: 100%;
+  max-width: 800px;          /* Igual de ancho que el formulario */
+  margin: 0 auto 20px;       /* Centrado horizontalmente y espacio inferior */
+
+  .header-title {
+    font-size: 2em;          /* Título más grande */
+    color: #0072C6;          /* Azul, similar al logo de Directv Colombia */
+    font-family: inherit;
+    margin-bottom: 10px;
+    text-align: center;
+  }
+
+  .header-description {
+    font-size: 1em;
+    color: #000;             /* Texto en negro */
+    text-align: center;
+    margin-bottom: 10px;
+    width: 100%;
+  }
+
+  .header-divider {
+    border: none;
+    height: 2px;
+    background-color: #66AADD;  /* Azul claro */
+    width: 100%;                /* Igual de ancha que el contenedor/formulario */
+    margin: 0 auto;
+  }
+}
+
+
