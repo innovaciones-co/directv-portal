@@ -30,7 +30,6 @@ export class TheftComponent {
     weaponApplied: ''
   };
 
-  // Listado de estados y ciudades de Colombia (simplificado)
   states: string[] = [
     'Amazonas', 'Antioquia', 'Arauca', 'Atlántico', 'Bogotá D.C', 'Bolívar', 'Boyacá', 'Caldas',
     'Caquetá', 'Casanare', 'Cauca', 'Cesar', 'Chocó', 'Córdoba', 'Cundinamarca', 'Guainía',
@@ -81,8 +80,7 @@ export class TheftComponent {
   imeiList: { imei: string }[] = [];
   selectedImei: string | null = null;
 
-  // Mapeo para convertir el valor diligenciado por el usuario en el campo Tipo de documento
-  // a lo que retorna el servicio.
+  // Mapeo para convertir el valor ingresado en "Tipo de documento" a lo que retorna el servicio
   private documentTypeMapping: { [key: string]: string } = {
     "C.C": "ID",
     "NIT": "NIT",
@@ -150,6 +148,7 @@ export class TheftComponent {
       text: 'Parece que no tienes IMEIs asociados a tu línea DirecTV. No puedes continuar el proceso por este medio. Por favor, contacta con un agente.',
       confirmButtonText: 'OK'
     }).then(() => {
+      this.resetFormData();
       this.router.navigate(['/theft']);
     });
   }
@@ -161,7 +160,7 @@ export class TheftComponent {
       text: 'Parece que el número ingresado no tiene asociado un IMEI o no es de DirecTV.',
       confirmButtonText: 'OK'
     }).then(() => {
-      this.formData.phoneNumber = '';
+      this.resetFormData();
     });
   }
 
@@ -169,27 +168,48 @@ export class TheftComponent {
     this.showWeaponType = this.formData.violenceApplied === 'SI';
   }
 
-  // Modificación de onSubmit para validar identificación antes de continuar
+  // Función para reiniciar todos los campos del formulario (limpiarlos)
+  private resetFormData(): void {
+    this.formData = {
+      phoneNumber: '',
+      reportDate: '',
+      reportType: '',
+      address: '',
+      city: '',
+      name: '',
+      phone: '',
+      state: '',
+      type: '',
+      id: '',
+      email: '',
+      minorVictim: '',
+      violenceApplied: '',
+      weaponApplied: ''
+    };
+    this.imeiList = [];
+    this.selectedImei = null;
+  }
+
   onSubmit(): void {
-    // Primero, consumimos el servicio para obtener la información del cliente
+    // Consumir el servicio para obtener la información del cliente
     this.getCustomerService.getCustomerData(this.formData.phoneNumber).subscribe({
       next: response => {
         if (response && response.payload && response.payload.document) {
           const customerDocument = response.payload.document;
           const expectedDocType = this.documentTypeMapping[this.formData.type] || this.formData.type;
           if (customerDocument.id === this.formData.id && customerDocument.type === expectedDocType) {
-            // Si la identificación coincide, procedemos con el proceso de bloqueo
-
+            // Validación correcta, proceder con el proceso de bloqueo
             if (!this.selectedImei) {
               Swal.fire({
                 icon: 'error',
                 title: 'Error',
                 text: 'Debes seleccionar un IMEI antes de continuar.',
                 confirmButtonText: 'OK'
+              }).then(() => {
+                this.resetFormData();
               });
               return;
             }
-
             const reportDate = new Date();
             const formattedReportDate = format(reportDate, "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'");
 
@@ -245,6 +265,7 @@ export class TheftComponent {
                       text: 'El bloqueo del dispositivo y la SIM se realizaron con éxito.',
                       confirmButtonText: 'OK'
                     }).then(() => {
+                      this.resetFormData();
                       this.router.navigate(['/home']);
                     });
                   },
@@ -256,6 +277,7 @@ export class TheftComponent {
                       text: 'El bloqueo del dispositivo fue exitoso, pero hubo un problema con el bloqueo de la SIM.',
                       confirmButtonText: 'OK'
                     }).then(() => {
+                      this.resetFormData();
                       this.router.navigate(['/home']);
                     });
                   }
@@ -267,21 +289,20 @@ export class TheftComponent {
                   title: 'Error en el bloqueo',
                   text: 'Hubo un problema al intentar bloquear el dispositivo.',
                   confirmButtonText: 'OK'
+                }).then(() => {
+                  this.resetFormData();
                 });
               }
             });
           } else {
-            // Si la identificación no coincide, mostramos un error y reiniciamos el formulario
+            // Identificación fallida: reinicia todos los campos
             Swal.fire({
               icon: 'error',
               title: 'Identificación fallida',
-              text: 'Los datos de identificación no coinciden, por favor verifique e intente de nuevo.',
+              text: 'Los datos de identificación no coinciden, por favor verifica e intenta de nuevo.',
               confirmButtonText: 'OK'
             }).then(() => {
-              // Reiniciamos los campos críticos del formulario
-              this.formData.id = '';
-              this.formData.type = '';
-              // También podrías reiniciar el formulario completo según tu lógica
+              this.resetFormData();
             });
           }
         } else {
@@ -290,6 +311,8 @@ export class TheftComponent {
             title: 'Error',
             text: 'No se pudo obtener la información del cliente.',
             confirmButtonText: 'OK'
+          }).then(() => {
+            this.resetFormData();
           });
         }
       },
@@ -299,6 +322,8 @@ export class TheftComponent {
           title: 'Error',
           text: 'No se pudo obtener la información del cliente.',
           confirmButtonText: 'OK'
+        }).then(() => {
+          this.resetFormData();
         });
       }
     });
@@ -306,7 +331,6 @@ export class TheftComponent {
 
   onlyNumber(event: KeyboardEvent): void {
     const charCode = event.charCode;
-    // Permitir solo dígitos (códigos ASCII 48 a 57)
     if (charCode < 48 || charCode > 57) {
       event.preventDefault();
     }
