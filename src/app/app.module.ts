@@ -24,6 +24,7 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatButtonModule } from '@angular/material/button';
 import { PqrComponent } from './components/pqr/pqr.component';
 import { QuienesSomosComponent } from './components/quienes-somos/quienes-somos.component';
+import { PlanesComponent } from './components/planes/planes.component';
 
 
 @NgModule({
@@ -35,7 +36,8 @@ import { QuienesSomosComponent } from './components/quienes-somos/quienes-somos.
     PortinRequestComponent,
     TheftComponent,
     PqrComponent,
-    QuienesSomosComponent
+    QuienesSomosComponent,
+    PlanesComponent
   ],
   imports: [
     BrowserModule,

@@ -1,0 +1,20 @@
+<div class="offer-list">
+    <div class="offer-card" *ngFor="let plan of plans">
+      <div class="card-header">
+        <h3>{{ plan.name }}</h3>
+        <span class="vigencia">Vigencia: {{ plan.duration }}</span>
+      </div>
+      <div class="card-body">
+        <div class="valor">
+          <h4>{{ plan.price }}</h4>
+        </div>
+        <ul class="features-list">
+          <li *ngFor="let feature of plan.features">
+            <img [src]="'assets/icons/' + feature.icon" alt="{{ feature.label }}" class="feature-icon">
+            <span class="feature-text"><strong>{{ feature.label }}:</strong> {{ feature.value }}</span>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+  

@@ -8,8 +8,8 @@
     <!-- Menú de escritorio: visible en pantallas a partir de 1090px -->
     <nav class="desktop-menu">
       <ul class="menu">
-        <li><a href="#">¿Quiénes Somos?</a></li>
-        <li><a href="#">Planes</a></li>
+        <li><a routerLink="/home">¿Quiénes Somos?</a></li>
+        <li><a routerLink="/planes">Planes</a></li>
         <li><a href="#">Consulta y registra tu equipo</a></li>
         <li><a routerLink="/port-on">Pórtate a DirecTV</a></li>
         <li class="dropdown">
@@ -107,7 +107,7 @@
   <!-- Menú móvil: se desliza desde el borde derecho -->
   <nav class="mobile-menu" [class.open]="menuOpen">
     <ul class="menu">
-      <li><a href="#">¿Quiénes Somos?</a></li>
+      <li><a routerLink="/home">¿Quiénes Somos?</a></li>
       <li><a href="#">Planes</a></li>
       <li><a href="#">Consulta y registra tu equipo</a></li>
       <li><a routerLink="/port-on">Pórtate a DirecTV</a></li>

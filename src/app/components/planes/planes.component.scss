@@ -1,0 +1,65 @@
+.offer-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 20px;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+  }
+  
+  .offer-card {
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    background-color: #fff;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    text-align: center;
+  }
+  
+  .card-header {
+    background-color: #0072C6; // Azul Directv
+    color: #fff;
+    padding: 10px;
+    border-radius: 4px 4px 0 0;
+    margin-bottom: 15px;
+  }
+  
+  .card-header h3 {
+    margin: 0;
+    font-weight: bold;
+  }
+  
+  .vigencia {
+    display: block;
+    margin-top: 5px;
+    font-weight: bold;
+  }
+  
+  .valor h4 {
+    font-size: 1.8em;
+    margin: 10px 0;
+    font-weight: bold;
+  }
+  
+  .features-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+  
+  .features-list li {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin: 5px 0;
+  }
+  
+  .feature-icon {
+    width: 24px;
+    height: 24px;
+  }
+  
+  .feature-text {
+    font-weight: bold;
+  }
+  

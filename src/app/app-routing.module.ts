@@ -5,13 +5,15 @@ import { PortinRequestComponent } from './components/portin-request/portin-reque
 import { TheftComponent } from './components/theft/theft.component';
 import { PqrComponent } from './components/pqr/pqr.component';
 import { QuienesSomosComponent } from './components/quienes-somos/quienes-somos.component';
+import { PlanesComponent } from './components/planes/planes.component';
 
 const routes: Routes = [
   { path: 'port-on', component: PortOnComponent },
   { path: 'portin-request', component: PortinRequestComponent },
   { path: 'theft', component: TheftComponent },
   { path: 'pqr', component: PqrComponent },
-  { path: 'home', component: QuienesSomosComponent},  
+  { path: 'home', component: QuienesSomosComponent},
+  { path: 'planes', component: PlanesComponent},  
   { path: '', redirectTo: '/home', pathMatch: 'full' }
 ];
 

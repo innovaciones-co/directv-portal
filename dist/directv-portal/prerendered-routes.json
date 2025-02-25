@@ -1,5 +1,7 @@
 {
   "routes": [
+    "/home",
+    "/planes",
     "/port-on",
     "/portin-request",
     "/pqr",

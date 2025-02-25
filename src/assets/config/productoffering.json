@@ -1,0 +1,61 @@
+{
+    "plans": [
+      {
+        "name": "DIRECTV MOBILE 55GB",
+        "duration": "30 días",
+        "price": "Por definir",
+        "features": [
+          { "label": "Minutos Nacionales", "value": "Ilimitados", "icon": "phone.svg" },
+          { "label": "SMS Nacionales", "value": "Ilimitados", "icon": "sms.svg" },
+          { "label": "GB", "value": "55", "icon": "data.svg" },
+          { "label": "WhatsApp", "value": "Ilimitado", "icon": "whatsapp.svg" },
+          { "label": "Facebook", "value": "Ilimitado", "icon": "facebook.svg" },
+          { "label": "Instagram", "value": "Ilimitado", "icon": "instagram.svg" }
+        ]
+      },
+      {
+        "name": "DIRECTV MOBILE 110GB",
+        "duration": "30 días",
+        "price": "Por definir",
+        "features": [
+          { "label": "Minutos Nacionales", "value": "Ilimitados", "icon": "phone.svg" },
+          { "label": "SMS Nacionales", "value": "Ilimitados", "icon": "sms.svg" },
+          { "label": "GB", "value": "110", "icon": "data.svg" },
+          { "label": "WhatsApp", "value": "Ilimitado", "icon": "whatsapp.svg" },
+          { "label": "Facebook", "value": "Ilimitado", "icon": "facebook.svg" },
+          { "label": "Instagram", "value": "Ilimitado", "icon": "instagram.svg" }
+        ]
+      },
+      {
+        "name": "DIRECTV MOBILE 120GB",
+        "duration": "30 días",
+        "price": "Por definir",
+        "features": [
+          { "label": "Minutos Nacionales", "value": "Ilimitados", "icon": "phone.svg" },
+          { "label": "SMS Nacionales", "value": "Ilimitados", "icon": "sms.svg" },
+          { "label": "GB", "value": "120", "icon": "data.svg" },
+          { "label": "WhatsApp", "value": "Ilimitado", "icon": "whatsapp.svg" },
+          { "label": "Facebook", "value": "Ilimitado", "icon": "facebook.svg" },
+          { "label": "Instagram", "value": "Ilimitado", "icon": "instagram.svg" },
+          { "label": "Waze", "value": "Ilimitado", "icon": "waze.svg" },
+          { "label": "X", "value": "Ilimitado", "icon": "x.svg" }
+        ]
+      },
+      {
+        "name": "DIRECTV MOBILE 150GB",
+        "duration": "30 días",
+        "price": "Por definir",
+        "features": [
+          { "label": "Minutos Nacionales", "value": "Ilimitados", "icon": "phone.svg" },
+          { "label": "SMS Nacionales", "value": "Ilimitados", "icon": "sms.svg" },
+          { "label": "GB", "value": "150", "icon": "data.svg" },
+          { "label": "WhatsApp", "value": "Ilimitado", "icon": "whatsapp.svg" },
+          { "label": "Facebook", "value": "Ilimitado", "icon": "facebook.svg" },
+          { "label": "Instagram", "value": "Ilimitado", "icon": "instagram.svg" },
+          { "label": "Waze", "value": "Ilimitado", "icon": "waze.svg" },
+          { "label": "X", "value": "Ilimitado", "icon": "x.svg" }
+        ]
+      }
+    ]
+  }
+  
