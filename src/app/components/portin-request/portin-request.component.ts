@@ -54,9 +54,9 @@ export class PortinRequestComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    // Calcular la fecha mínima para "Fecha de Solicitud": el día siguiente
+    // Calcular la fecha mínima para "Fecha de Solicitud": el día siguiente al día actual
     const tomorrow = new Date();
-    tomorrow.setDate(tomorrow.getDate());
+    tomorrow.setDate(tomorrow.getDate() + 1);
     this.minPortDate = tomorrow.toISOString().split('T')[0];
 
     // Suscribirse al observable para obtener el número a portar
@@ -92,31 +92,33 @@ export class PortinRequestComponent implements OnInit {
   }
 
   onSubmit(): void {
-
-  // Validar que la fecha de solicitud sea posterior al día actual
-  if (this.portRequest.portWindow < this.minPortDate) {
-    Swal.fire({
-      icon: 'error',
-      title: 'Fecha inválida',
-      text: 'La fecha solicitud de portabilidad no puede ser menor al día actual.',
-      confirmButtonText: 'OK'
-    }).then(() => {
-      // Reiniciar el campo de fecha de solicitud
-      this.portRequest.portWindow = '';
-    });
-    return;
-  }
-    
+    // Validar que la fecha de solicitud sea posterior al día actual
+    if (this.portRequest.portWindow < this.minPortDate) {
+      Swal.fire({
+        icon: 'error',
+        title: 'Fecha inválida',
+        text: 'La fecha de solicitud de portabilidad no puede ser menor al día actual.',
+        confirmButtonText: 'OK'
+      }).then(() => {
+        // Reiniciar el campo de fecha de solicitud
+        this.portRequest.portWindow = '';
+      });
+      return;
+    }
+  
     // Mapear el NIP al campo transparentData.nip (igual que authCode)
     this.portRequest.transparentData.nip = this.portRequest.authCode;
-
-    // Convertir la fecha de solicitud ingresada (portWindow) para incluir la hora actual.
-    // Se asume que el usuario selecciona solo la fecha (e.g., "2025-02-25").
-    const selectedDate = new Date(this.portRequest.portWindow);
+  
+    // Convertir la fecha de solicitud ingresada (portWindow) a UTC y sumarle una hora.
+    // Se asume que el usuario selecciona solo la fecha ("YYYY-MM-DD"), así que concatenamos "T00:00:00"
+    const selectedDate = new Date(this.portRequest.portWindow + "T00:00:00");
     const now = new Date();
+    // Asignar la hora actual al día seleccionado
     selectedDate.setHours(now.getHours(), now.getMinutes(), now.getSeconds(), now.getMilliseconds());
-    const formattedPortWindow = selectedDate.toISOString(); // Formato: "YYYY-MM-DDTHH:mm:ss.SSSZ"
-
+    // Sumar 1 hora (3600000 ms)
+    selectedDate.setTime(selectedDate.getTime() + 3600000);
+    const formattedPortWindow = selectedDate.toISOString(); // Formato: "YYYY-MM-DDTHH:mm:ss.SSSZ"  
+ 
     // Construir el objeto de solicitud
     const requestData = {
       subscriberId: this.subscriberId,
@@ -137,7 +139,7 @@ export class PortinRequestComponent implements OnInit {
         subscriberServiceType: this.portRequest.subscriberServiceType
       }
     };
-
+  
     this.putPortInRequestService.sendPortInRequest(requestData).subscribe({
       next: response => {
         console.log('Solicitud de portabilidad enviada con éxito:', response);

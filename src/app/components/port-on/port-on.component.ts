@@ -124,7 +124,10 @@ export class PortOnComponent implements OnInit {
         text: 'El número debe tener entre 10 y 12 dígitos.',
         icon: 'error',
         confirmButtonText: 'OK'
+      }).then(() => {
+        this.resetFormData();
       });
+      return;
     }
   }
 

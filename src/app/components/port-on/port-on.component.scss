@@ -1,6 +1,6 @@
 /* Encabezado del componente */
 .header-text {
-    width: 100%;
+  width: 100%;
   max-width: 600px;       // Igual que el ancho máximo del formulario
   margin: 0 auto 20px;     // Centrados horizontalmente con margen inferior
   text-align: center;
@@ -87,25 +87,19 @@ input:focus {
 }
 
 button {
-  padding: 12px 20px;
-  border: none;
-  border-radius: 4px;
   font-size: 16px;
   cursor: pointer;
-  width: 48%;
 }
 
 /* Botón de Solicitar NIP */
 .submit-button {
   display: block;
-  margin: 20px auto;        // Centrado horizontal con un margen superior e inferior de 20px
+  margin: 20px auto;        // Centrado horizontal con margen superior e inferior de 20px
   padding: 10px 30px;        // Espaciado interno para lograr un efecto ovalado
   border: none;
   border-radius: 50px;       // Borde redondeado para formar un óvalo
-  background-color: #074b94; // Color de fondo (puedes ajustar al tono Directv si es necesario)
+  background-color: #074b94; // Color de fondo (ajusta al tono Directv si es necesario)
   color: white;
-  font-size: 16px;
-  cursor: pointer;
   transition: background-color 0.3s ease;
   width: auto;              // No ocupar todo el ancho
 }
@@ -118,10 +112,19 @@ button {
   background-color: #053261;
 }
 
-/* Botón de Cancelar */
+/* Botón de Cancelar, con mismo estilo que el botón de enviar */
 .cancel-button {
-  background-color: #f44336;
+  display: block;
+  margin: 20px auto;        // Centrado horizontal con margen superior e inferior de 20px
+  padding: 10px 30px;        // Espaciado interno para lograr un efecto ovalado
+  border: none;
+  border-radius: 50px;       // Borde redondeado para formar un óvalo
+  background-color: #f44336; // Color de fondo rojo
   color: white;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  width: auto;              // No ocupar todo el ancho
 }
 
 .cancel-button:hover {

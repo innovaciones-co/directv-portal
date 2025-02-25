@@ -13,35 +13,38 @@
     <div class="form-grid">
       <!-- Campo: NIP (authCode) -->
       <mat-form-field appearance="fill" class="full-width">
-        <mat-label>NIP</mat-label>
-        <input matInput 
-               type="text" 
-               name="authCode" 
-               [(ngModel)]="portRequest.authCode"
-               required 
-               pattern="^[0-9]*$"
-               (keypress)="onlyNumber($event)">
-        <mat-error *ngIf="portForm.submitted && !portRequest.authCode">
-          Campo obligatorio
-        </mat-error>
-      </mat-form-field>
+  <mat-label>NIP</mat-label>
+  <input matInput 
+         type="text" 
+         name="authCode" 
+         [(ngModel)]="portRequest.authCode"
+         required 
+         minlength="5"
+         maxlength="5"
+         pattern="^[0-9]{5}$"
+         (keypress)="onlyNumber($event)">
+  <mat-error *ngIf="portForm.submitted && !portRequest.authCode">
+    Campo obligatorio
+  </mat-error>
+  <mat-error *ngIf="portForm.submitted && portRequest.authCode && portRequest.authCode.length !== 5">
+    El NIP debe tener exactamente 5 dígitos.
+  </mat-error>
+</mat-form-field>
 
-      <!-- Campo: Fecha de Solicitud (requestedFutureDate) -->
-      <mat-form-field appearance="fill" class="full-width">
-        <mat-label>Fecha de Solicitud</mat-label>
-        <input matInput 
-               type="date" 
-               name="requestedFutureDate" 
-               [(ngModel)]="portRequest.portWindow"
-               [min]="minPortDate"
-               required>
-        <mat-error *ngIf="portForm.submitted && !portRequest.portWindow">
-          Campo obligatorio
-        </mat-error>
-        <mat-error *ngIf="portRequest.portWindow && portRequest.portWindow < minPortDate">
-          La fecha no puede ser menor al día actual.
-        </mat-error>
-      </mat-form-field>
+     <!-- Campo: Fecha de Solicitud (requestedFutureDate) -->
+<mat-form-field appearance="fill" class="full-width">
+  <mat-label>Fecha de Solicitud</mat-label>
+  <input matInput 
+         type="date" 
+         name="requestedFutureDate" 
+         [(ngModel)]="portRequest.portWindow"
+         [min]="minPortDate"
+         required>
+  <mat-error *ngIf="portForm.submitted && !portRequest.portWindow">
+    Campo obligatorio
+  </mat-error>
+</mat-form-field>
+
 
       <!-- Campo: Tipo de Subscriptor -->
       <mat-form-field appearance="fill" class="full-width">

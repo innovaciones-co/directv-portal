@@ -3,7 +3,7 @@
       {
         "name": "DIRECTV MOBILE 55GB",
         "duration": "30 días",
-        "price": "Por definir",
+        "price": "$39.900",
         "features": [
           { "label": "Minutos Nacionales", "value": "Ilimitados", "icon": "phone.png" },
           { "label": "SMS Nacionales", "value": "Ilimitados", "icon": "sms.png" },
@@ -16,7 +16,7 @@
       {
         "name": "DIRECTV MOBILE 110GB",
         "duration": "30 días",
-        "price": "Por definir",
+        "price": "$59.900",
         "features": [
           { "label": "Minutos Nacionales", "value": "Ilimitados", "icon": "phone.png" },
           { "label": "SMS Nacionales", "value": "Ilimitados", "icon": "sms.png" },
@@ -29,7 +29,7 @@
       {
         "name": "DIRECTV MOBILE 120GB",
         "duration": "30 días",
-        "price": "Por definir",
+        "price": "$79.900",
         "features": [
           { "label": "Minutos Nacionales", "value": "Ilimitados", "icon": "phone.png" },
           { "label": "SMS Nacionales", "value": "Ilimitados", "icon": "sms.png" },
@@ -44,7 +44,7 @@
       {
         "name": "DIRECTV MOBILE 150GB",
         "duration": "30 días",
-        "price": "Por definir",
+        "price": "$99.900",
         "features": [
           { "label": "Minutos Nacionales", "value": "Ilimitados", "icon": "phone.png" },
           { "label": "SMS Nacionales", "value": "Ilimitados", "icon": "sms.png" },
