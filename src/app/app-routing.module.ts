@@ -13,7 +13,7 @@ const routes: Routes = [
   { path: 'theft', component: TheftComponent },
   { path: 'pqr', component: PqrComponent },
   { path: 'home', component: QuienesSomosComponent},
-  { path: 'planes', component: PlanesComponent},  
+  { path: 'plans', component: PlanesComponent},  
   { path: '', redirectTo: '/home', pathMatch: 'full' }
 ];
 
