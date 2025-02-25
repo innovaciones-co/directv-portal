@@ -1,8 +1,52 @@
 .footer {
-  background-color: black;
-  color: white;
-  padding: 10px 0;
+  background-color: #000;
+  color: #fff;
+  padding: 20px 0;
   text-align: center;
-  width: 100%;
-  margin-top: auto; // Se empuja al final cuando el contenido es pequeño
+
+  .footer-container {
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+
+  .footer-nav {
+    margin-bottom: 15px;
+    .footer-menu {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      display: flex;
+      justify-content: center;
+      gap: 20px;
+
+      li {
+        a {
+          color: #fff;
+          text-decoration: none;
+          transition: text-decoration 0.3s ease;
+          &:hover {
+            text-decoration: underline;
+            text-decoration-color: #fff;
+          }
+        }
+      }
+    }
+  }
+
+  .footer-logos {
+    margin-bottom: 15px;
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    a {
+      img {
+        width: 60px;
+        height: 60px;
+      }
+    }
+  }
+
+  .footer-copy {
+    font-size: 14px;
+  }
 }
