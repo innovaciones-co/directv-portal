@@ -6,6 +6,7 @@ import { TheftComponent } from './components/theft/theft.component';
 import { PqrComponent } from './components/pqr/pqr.component';
 import { QuienesSomosComponent } from './components/quienes-somos/quienes-somos.component';
 import { PlanesComponent } from './components/planes/planes.component';
+import { LegalesComponent } from './components/legales/legales.component';
 
 const routes: Routes = [
   { path: 'port-on', component: PortOnComponent },
@@ -13,7 +14,8 @@ const routes: Routes = [
   { path: 'theft', component: TheftComponent },
   { path: 'pqr', component: PqrComponent },
   { path: 'home', component: QuienesSomosComponent},
-  { path: 'plans', component: PlanesComponent},  
+  { path: 'plans', component: PlanesComponent},
+  { path:'legales', component: LegalesComponent},  
   { path: '', redirectTo: '/home', pathMatch: 'full' }
 ];
 

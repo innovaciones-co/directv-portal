@@ -1,0 +1,46 @@
+.legales-container {
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #fff;
+    text-align: center;
+  
+    .legales-title {
+      font-size: 2em;
+      color: #0072C6; // Azul Directv
+      font-weight: bold;
+      margin-bottom: 10px;
+    }
+  
+    .legales-divider {
+      border: none;
+      height: 2px;
+      background-color: #0072C6; // Línea azul
+      margin: 0 auto 20px;
+      width: 100%;
+    }
+  
+    .legales-list {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      text-align: left;
+      
+      li {
+        margin-bottom: 10px;
+        
+        a {
+          color: #000;         // Letra negra
+          font-weight: normal;  // Sin negrilla
+          text-decoration: none;
+          font-size: 16px;
+          transition: text-decoration 0.3s ease;
+          &:hover {
+            text-decoration: underline;
+            text-decoration-color: #000; // Subrayado negro
+          }
+        }
+      }
+    }
+  }
+  

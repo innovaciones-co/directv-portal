@@ -25,6 +25,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { PqrComponent } from './components/pqr/pqr.component';
 import { QuienesSomosComponent } from './components/quienes-somos/quienes-somos.component';
 import { PlanesComponent } from './components/planes/planes.component';
+import { LegalesComponent } from './components/legales/legales.component';
 
 
 @NgModule({
@@ -37,7 +38,8 @@ import { PlanesComponent } from './components/planes/planes.component';
     TheftComponent,
     PqrComponent,
     QuienesSomosComponent,
-    PlanesComponent
+    PlanesComponent,
+    LegalesComponent
   ],
   imports: [
     BrowserModule,
