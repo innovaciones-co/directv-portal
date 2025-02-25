@@ -17,8 +17,16 @@ export class HeaderComponent {
   toggleDropdown(key: string, event: Event): void {
     event.preventDefault();
     event.stopPropagation();
+    // Cierra todos los dropdowns excepto el actual
+    Object.keys(this.dropdownStates).forEach(k => {
+      if (k !== key) {
+        this.dropdownStates[k] = false;
+      }
+    });
+    // Alterna el estado del dropdown actual
     this.dropdownStates[key] = !this.dropdownStates[key];
   }
+  
 
   @HostListener('document:click', ['$event'])
   onDocumentClick(event: Event): void {

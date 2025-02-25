@@ -2,6 +2,7 @@
   "routes": [
     "/port-on",
     "/portin-request",
+    "/pqr",
     "/theft"
   ]
 }

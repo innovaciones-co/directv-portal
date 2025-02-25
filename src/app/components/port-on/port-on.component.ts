@@ -30,7 +30,7 @@ export class PortOnComponent implements OnInit {
     // Suscripción al observable para obtener el Subscriber ID
     this.getCustomersBySubscriptionService.subscriberId$.subscribe((id) => {
       this.subscriberId = id;
-      console.log(`Subscriber ID recibido: ${id}`);
+      
       if (id !== null) {
         this.getNetworkOperatorService.getOperator(this.phoneNumberToPort).subscribe();
       }
@@ -39,7 +39,7 @@ export class PortOnComponent implements OnInit {
     // Suscripción para obtener el Operator Code
     this.getNetworkOperatorService.operatorCode$.subscribe((code) => {
       this.operatorCode = code;
-      console.log(`Operator Code recibido: ${code}`);
+
       // Si la validación de ICCID ya pasó, se procede con la autenticación
       this.trySendAuthentication();
     });
@@ -70,7 +70,7 @@ export class PortOnComponent implements OnInit {
       // Consumir el servicio para obtener datos del cliente
       this.getCustomersBySubscriptionService.getCustomerData(this.CurrentPhoneNumber).subscribe({
         next: (response) => {
-          console.log('Datos de suscripción obtenidos:', response);
+        
 
           // Acceder al primer elemento del array subscriptions para obtener el iccid
           const subscriptions = response.payload?.subscriptions;

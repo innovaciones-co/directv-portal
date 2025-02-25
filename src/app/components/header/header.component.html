@@ -15,34 +15,86 @@
         <li class="dropdown">
           <a href="#" (click)="toggleDropdown('info', $event)">Información Importante para Usuarios</a>
           <ul class="submenu" [class.show]="dropdownStates['info']">
-            <li><a href="https://coberturadigital-uat-co.tigocloud.net/">Mapa de cobertura</a></li>
-            <li><a href="https://www.speedtest.net/">Medidor de Velocidad</a></li>
-            <li><a href="#">Comparador de Planes y Tarifas</a></li>
-            <li><a href="#">Factores de limitación de la velocidad de internet</a></li>
+            <li>
+              <a href="https://coberturadigital-uat-co.tigocloud.net/">Mapa de cobertura</a>
+            </li>
+            <li>
+              <a href="https://www.speedtest.net/">Medidor de Velocidad</a>
+            </li>
+            <li>
+              <a href="https://lov.com.co/directv/documents/comparador_planes_y_tarifas.pdf" target="_blank" rel="noopener noreferrer">
+                Comparador de Planes y Tarifas
+              </a>
+            </li>
+            <li>
+              <a href="https://lov.com.co/directv/documents/factores_de_limitacion_de_la_velocidad_de_internet.pdf" target="_blank" rel="noopener noreferrer">
+                Factores de limitación de la velocidad de internet
+              </a>
+            </li>
             <li class="dropdown">
               <a href="#" (click)="toggleDropdown('homologacion', $event)">Homologación de equipo</a>
               <ul class="submenu submenu-right" [class.show]="dropdownStates['homologacion']">
-                <li><a href="https://www.tramitescrcom.gov.co/tramites/comun/guia.xhtml">Verifica si tu equipo está homologado</a></li>
-                <li><a href="https://www.tramitescrcom.gov.co/tramites/comun/guia.xhtml">Homologa tu equipo</a></li>
+                <li>
+                  <a href="https://www.tramitescrcom.gov.co/tramites/comun/guia.xhtml">
+                    Verifica si tu equipo está homologado
+                  </a>
+                </li>
+                <li>
+                  <a href="https://www.tramitescrcom.gov.co/tramites/comun/guia.xhtml">
+                    Homologa tu equipo
+                  </a>
+                </li>
               </ul>
             </li>
-            <li><a href="#">Procedimiento y Trámites PQR</a></li>
-            <li><a href="#">Prácticas de gestión de tráfico</a></li>
-            <li><a href="#">Indicaciones de calidad en la atención</a></li>
-            <li><a href="#">Histórico de promociones</a></li>
-            <li><a href="#">Indicadores de calidad del servicio de Internet</a></li>
-            <li><a href="#">Trámites digitalizados</a></li>
-            <li><a routerLink="/theft">Reporta la pérdida o robo de tu equipo</a></li>
+            <li>
+              <a href="https://lov.com.co/directv/documents/procedimiento_y_tramites_pqr.pdf" target="_blank" rel="noopener noreferrer">
+                Procedimiento y Trámites PQR
+              </a>
+            </li>
+            <li>
+              <a href="https://lov.com.co/directv/documents/practicas_de_gestion_de_trafico.pdf" target="_blank" rel="noopener noreferrer">
+                Prácticas de gestión de tráfico
+              </a>
+            </li>
+            <li>
+              <a href="https://lov.com.co/directv/documents/indicadores_de_calidad_en_la_atencion.pdf" target="_blank" rel="noopener noreferrer">
+                Indicaciones de calidad en la atención
+              </a>
+            </li>
+            <li>
+              <a href="https://lov.com.co/directv/documents/historico_de_promociones.pdf" target="_blank" rel="noopener noreferrer">
+                Histórico de promociones
+              </a>
+            </li>
+            <li>
+              <a href="https://lov.com.co/directv/documents/indicadores_de_calidad_del_servicio_de_internet.pdf" target="_blank" rel="noopener noreferrer">
+                Indicadores de calidad del servicio de Internet
+              </a>
+            </li>
+            <li>
+              <a href="https://lov.com.co/directv/documents/tramites_digitalizados.pdf" target="_blank" rel="noopener noreferrer">
+                Trámites digitalizados
+              </a>
+            </li>
+            <li>
+              <a routerLink="/theft">Reporta la pérdida o robo de tu equipo</a>
+            </li>
           </ul>
         </li>
         <li class="dropdown">
           <a href="#" (click)="toggleDropdown('pqr', $event)">PQR</a>
           <ul class="submenu" [class.show]="dropdownStates['pqr']">
-            <li><a routerLink="/pqr">Radica PQR</a></li>
-            <li><a routerLink="/query-pqr">Consulta CUN</a></li>
+            <li>
+              <a routerLink="/pqr">Radica PQR</a>
+            </li>
+            <li>
+              <a routerLink="/query-pqr">Consulta CUN</a>
+            </li>
           </ul>
         </li>
-        <li><a routerLink="/questions">Preguntas frecuentes</a></li>
+        <li>
+          <a routerLink="/questions">Preguntas frecuentes</a>
+        </li>
       </ul>
     </nav>
     <!-- Ícono de menú: visible en móviles -->
@@ -62,34 +114,86 @@
       <li class="dropdown">
         <a href="#" (click)="toggleDropdown('info', $event)">Información Importante para Usuarios</a>
         <ul class="submenu" [class.show]="dropdownStates['info']">
-          <li><a href="https://coberturadigital-uat-co.tigocloud.net/">Mapa de cobertura</a></li>
-          <li><a href="https://www.speedtest.net/">Medidor de Velocidad</a></li>
-          <li><a href="#">Comparador de Planes y Tarifas</a></li>
-          <li><a href="#">Factores de limitación de la velocidad de internet</a></li>
+          <li>
+            <a href="https://coberturadigital-uat-co.tigocloud.net/">Mapa de cobertura</a>
+          </li>
+          <li>
+            <a href="https://www.speedtest.net/">Medidor de Velocidad</a>
+          </li>
+          <li>
+            <a href="https://lov.com.co/directv/documents/comparador_planes_y_tarifas.pdf" target="_blank" rel="noopener noreferrer">
+              Comparador de Planes y Tarifas
+            </a>
+          </li>
+          <li>
+            <a href="https://lov.com.co/directv/documents/factores_de_limitacion_de_la_velocidad_de_internet.pdf" target="_blank" rel="noopener noreferrer">
+              Factores de limitación de la velocidad de internet
+            </a>
+          </li>
           <li class="dropdown">
             <a href="#" (click)="toggleDropdown('homologacion', $event)">Homologación de equipo</a>
             <ul class="submenu submenu-right" [class.show]="dropdownStates['homologacion']">
-              <li><a href="https://www.tramitescrcom.gov.co/tramites/comun/guia.xhtml">Verifica si tu equipo está homologado</a></li>
-              <li><a href="https://www.tramitescrcom.gov.co/tramites/comun/guia.xhtml">Homologa tu equipo</a></li>
+              <li>
+                <a href="https://www.tramitescrcom.gov.co/tramites/comun/guia.xhtml">
+                  Verifica si tu equipo está homologado
+                </a>
+              </li>
+              <li>
+                <a href="https://www.tramitescrcom.gov.co/tramites/comun/guia.xhtml">
+                  Homologa tu equipo
+                </a>
+              </li>
             </ul>
           </li>
-          <li><a href="#">Procedimiento y Trámites PQR</a></li>
-          <li><a href="#">Prácticas de gestión de tráfico</a></li>
-          <li><a href="#">Indicaciones de calidad en la atención</a></li>
-          <li><a href="#">Histórico de promociones</a></li>
-          <li><a href="#">Indicadores de calidad del servicio de Internet</a></li>
-          <li><a href="#">Trámites digitalizados</a></li>
-          <li><a routerLink="/theft">Reporta la pérdida o robo de tu equipo</a></li>
+          <li>
+            <a href="https://lov.com.co/directv/documents/procedimiento_y_tramites_pqr.pdf" target="_blank" rel="noopener noreferrer">
+              Procedimiento y Trámites PQR
+            </a>
+          </li>
+          <li>
+            <a href="https://lov.com.co/directv/documents/practicas_de_gestion_de_trafico.pdf" target="_blank" rel="noopener noreferrer">
+              Prácticas de gestión de tráfico
+            </a>
+          </li>
+          <li>
+            <a href="https://lov.com.co/directv/documents/indicadores_de_calidad_en_la_atencion.pdf" target="_blank" rel="noopener noreferrer">
+              Indicaciones de calidad en la atención
+            </a>
+          </li>
+          <li>
+            <a href="https://lov.com.co/directv/documents/historico_de_promociones.pdf" target="_blank" rel="noopener noreferrer">
+              Histórico de promociones
+            </a>
+          </li>
+          <li>
+            <a href="https://lov.com.co/directv/documents/indicadores_de_calidad_del_servicio_de_internet.pdf" target="_blank" rel="noopener noreferrer">
+              Indicadores de calidad del servicio de Internet
+            </a>
+          </li>
+          <li>
+            <a href="https://lov.com.co/directv/documents/tramites_digitalizados.pdf" target="_blank" rel="noopener noreferrer">
+              Trámites digitalizados
+            </a>
+          </li>
+          <li>
+            <a routerLink="/theft">Reporta la pérdida o robo de tu equipo</a>
+          </li>
         </ul>
       </li>
       <li class="dropdown">
         <a href="#" (click)="toggleDropdown('pqr', $event)">PQR</a>
         <ul class="submenu" [class.show]="dropdownStates['pqr']">
-          <li><a routerLink="/pqr">Radica PQR</a></li>
-          <li><a routerLink="/query-pqr">Consulta CUN</a></li>
+          <li>
+            <a routerLink="/pqr">Radica PQR</a>
+          </li>
+          <li>
+            <a routerLink="/query-pqr">Consulta CUN</a>
+          </li>
         </ul>
       </li>
-      <li><a routerLink="/questions">Preguntas frecuentes</a></li>
+      <li>
+        <a routerLink="/questions">Preguntas frecuentes</a>
+      </li>
     </ul>
   </nav>
 </header>
