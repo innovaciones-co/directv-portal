@@ -1,5 +1,8 @@
-<div class="offer-list">
-    <div class="offer-card" *ngFor="let plan of plans">
+<div class="carousel-container">
+  <button class="carousel-control prev" (click)="prevSlide()">&#9664;</button>
+
+  <div class="carousel">
+    <div *ngFor="let plan of plans; let i = index" class="plan-card" [ngClass]="getClass(i)">
       <div class="card-header">
         <h3>{{ plan.name }}</h3>
         <span class="vigencia">Vigencia: {{ plan.duration }}</span>
@@ -10,11 +13,13 @@
         </div>
         <ul class="features-list">
           <li *ngFor="let feature of plan.features">
-            <img [src]="'assets/icons/' + feature.icon" alt="{{ feature.label }}" class="feature-icon">
+            <img [src]="'assets/icons/' + feature.icon" [alt]="feature.label" class="feature-icon">
             <span class="feature-text"><strong>{{ feature.label }}:</strong> {{ feature.value }}</span>
           </li>
         </ul>
       </div>
     </div>
   </div>
-  
+
+  <button class="carousel-control next" (click)="nextSlide()">&#9654;</button>
+</div>

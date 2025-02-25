@@ -1,65 +1,120 @@
-.offer-list {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    gap: 20px;
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 20px;
-  }
-  
-  .offer-card {
-    border: 1px solid #ccc;
-    border-radius: 8px;
-    background-color: #fff;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-    padding: 20px;
-    text-align: center;
-  }
-  
-  .card-header {
-    background-color: #0072C6; // Azul Directv
-    color: #fff;
-    padding: 10px;
-    border-radius: 4px 4px 0 0;
-    margin-bottom: 15px;
-  }
-  
-  .card-header h3 {
-    margin: 0;
-    font-weight: bold;
-  }
-  
-  .vigencia {
-    display: block;
-    margin-top: 5px;
-    font-weight: bold;
-  }
-  
-  .valor h4 {
-    font-size: 1.8em;
-    margin: 10px 0;
-    font-weight: bold;
-  }
-  
-  .features-list {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-  }
-  
-  .features-list li {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    margin: 5px 0;
-  }
-  
-  .feature-icon {
-    width: 24px;
-    height: 24px;
-  }
-  
-  .feature-text {
-    font-weight: bold;
-  }
-  
+.carousel-container {
+  position: relative;
+  width: 100%;
+  max-width: 1200px;
+  margin: 50px auto;
+  height: 500px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.carousel {
+  position: relative;
+  width: 80%;
+  height: 100%;
+  overflow: hidden;
+  display: flex;
+  justify-content: center;
+}
+
+.plan-card {
+  position: absolute;
+  width: 300px;
+  height: 450px;
+  background: white;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  padding: 20px;
+  text-align: center;
+  transition: transform 0.5s ease, opacity 0.5s ease;
+  opacity: 0;
+  transform: scale(0.7);
+}
+
+.plan-card.active {
+  transform: translateX(0) scale(1);
+  opacity: 1;
+  z-index: 2;
+}
+
+.plan-card.prev {
+  transform: translateX(-110%) scale(0.7);
+  opacity: 0.5;
+  z-index: 1;
+}
+
+.plan-card.next {
+  transform: translateX(110%) scale(0.7);
+  opacity: 0.5;
+  z-index: 1;
+}
+
+.card-header {
+  background-color: #0072C6;  // Azul Directv
+  color: white;
+  padding: 10px;
+  border-radius: 4px 4px 0 0;
+  margin-bottom: 15px;
+  font-weight: bold;
+}
+
+.card-header h3 {
+  margin: 0;
+}
+
+.vigencia {
+  display: block;
+  margin-top: 5px;
+  font-weight: bold;
+}
+
+.valor h4 {
+  font-size: 1.8em;
+  margin: 10px 0;
+  font-weight: bold;
+}
+
+.features-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.features-list li {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin: 5px 0;
+}
+
+.feature-icon {
+  width: 24px;
+  height: 24px;
+}
+
+.feature-text {
+  font-weight: bold;
+}
+
+.carousel-control {
+  font-size: 2rem;
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: black;
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 10;
+  padding: 10px;
+}
+
+.carousel-control.prev {
+  left: 10px;
+}
+
+.carousel-control.next {
+  right: 10px;
+}
