@@ -1,6 +1,6 @@
 <!-- Encabezado del componente -->
 <div class="header-text">
-  <h1 class="header-title">¡Formulario de Solicitud de Portabilidad!</h1>
+  <h1 class="header-title">¡Portate a DirecTV!</h1>
   <p class="header-description">
     Ya que te hemos enviado un NIP, continuemos con tu proceso de portabilidad. Por favor, diligencia el siguiente formulario.
   </p>
@@ -32,6 +32,7 @@
                type="date" 
                name="requestedFutureDate" 
                [(ngModel)]="portRequest.portWindow"
+               [min]="minPortDate"
                required>
         <mat-error *ngIf="portForm.submitted && !portRequest.portWindow">
           Campo obligatorio
@@ -81,21 +82,16 @@
         </mat-error>
       </mat-form-field>
 
-      <!-- Campo: Fecha de Expedición del Documento (YYYY/MM/DD) -->
+      <!-- Campo: Fecha de Expedición (con calendario) -->
       <mat-form-field appearance="fill" class="full-width">
-        <mat-label>Fecha de Expedición (YYYY/MM/DD)</mat-label>
+        <mat-label>Fecha de Expedición del Documento</mat-label>
         <input matInput 
-               type="text" 
+               type="date" 
                name="subscriberIdentityIssue" 
                [(ngModel)]="portRequest.transparentData.subscriberIdentityIssue"
-               placeholder="2010/04/20"
-               required
-               pattern="^(19|20)\d\d\/(0[1-9]|1[012])\/(0[1-9]|[12][0-9]|3[01])$">
+               required>
         <mat-error *ngIf="portForm.submitted && !portRequest.transparentData.subscriberIdentityIssue">
           Campo obligatorio
-        </mat-error>
-        <mat-error *ngIf="portRequest.transparentData.subscriberIdentityIssue && !isIdentityIssueValid(portRequest.transparentData.subscriberIdentityIssue)">
-          Formato inválido, use YYYY/MM/DD
         </mat-error>
       </mat-form-field>
 
@@ -139,6 +135,6 @@
       </mat-form-field>
     </div>
     
-    <button type="submit" class="submit-button">Enviar</button>
+    <button type="submit" class="submit-button" [disabled]="portForm.invalid">Enviar</button>
   </form>
 </div>

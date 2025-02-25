@@ -21,10 +21,13 @@ export class PortinRequestComponent implements OnInit {
   phoneNumberToPort: string = '';
   newMsisdn: string = '';
 
+  // Fecha mínima para "Fecha de Solicitud" (día siguiente)
+  minPortDate: string = '';
+
   // Objeto con los datos del formulario (inicializado con transparentData)
   portRequest: any = {
     authCode: '',                  // NIP ingresado por el usuario
-    portWindow: '',                // Fecha de solicitud (requestedFutureDate) en formato ISO
+    portWindow: '',                // Fecha de Solicitud (sin hora, ingresada por el usuario)
     subscriberType: '',            // NATURAL o COMPANY
     transparentData: {
       subscriberIdentityType: '',  // Tipo de documento (ID, NIT, FOREIGN_ID, PASSPORT)
@@ -36,10 +39,11 @@ export class PortinRequestComponent implements OnInit {
     subscriberServiceType: ''      // PREPAID o POSTPAID
   };
 
-  // Valores que provienen de observables o fijos
+  // Valores provenientes de observables o fijos
   subscriberId: string = "";
   operatorCode: string = "";
-  donorOperator: string = "00018"; // Valor fijo
+  donorOperator: string = "";            // Se mapeará desde operatorCode$
+  recipientOperator: string = "00018";    // Valor fijo
 
   constructor(
     private putPortInRequestService: PutPortInRequestService,
@@ -50,25 +54,33 @@ export class PortinRequestComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    // Suscribirse al observable phoneNumberToPort$
+    // Calcular la fecha mínima para "Fecha de Solicitud": el día siguiente
+    const tomorrow = new Date();
+    tomorrow.setDate(tomorrow.getDate());
+    this.minPortDate = tomorrow.toISOString().split('T')[0];
+
+    // Suscribirse al observable para obtener el número a portar
     this.postSendAuthService.phoneNumberToPort$.subscribe(num => {
       this.phoneNumberToPort = num;
       this.newMsisdn = num;
     });
 
-    // Asignar observables para subscriberId y operatorCode
+    // Asignar los observables para subscriberId y operatorCode
     this.subscriberId$ = this.getCustomersBySubscriptionService.subscriberId$;
     this.operatorCode$ = this.getNetworkOperatorService.operatorCode$;
 
+    // Suscribirse para obtener subscriberId
     this.subscriberId$.subscribe(id => {
       if (id !== null) {
         this.subscriberId = id.toString();
       }
     });
 
+    // Suscribirse para obtener operatorCode y asignarlo a donorOperator
     this.operatorCode$.subscribe(code => {
       if (code !== null) {
         this.operatorCode = code;
+        this.donorOperator = code;
       }
     });
   }
@@ -83,14 +95,21 @@ export class PortinRequestComponent implements OnInit {
     // Mapear el NIP al campo transparentData.nip (igual que authCode)
     this.portRequest.transparentData.nip = this.portRequest.authCode;
 
+    // Convertir la fecha de solicitud ingresada (portWindow) para incluir la hora actual.
+    // Se asume que el usuario selecciona solo la fecha (e.g., "2025-02-25").
+    const selectedDate = new Date(this.portRequest.portWindow);
+    const now = new Date();
+    selectedDate.setHours(now.getHours(), now.getMinutes(), now.getSeconds(), now.getMilliseconds());
+    const formattedPortWindow = selectedDate.toISOString(); // Formato: "YYYY-MM-DDTHH:mm:ss.SSSZ"
+
     // Construir el objeto de solicitud
     const requestData = {
       subscriberId: this.subscriberId,
       authCode: this.portRequest.authCode,
       donorOperator: this.donorOperator,
       newMsisdn: this.newMsisdn,
-      recipientOperator: this.operatorCode, // Valor del observable operatorCode$
-      requestedFutureDate: this.portRequest.portWindow,
+      recipientOperator: this.recipientOperator, // Valor fijo "00018"
+      requestedFutureDate: formattedPortWindow,
       subscriberType: this.portRequest.subscriberType,
       transparentData: {
         subscriberIdentityType: this.portRequest.transparentData.subscriberIdentityType,

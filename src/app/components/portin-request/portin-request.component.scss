@@ -8,7 +8,7 @@
 
   .header-title {
     font-size: 2.5em;      // Título más grande
-    color: #0072C6;        // Azul, similar al logo de Directv Colombia
+    color: #0072C6;        // Azul, similar al logo de DirecTV
     font-weight: bold;
     margin-bottom: 10px;
   }
@@ -30,8 +30,8 @@
 
 /* Estilos generales del formulario */
 .form-container {
-  max-width: 600px;
-  margin: 50px auto; /* Ajuste automático con margen superior e inferior de 50px */
+  max-width: 650px;
+  margin: 50px auto; /* Márgenes superior e inferior de 50px */
   padding: 20px;
   background: white;
   border-radius: 8px;
@@ -44,9 +44,9 @@
 .form-grid {
   display: grid;
   grid-template-columns: repeat(2, 300px);  // Cada input tendrá 300px de ancho
-  column-gap: 30px;                          // Separación horizontal de 30px
-  row-gap: 30px;                             // Separación vertical de 30px
-  justify-content: center;                    // Centrar la cuadrícula dentro del contenedor
+  column-gap: 20px;                          // Separación horizontal de 20px
+  row-gap: 20px;                             // Separación vertical de 20px
+  justify-content: center;                    // Centrar la cuadrícula
 }
 
 /* Responsive: Una sola columna en pantallas pequeñas */
@@ -76,23 +76,28 @@
   }
 }
 
-/* Estilo para los botones */
-button {
-  background-color: black;
+/* Estilo para el botón de envío */
+.submit-button {
+  background-color: #074b94;
   color: white;
-  padding: 10px;
+  padding: 10px 20px;
   border: none;
   cursor: pointer;
-  width: 100%;
-  border-radius: 4px;
-
+  border-radius: 50px;  // Forma ovalada
+  width: auto;
+  min-width: 150px;
+  transition: background-color 0.3s ease;
+  margin-top: 20px;     // Separación superior de 20px respecto a los inputs
   &:hover {
-    background-color: #0056b3; // Azul oscuro al hacer hover
+    background-color: #053261;
   }
-
   &:active {
-    background-color: rgb(177, 177, 177); // Se vuelve gris al hacer click
-    color: #007bff; // Texto azul para contraste
+    background-color: rgb(177, 177, 177);
+    color: #007bff;
+  }
+  &:disabled {
+    background-color: #ccc; // Gris claro cuando está desactivado
+    cursor: not-allowed;
   }
 }
 
