@@ -5,12 +5,12 @@
         "duration": "30 días",
         "price": "Por definir",
         "features": [
-          { "label": "Minutos Nacionales", "value": "Ilimitados", "icon": "phone.svg" },
-          { "label": "SMS Nacionales", "value": "Ilimitados", "icon": "sms.svg" },
-          { "label": "GB", "value": "55", "icon": "data.svg" },
-          { "label": "WhatsApp", "value": "Ilimitado", "icon": "whatsapp.svg" },
-          { "label": "Facebook", "value": "Ilimitado", "icon": "facebook.svg" },
-          { "label": "Instagram", "value": "Ilimitado", "icon": "instagram.svg" }
+          { "label": "Minutos Nacionales", "value": "Ilimitados", "icon": "phone.png" },
+          { "label": "SMS Nacionales", "value": "Ilimitados", "icon": "sms.png" },
+          { "label": "GB", "value": "55", "icon": "data.png" },
+          { "label": "WhatsApp", "value": "Ilimitado", "icon": "whatsapp.png" },
+          { "label": "Facebook", "value": "Ilimitado", "icon": "facebook.png" },
+          { "label": "Instagram", "value": "Ilimitado", "icon": "instagram.png" }
         ]
       },
       {
@@ -18,12 +18,12 @@
         "duration": "30 días",
         "price": "Por definir",
         "features": [
-          { "label": "Minutos Nacionales", "value": "Ilimitados", "icon": "phone.svg" },
-          { "label": "SMS Nacionales", "value": "Ilimitados", "icon": "sms.svg" },
-          { "label": "GB", "value": "110", "icon": "data.svg" },
-          { "label": "WhatsApp", "value": "Ilimitado", "icon": "whatsapp.svg" },
-          { "label": "Facebook", "value": "Ilimitado", "icon": "facebook.svg" },
-          { "label": "Instagram", "value": "Ilimitado", "icon": "instagram.svg" }
+          { "label": "Minutos Nacionales", "value": "Ilimitados", "icon": "phone.png" },
+          { "label": "SMS Nacionales", "value": "Ilimitados", "icon": "sms.png" },
+          { "label": "GB", "value": "110", "icon": "data.png" },
+          { "label": "WhatsApp", "value": "Ilimitado", "icon": "whatsapp.png" },
+          { "label": "Facebook", "value": "Ilimitado", "icon": "facebook.png" },
+          { "label": "Instagram", "value": "Ilimitado", "icon": "instagram.png" }
         ]
       },
       {
@@ -31,14 +31,14 @@
         "duration": "30 días",
         "price": "Por definir",
         "features": [
-          { "label": "Minutos Nacionales", "value": "Ilimitados", "icon": "phone.svg" },
-          { "label": "SMS Nacionales", "value": "Ilimitados", "icon": "sms.svg" },
-          { "label": "GB", "value": "120", "icon": "data.svg" },
-          { "label": "WhatsApp", "value": "Ilimitado", "icon": "whatsapp.svg" },
-          { "label": "Facebook", "value": "Ilimitado", "icon": "facebook.svg" },
-          { "label": "Instagram", "value": "Ilimitado", "icon": "instagram.svg" },
-          { "label": "Waze", "value": "Ilimitado", "icon": "waze.svg" },
-          { "label": "X", "value": "Ilimitado", "icon": "x.svg" }
+          { "label": "Minutos Nacionales", "value": "Ilimitados", "icon": "phone.png" },
+          { "label": "SMS Nacionales", "value": "Ilimitados", "icon": "sms.png" },
+          { "label": "GB", "value": "120", "icon": "data.png" },
+          { "label": "WhatsApp", "value": "Ilimitado", "icon": "whatsapp.png" },
+          { "label": "Facebook", "value": "Ilimitado", "icon": "facebook.png" },
+          { "label": "Instagram", "value": "Ilimitado", "icon": "instagram.png" },
+          { "label": "Waze", "value": "Ilimitado", "icon": "waze.png" },
+          { "label": "X", "value": "Ilimitado", "icon": "x.png" }
         ]
       },
       {
@@ -46,14 +46,14 @@
         "duration": "30 días",
         "price": "Por definir",
         "features": [
-          { "label": "Minutos Nacionales", "value": "Ilimitados", "icon": "phone.svg" },
-          { "label": "SMS Nacionales", "value": "Ilimitados", "icon": "sms.svg" },
-          { "label": "GB", "value": "150", "icon": "data.svg" },
-          { "label": "WhatsApp", "value": "Ilimitado", "icon": "whatsapp.svg" },
-          { "label": "Facebook", "value": "Ilimitado", "icon": "facebook.svg" },
-          { "label": "Instagram", "value": "Ilimitado", "icon": "instagram.svg" },
-          { "label": "Waze", "value": "Ilimitado", "icon": "waze.svg" },
-          { "label": "X", "value": "Ilimitado", "icon": "x.svg" }
+          { "label": "Minutos Nacionales", "value": "Ilimitados", "icon": "phone.png" },
+          { "label": "SMS Nacionales", "value": "Ilimitados", "icon": "sms.png" },
+          { "label": "GB", "value": "150", "icon": "data.png" },
+          { "label": "WhatsApp", "value": "Ilimitado", "icon": "whatsapp.png" },
+          { "label": "Facebook", "value": "Ilimitado", "icon": "facebook.png" },
+          { "label": "Instagram", "value": "Ilimitado", "icon": "instagram.png" },
+          { "label": "Waze", "value": "Ilimitado", "icon": "waze.png" },
+          { "label": "X", "value": "Ilimitado", "icon": "x.png" }
         ]
       }
     ]
