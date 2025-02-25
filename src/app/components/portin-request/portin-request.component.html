@@ -2,7 +2,8 @@
 <div class="header-text">
   <h1 class="header-title">¡Portate a DirecTV!</h1>
   <p class="header-description">
-    Ya que te hemos enviado un NIP, continuemos con tu proceso de portabilidad. Por favor, diligencia el siguiente formulario.
+    Ya que te hemos enviado un NIP, continuemos con tu proceso de portabilidad. Por favor, completa el siguiente formulario.<br>
+    Puedes seleccionar la fecha en la que deseas ser parte de Directv; recuerda que las portabilidades se realizan durante las horas de la noche, por lo que la 'fecha de solicitud' te permitirá elegir el momento adecuado para efectuar el cambio.
   </p>
   <hr class="header-divider">
 </div>
@@ -36,6 +37,9 @@
                required>
         <mat-error *ngIf="portForm.submitted && !portRequest.portWindow">
           Campo obligatorio
+        </mat-error>
+        <mat-error *ngIf="portRequest.portWindow && portRequest.portWindow < minPortDate">
+          La fecha no puede ser menor al día actual.
         </mat-error>
       </mat-form-field>
 

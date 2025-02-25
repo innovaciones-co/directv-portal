@@ -92,6 +92,21 @@ export class PortinRequestComponent implements OnInit {
   }
 
   onSubmit(): void {
+
+  // Validar que la fecha de solicitud sea posterior al día actual
+  if (this.portRequest.portWindow < this.minPortDate) {
+    Swal.fire({
+      icon: 'error',
+      title: 'Fecha inválida',
+      text: 'La fecha solicitud de portabilidad no puede ser menor al día actual.',
+      confirmButtonText: 'OK'
+    }).then(() => {
+      // Reiniciar el campo de fecha de solicitud
+      this.portRequest.portWindow = '';
+    });
+    return;
+  }
+    
     // Mapear el NIP al campo transparentData.nip (igual que authCode)
     this.portRequest.transparentData.nip = this.portRequest.authCode;
 

@@ -97,8 +97,17 @@ button {
 
 /* Botón de Solicitar NIP */
 .submit-button {
-  background-color: #074b94;
+  display: block;
+  margin: 20px auto;        // Centrado horizontal con un margen superior e inferior de 20px
+  padding: 10px 30px;        // Espaciado interno para lograr un efecto ovalado
+  border: none;
+  border-radius: 50px;       // Borde redondeado para formar un óvalo
+  background-color: #074b94; // Color de fondo (puedes ajustar al tono Directv si es necesario)
   color: white;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  width: auto;              // No ocupar todo el ancho
 }
 
 .submit-button:disabled {
