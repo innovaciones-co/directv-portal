@@ -1,0 +1,25 @@
+.quienes-somos {
+    text-align: center;
+    padding: 20px;
+  
+    .title {
+      font-size: 2em;
+      color: #0072C6; // Tono azul similar al logo de Directv Colombia
+      margin-bottom: 10px;
+    }
+  
+    .divider {
+      width: 50%;
+      height: 2px;
+      background-color: #0072C6; // Mismo tono azul
+      border: none;
+      margin: 0 auto 20px;
+    }
+  
+    .content {
+      font-size: 1em;
+      color: #333;
+      line-height: 1.5;
+    }
+  }
+  

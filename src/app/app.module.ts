@@ -23,6 +23,7 @@ import { MatInputModule } from '@angular/material/input';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatButtonModule } from '@angular/material/button';
 import { PqrComponent } from './components/pqr/pqr.component';
+import { QuienesSomosComponent } from './components/quienes-somos/quienes-somos.component';
 
 
 @NgModule({
@@ -33,7 +34,8 @@ import { PqrComponent } from './components/pqr/pqr.component';
     PortOnComponent,
     PortinRequestComponent,
     TheftComponent,
-    PqrComponent
+    PqrComponent,
+    QuienesSomosComponent
   ],
   imports: [
     BrowserModule,
