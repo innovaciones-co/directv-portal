@@ -111,13 +111,7 @@ export class PortinRequestComponent implements OnInit {
   
     // Convertir la fecha de solicitud ingresada (portWindow) a UTC y sumarle una hora.
     // Se asume que el usuario selecciona solo la fecha ("YYYY-MM-DD"), así que concatenamos "T00:00:00"
-    const selectedDate = new Date(this.portRequest.portWindow + "T00:00:00");
-    const now = new Date();
-    // Asignar la hora actual al día seleccionado
-    selectedDate.setHours(now.getHours(), now.getMinutes(), now.getSeconds(), now.getMilliseconds());
-    // Sumar 1 hora (3600000 ms)
-    selectedDate.setTime(selectedDate.getTime() + 3600000);
-    const formattedPortWindow = selectedDate.toISOString(); // Formato: "YYYY-MM-DDTHH:mm:ss.SSSZ"  
+    const formattedPortWindow = this.portRequest.portWindow + "T04:00:00";
  
     // Construir el objeto de solicitud
     const requestData = {
