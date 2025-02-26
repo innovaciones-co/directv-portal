@@ -87,9 +87,8 @@ export class PortOnComponent implements OnInit {
           return;
         }
         // 2. Validar que los 4 últimos dígitos del ICCID coincidan
-        const iccid: string = subscriptions[0].iccid;
-        const truncatedIccid = iccid.slice(0, -1);
-        const expectedSimLast4 = truncatedIccid.slice(-4);
+        const iccid: string = subscriptions[0].iccid;       
+        const expectedSimLast4 = iccid.slice(-4);
         if (this.simLast4 !== expectedSimLast4) {
           Swal.fire({
             title: 'Identificación fallida',
