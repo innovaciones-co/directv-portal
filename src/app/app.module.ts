@@ -26,6 +26,7 @@ import { PqrComponent } from './components/pqr/pqr.component';
 import { QuienesSomosComponent } from './components/quienes-somos/quienes-somos.component';
 import { PlanesComponent } from './components/planes/planes.component';
 import { LegalesComponent } from './components/legales/legales.component';
+import { PortOnContinueComponent } from './components/port-on-continue/port-on-continue.component';
 
 
 @NgModule({
@@ -39,7 +40,8 @@ import { LegalesComponent } from './components/legales/legales.component';
     PqrComponent,
     QuienesSomosComponent,
     PlanesComponent,
-    LegalesComponent
+    LegalesComponent,
+    PortOnContinueComponent
   ],
   imports: [
     BrowserModule,

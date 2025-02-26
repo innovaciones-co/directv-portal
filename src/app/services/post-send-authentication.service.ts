@@ -15,11 +15,13 @@ export class PostSendAuthenticationService {
   private phoneNumberToPortSubject = new BehaviorSubject<string>('');
   // Observable público al que se pueden suscribir otros componentes
   phoneNumberToPort$ = this.phoneNumberToPortSubject.asObservable();
-
+  
   constructor(private http: HttpClient, private configService: ConfigService) {
     this.apiBaseUrl = configService.apiBaseUrl;
   }
-
+  // Observable para almacenar el donorOperator
+  private donorOperatorSubject = new BehaviorSubject<string>('');
+  donorOperator$ = this.donorOperatorSubject.asObservable();
   /**
    * Envía la solicitud de autenticación y actualiza el observable phoneNumberToPort$.
    * @param subscriberId Número del suscriptor.
@@ -52,4 +54,12 @@ export class PostSendAuthenticationService {
       })
     );
   }
+    // Método para actualizar el donorOperator
+    updateDonorOperator(operatorCode: string): void {
+      this.donorOperatorSubject.next(operatorCode);
+    }
+    updatephoneNumber(phoneNumber: string): void {
+      this.donorOperatorSubject.next(phoneNumber);
+      this.phoneNumberToPortSubject.next(phoneNumber);
+    }
 }

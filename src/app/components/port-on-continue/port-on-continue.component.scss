@@ -1,0 +1,120 @@
+/* Encabezado del componente */
+.header-text {
+    width: 100%;
+    max-width: 600px; // Igual que el ancho máximo del formulario
+    margin: 0 auto 20px; // Centrados horizontalmente con margen inferior
+    text-align: center;
+    padding: 10px;
+  
+    .header-title {
+      font-size: 2.5em; // Título más grande
+      color: #0072C6; // Azul Directv
+      font-weight: bold;
+      margin-bottom: 10px;
+    }
+  
+    .header-description {
+      font-size: 1em;
+      color: #000; // Texto en negro
+      margin-bottom: 10px;
+    }
+  
+    .header-divider {
+      border: none;
+      height: 2px;
+      background-color: #66AADD; // Azul claro para la línea divisoria
+      width: 100%; // Igual al ancho del contenedor/formulario
+      margin: 0 auto;
+    }
+  }
+  
+  /* Estilos generales del formulario */
+  .form-container {
+    max-width: 600px; // Ancho máximo del formulario
+    margin: 50px auto 0; // Centrados horizontalmente, con margen superior
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    margin-top: 50px;
+  }
+  
+  /* Estilo para los campos del formulario */
+  .form-group {
+    margin-bottom: 20px;
+  }
+  
+  label {
+    display: block;
+    font-size: 16px;
+    margin-bottom: 8px;
+  }
+  
+  input {
+    width: 100%;
+    padding: 10px;
+    font-size: 16px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    box-sizing: border-box;
+  }
+  
+  input:focus {
+    border-color: #001799;
+    outline: none;
+  }
+  
+  /* Estilos para mostrar errores */
+  .error {
+    color: #888;
+    font-size: 12px;
+    margin-top: 5px;
+  }
+  
+  /* Estilo para los botones */
+  .buttons {
+    display: flex;
+    justify-content: space-between;
+    gap: 10px;
+  }
+  
+  .submit-button {
+    display: block;
+    margin: 20px auto; // Centrado horizontal con margen superior e inferior de 20px
+    padding: 10px 30px; // Espaciado interno para lograr un efecto ovalado
+    border: none;
+    border-radius: 50px; // Borde redondeado para formar un óvalo
+    background-color: #074b94; // Tono azul Directv
+    color: white;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    width: auto; // No ocupar todo el ancho
+  }
+  
+  .submit-button:disabled {
+    background-color: #ccc;
+  }
+  
+  .submit-button:hover {
+    background-color: #053261;
+  }
+  
+  .cancel-button {
+    display: block;
+    margin: 20px auto;        // Centrado horizontal con margen superior e inferior de 20px
+    padding: 10px 30px;        // Espaciado interno para lograr un efecto ovalado
+    border: none;
+    border-radius: 50px;       // Borde redondeado para formar un óvalo
+    background-color: #f44336; // Color de fondo rojo
+    color: white;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    width: auto;              // No ocupar todo el ancho
+  }
+  
+  .cancel-button:hover {
+    background-color: #e53935;
+  }
+  
