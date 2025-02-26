@@ -28,6 +28,7 @@ import { PlanesComponent } from './components/planes/planes.component';
 import { LegalesComponent } from './components/legales/legales.component';
 import { PortOnContinueComponent } from './components/port-on-continue/port-on-continue.component';
 import { TerminosCondicionesComponent } from './components/terminos-condiciones/terminos-condiciones.component';
+import { ConsultPqrComponent } from './components/consult-pqr/consult-pqr.component';
 
 
 @NgModule({
@@ -43,7 +44,8 @@ import { TerminosCondicionesComponent } from './components/terminos-condiciones/
     PlanesComponent,
     LegalesComponent,
     PortOnContinueComponent,
-    TerminosCondicionesComponent
+    TerminosCondicionesComponent,
+    ConsultPqrComponent
   ],
   imports: [
     BrowserModule,

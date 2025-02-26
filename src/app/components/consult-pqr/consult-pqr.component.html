@@ -1,0 +1,62 @@
+<!-- Encabezado -->
+<div class="header-text">
+    <h1 class="header-title">CONSULTA CUN.</h1>
+    <p class="header-description">
+      En este formulario puedes consultar tus PQRs y el estado de las mismas.
+    </p>
+    <hr class="header-divider">
+  </div>
+  
+  <!-- Formulario de consulta -->
+  <div class="form-container">
+    <form #pqrForm="ngForm" (ngSubmit)="onConsult()">
+      <div class="form-group">
+        <label for="directvNumber">Número Directv</label>
+        <input
+          type="text"
+          id="directvNumber"
+          name="directvNumber"
+          [(ngModel)]="directvNumber"
+          required
+          minlength="10"
+          maxlength="12"
+          pattern="^[0-9]*$"
+          (keypress)="onlyNumber($event)">
+        <div class="error" *ngIf="pqrForm.submitted && pqrForm.controls['directvNumber']?.invalid">
+          <small *ngIf="pqrForm.controls['directvNumber']?.errors?.['required']">El número es obligatorio.</small>
+          <small *ngIf="pqrForm.controls['directvNumber']?.errors?.['minlength']">El número debe tener al menos 10 dígitos.</small>
+          <small *ngIf="pqrForm.controls['directvNumber']?.errors?.['maxlength']">El número no puede tener más de 12 dígitos.</small>
+          <small *ngIf="pqrForm.controls['directvNumber']?.errors?.['pattern']">Solo se permiten números.</small>
+        </div>
+      </div>
+      <button type="submit" [disabled]="pqrForm.invalid || loading" class="submit-button">Consultar</button>
+    </form>
+  </div>
+  
+  <!-- Tabla con resultados y paginación -->
+  <div class="table-container" *ngIf="tickets && tickets.length > 0">
+    <table>
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Categoría</th>
+          <th>Título</th>
+          <th>Estado</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let ticket of pagedTickets; let i = index" [ngClass]="{'even-row': i % 2 === 0, 'odd-row': i % 2 !== 0}">
+          <td>{{ ticket.id }}</td>
+          <td>{{ ticket.categoria }}</td>
+          <td>{{ ticket.descripcion }}</td>
+          <td>{{ ticket.estado }}</td>
+        </tr>
+      </tbody>
+    </table>
+    <div class="pagination">
+      <button (click)="goToPrevious()" [disabled]="currentPage === 1">Anterior</button>
+      <span>Página {{ currentPage }} de {{ totalPages() }}</span>
+      <button (click)="goToNext()" [disabled]="currentPage === totalPages()">Siguiente</button>
+    </div>
+  </div>
+  
