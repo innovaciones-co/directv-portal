@@ -27,6 +27,7 @@ import { QuienesSomosComponent } from './components/quienes-somos/quienes-somos.
 import { PlanesComponent } from './components/planes/planes.component';
 import { LegalesComponent } from './components/legales/legales.component';
 import { PortOnContinueComponent } from './components/port-on-continue/port-on-continue.component';
+import { TerminosCondicionesComponent } from './components/terminos-condiciones/terminos-condiciones.component';
 
 
 @NgModule({
@@ -41,7 +42,8 @@ import { PortOnContinueComponent } from './components/port-on-continue/port-on-c
     QuienesSomosComponent,
     PlanesComponent,
     LegalesComponent,
-    PortOnContinueComponent
+    PortOnContinueComponent,
+    TerminosCondicionesComponent
   ],
   imports: [
     BrowserModule,

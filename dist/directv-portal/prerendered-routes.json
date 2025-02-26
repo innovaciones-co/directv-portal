@@ -1,8 +1,10 @@
 {
   "routes": [
     "/home",
-    "/planes",
+    "/legales",
+    "/plans",
     "/port-on",
+    "/port-on-continue",
     "/portin-request",
     "/pqr",
     "/theft"

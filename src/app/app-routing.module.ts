@@ -8,6 +8,7 @@ import { QuienesSomosComponent } from './components/quienes-somos/quienes-somos.
 import { PlanesComponent } from './components/planes/planes.component';
 import { LegalesComponent } from './components/legales/legales.component';
 import { PortOnContinueComponent } from './components/port-on-continue/port-on-continue.component';
+import { TerminosCondicionesComponent } from './components/terminos-condiciones/terminos-condiciones.component';
 
 const routes: Routes = [
   { path: 'port-on', component: PortOnComponent },
@@ -17,7 +18,8 @@ const routes: Routes = [
   { path: 'home', component: QuienesSomosComponent},
   { path: 'plans', component: PlanesComponent},
   { path:'legales', component: LegalesComponent},
-  { path: 'port-on-continue', component: PortOnContinueComponent},  
+  { path: 'port-on-continue', component: PortOnContinueComponent},
+  { path: 'terminos-y-condiciones', component:TerminosCondicionesComponent},
   { path: '', redirectTo: '/home', pathMatch: 'full' }
 ];
 
