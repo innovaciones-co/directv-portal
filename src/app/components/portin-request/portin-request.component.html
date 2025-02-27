@@ -33,7 +33,7 @@
 
      <!-- Campo: Fecha de Solicitud (requestedFutureDate) -->
 <mat-form-field appearance="fill" class="full-width">
-  <mat-label>Fecha de Solicitud</mat-label>
+  <mat-label>Fecha en la cual te quieres portar</mat-label>
   <input matInput 
          type="date" 
          name="requestedFutureDate" 
@@ -130,7 +130,7 @@
 
       <!-- Campo: Tipo de Servicio -->
       <mat-form-field appearance="fill" class="full-width">
-        <mat-label>Tipo de Servicio</mat-label>
+        <mat-label>Tipo de Servicio de tu operador actual</mat-label>
         <mat-select name="subscriberServiceType" [(ngModel)]="portRequest.subscriberServiceType" required>
           <mat-option value="" disabled>Seleccione</mat-option>
           <mat-option value="PREPAID">Prepago</mat-option>
