@@ -29,6 +29,8 @@ import { LegalesComponent } from './components/legales/legales.component';
 import { PortOnContinueComponent } from './components/port-on-continue/port-on-continue.component';
 import { TerminosCondicionesComponent } from './components/terminos-condiciones/terminos-condiciones.component';
 import { ConsultPqrComponent } from './components/consult-pqr/consult-pqr.component';
+import { HandsetComponent } from './components/handset/handset.component';
+import { QuestionsComponent } from './components/questions/questions.component';
 
 
 @NgModule({
@@ -45,7 +47,9 @@ import { ConsultPqrComponent } from './components/consult-pqr/consult-pqr.compon
     LegalesComponent,
     PortOnContinueComponent,
     TerminosCondicionesComponent,
-    ConsultPqrComponent
+    ConsultPqrComponent,
+    HandsetComponent,
+    QuestionsComponent
   ],
   imports: [
     BrowserModule,

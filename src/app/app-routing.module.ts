@@ -10,6 +10,8 @@ import { LegalesComponent } from './components/legales/legales.component';
 import { PortOnContinueComponent } from './components/port-on-continue/port-on-continue.component';
 import { TerminosCondicionesComponent } from './components/terminos-condiciones/terminos-condiciones.component';
 import { ConsultPqrComponent } from './components/consult-pqr/consult-pqr.component';
+import { HandsetComponent } from './components/handset/handset.component';
+import { QuestionsComponent } from './components/questions/questions.component';
 
 const routes: Routes = [
   { path: 'port-on', component: PortOnComponent },
@@ -22,6 +24,8 @@ const routes: Routes = [
   { path: 'port-on-continue', component: PortOnContinueComponent},
   { path: 'terminos-y-condiciones', component:TerminosCondicionesComponent},
   { path: 'pqr-consult', component:ConsultPqrComponent},
+  { path: 'handset', component:HandsetComponent},
+  { path: 'questions', component:QuestionsComponent},
   { path: '', redirectTo: '/home', pathMatch: 'full' }
 ];
 

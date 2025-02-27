@@ -1,0 +1,48 @@
+.handset-container {
+    background-color: #fff;
+    width: 700px;
+    margin: 20px auto;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    text-align: center;
+  
+    .header-text {
+      margin-bottom: 20px;
+  
+      .header-title {
+        font-size: 2em;
+        color: #0072C6; // Azul Directv
+        font-weight: bold;
+        margin-bottom: 10px;
+      }
+  
+      .header-divider {
+        border: none;
+        height: 2px;
+        background-color: #66AADD; // Azul claro
+        margin: 0 auto;
+        width: 100%;
+      }
+    }
+  
+    .content-text {
+      font-size: 1em;
+      color: #000;
+  
+      p {
+        margin: 10px 0;
+      }
+  
+      a {
+        color: #0072C6;
+        text-decoration: underline;
+        cursor: pointer;
+  
+        &:hover {
+          text-decoration: none;
+        }
+      }
+    }
+  }
+  

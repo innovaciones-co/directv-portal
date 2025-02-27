@@ -10,10 +10,10 @@
       <ul class="menu">
         <li><a routerLink="/home">¿Quiénes Somos?</a></li>
         <li><a routerLink="/plans">Planes</a></li>
-        <li><a href="#">Consulta y registra tu equipo</a></li>
+        <li><a routerLink="/handset">Consulta y registra tu equipo</a></li>
         <li><a routerLink="/port-on">Pórtate a DirecTV</a></li>
         <li class="dropdown">
-          <a href="#" (click)="toggleDropdown('info', $event)">Información Importante para Usuarios</a>
+          <a (click)="toggleDropdown('info', $event)">Información Importante para Usuarios</a>
           <ul class="submenu" [class.show]="dropdownStates['info']">
             <li>
               <a href="https://coberturadigital-uat-co.tigocloud.net/">Mapa de cobertura</a>
@@ -82,7 +82,7 @@
           </ul>
         </li>
         <li class="dropdown">
-          <a href="#" (click)="toggleDropdown('pqr', $event)">PQR</a>
+          <a (click)="toggleDropdown('pqr', $event)">PQR</a>
           <ul class="submenu" [class.show]="dropdownStates['pqr']">
             <li>
               <a routerLink="/pqr">Radica PQR</a>
@@ -109,10 +109,10 @@
     <ul class="menu">
       <li><a routerLink="/home">¿Quiénes Somos?</a></li>
       <li><a  routerLink="/plans">Planes</a></li>
-      <li><a href="#">Consulta y registra tu equipo</a></li>
+      <li><a routerLink="/handset">Consulta y registra tu equipo</a></li>
       <li><a routerLink="/port-on">Pórtate a DirecTV</a></li>
       <li class="dropdown">
-        <a href="#" (click)="toggleDropdown('info', $event)">Información Importante para Usuarios</a>
+        <a (click)="toggleDropdown('info', $event)">Información Importante para Usuarios</a>
         <ul class="submenu" [class.show]="dropdownStates['info']">
           <li>
             <a href="https://coberturadigital-uat-co.tigocloud.net/">Mapa de cobertura</a>
@@ -181,7 +181,7 @@
         </ul>
       </li>
       <li class="dropdown">
-        <a href="#" (click)="toggleDropdown('pqr', $event)">PQR</a>
+        <a (click)="toggleDropdown('pqr', $event)">PQR</a>
         <ul class="submenu" [class.show]="dropdownStates['pqr']">
           <li>
             <a routerLink="/pqr">Radica PQR</a>
