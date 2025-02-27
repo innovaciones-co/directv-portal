@@ -157,7 +157,7 @@ export class TheftComponent {
     Swal.fire({
       icon: 'error',
       title: 'Número no válido',
-      text: 'Parece que el número ingresado no tiene asociado un IMEI o no es de DirecTV.',
+      text: 'Parece que el número ingresado no tiene asociado un IMEI o no es de DirecTV, comunicate al *888',
       confirmButtonText: 'OK'
     }).then(() => {
       this.resetFormData();
