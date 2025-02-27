@@ -27,21 +27,6 @@
         ]
       },
       {
-        "name": "DIRECTV MOBILE 120GB",
-        "duration": "30 días",
-        "price": "$79.900",
-        "features": [
-          { "label": "Minutos Nacionales", "value": "Ilimitados", "icon": "phone.png" },
-          { "label": "SMS Nacionales", "value": "Ilimitados", "icon": "sms.png" },
-          { "label": "GB", "value": "120", "icon": "data.png" },
-          { "label": "WhatsApp", "value": "Ilimitado", "icon": "whatsapp.png" },
-          { "label": "Facebook", "value": "Ilimitado", "icon": "facebook.png" },
-          { "label": "Instagram", "value": "Ilimitado", "icon": "instagram.png" },
-          { "label": "Waze", "value": "Ilimitado", "icon": "waze.png" },
-          { "label": "X", "value": "Ilimitado", "icon": "x.png" }
-        ]
-      },
-      {
         "name": "DIRECTV MOBILE 150GB",
         "duration": "30 días",
         "price": "$99.900",

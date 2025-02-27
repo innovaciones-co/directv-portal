@@ -1,1 +1,17 @@
-<p>questions works!</p>
+<div class="faq-container">
+    <h1 class="faq-title">Preguntas Frecuentes</h1>
+    <hr class="faq-divider">
+    <div class="faq-item" *ngFor="let faq of faqs; let i = index">
+      <div class="faq-question" (click)="toggleQuestion(i)">
+        <span>{{ faq.title }}</span>
+        <span class="arrow" [ngClass]="{'open': faq.open}">▼</span>
+      </div>
+      <div class="faq-answer" *ngIf="faq.open">
+        <div *ngFor="let sub of faq.subquestions">
+          <p class="sub-question">{{ sub.question }}</p>
+          <p class="sub-answer" [innerHTML]="sub.answer"></p>
+        </div>
+      </div>
+    </div>
+  </div>
+  
