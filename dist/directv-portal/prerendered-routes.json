@@ -1,5 +1,6 @@
 {
   "routes": [
+    "/handset",
     "/home",
     "/legales",
     "/plans",
@@ -8,6 +9,7 @@
     "/portin-request",
     "/pqr",
     "/pqr-consult",
+    "/questions",
     "/terminos-y-condiciones",
     "/theft"
   ]
