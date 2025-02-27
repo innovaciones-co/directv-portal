@@ -4,13 +4,25 @@
       <ul class="footer-menu">
         <li><a routerLink="/legales">Legales</a></li>
         <li><a routerLink="/terminos-y-condiciones">Términos y condiciones</a></li>
-        <li><a href="https://lov.com.co/directv/documents/contactanos.pdf" target="_blank">Contáctanos</a></li>
+        <li><a (click)="toggleInfo($event, 'contactanos')">Contáctanos</a></li>
       </ul>
     </nav>
     <div class="footer-logos">
       <a href="#"><img src="assets/icons/facebook_footer.png" alt="Facebook Logo"></a>
       <a href="#"><img src="assets/icons/instagram_footer.png" alt="Instagram Logo"></a>
       <a href="#"><img src="assets/icons/linkedin_footer.png" alt="Linkedin Logo"></a>
+    </div>
+    <div class="footer-info" *ngIf="showContactInfo">
+      <h3>MEDIOS DE ATENCIÓN AL USUARIO</h3>
+      <p>
+        Tenemos varias opciones para que puedas comunicarte con nosotros:<br>
+        1. Líneas de atención telefónica: Desde línea DIRECTV: <strong>*888</strong><br>
+        2. Línea: <strong>018000423690</strong><br>
+        Si prefieres:<br>
+        Envíanos tu PQR diligenciando el formato que encuentras en nuestra página web<br>
+        <a href="https://www.directvla.com/co/radicar-pqr" target="_blank" rel="noopener noreferrer">https://www.directvla.com/co/radicar-pqr</a> (sección telefonía móvil) o directamente en el enlace:<br>
+        <a href="https://www.lov.com.co/directv/claim" target="_blank" rel="noopener noreferrer">https://www.lov.com.co/directv/claim</a>
+      </p>
     </div>
     <div class="footer-copy">
       <p>© 2025 Directv. Todos los derechos reservados.</p>

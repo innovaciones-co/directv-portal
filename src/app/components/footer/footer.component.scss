@@ -45,6 +45,29 @@
       }
     }
   }
+  .footer-info {
+    background-color: black; // Azul oscuro (similar al tono DirectTV)
+    padding: 20px;
+    border-radius: 8px;
+    margin-bottom: 20px;
+
+    h3 {
+      margin: 0 0 6px;
+      color: white;
+      font-size: 1.5em;
+    }
+
+    p {
+      margin: 0;
+      color: white;
+      line-height: 1.5;
+      text-align: justify; // Texto justificado
+      a {
+        color: white;
+        text-decoration: underline;
+      }
+    }
+  }
 
   .footer-copy {
     font-size: 14px;
