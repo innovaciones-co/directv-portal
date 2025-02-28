@@ -148,7 +148,7 @@ export class TheftComponent {
     Swal.fire({
       icon: 'warning',
       title: 'No hay IMEIs asociados',
-      text: 'Parece que no tienes IMEIs asociados a tu línea DirecTV. No puedes continuar el proceso por este medio. Por favor, contacta con un agente.',
+      text: 'Parece que no tienes IMEIs asociados a tu línea DirecTV. No puedes continuar el proceso por este medio. Por favor, comunicate al 018000423690.',
       confirmButtonText: 'OK'
     }).then(() => {
       this.resetFormData();
@@ -160,7 +160,7 @@ export class TheftComponent {
     Swal.fire({
       icon: 'error',
       title: 'Número no válido',
-      text: 'Parece que el número ingresado no tiene asociado un IMEI o no es de DirecTV, comunicate al *888',
+      text: 'Parece que el número ingresado no tiene asociado un IMEI o no es de DirecTV, comunicate al 018000423690',
       confirmButtonText: 'OK'
     }).then(() => {
       this.resetFormData();
@@ -273,7 +273,7 @@ export class TheftComponent {
                     Swal.fire({
                       icon: 'error',
                       title: 'Error en el bloqueo de la SIM',
-                      text: 'El estado de tu SIM es invalido, por favor llama al número 018000423690',
+                      text: 'No se puedo bloquear, por favor llama al número 018000423690',
                       confirmButtonText: 'OK'
                     }).then(() => {
                       this.resetFormData();
