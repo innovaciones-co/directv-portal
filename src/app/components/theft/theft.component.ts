@@ -266,15 +266,7 @@ export class TheftComponent {
                     //Crea ticket
                     this.createTroubleTicket();
                     //
-                    Swal.fire({
-                      icon: 'success',
-                      title: 'Bloqueo exitoso',
-                      text: 'El bloqueo del dispositivo y la SIM se realizaron con éxito.',
-                      confirmButtonText: 'OK'
-                    }).then(() => {
-                      this.resetFormData();
-                      this.router.navigate(['/home']);
-                    });
+                   
                   },
                   error: simError => {
                     console.error('Error en el bloqueo de la SIM:', simError);
