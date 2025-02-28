@@ -274,7 +274,7 @@ export class TheftComponent {
                     Swal.fire({
                       icon: 'error',
                       title: 'Error en el bloqueo de la SIM',
-                      text: 'El bloqueo del dispositivo fue exitoso, pero hubo un problema con el bloqueo de la SIM.',
+                      text: 'El estado de tu SIM es invalido, por favor llama al número 018000423690',
                       confirmButtonText: 'OK'
                     }).then(() => {
                       this.resetFormData();
