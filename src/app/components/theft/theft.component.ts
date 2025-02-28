@@ -3,6 +3,8 @@ import { QueryImeiService } from '../../services/query-imei.service';
 import { PutBlockDeviceByImeiService } from '../../services/put-block-device-by-imei.service';
 import { PutBlockSimByNumberService } from '../../services/put-block-sim-by-number.service';
 import { GetCustomersBySubscriptionService } from '../../services/get-customers-by-subscription.service';
+import { CreateTroubleTicketService } from '../../services/post-create-troubleticket.service';
+
 import Swal from 'sweetalert2';
 import { Router } from '@angular/router';
 import { format } from 'date-fns';
@@ -93,6 +95,7 @@ export class TheftComponent {
     private blockDeviceService: PutBlockDeviceByImeiService,
     private blockSimService: PutBlockSimByNumberService,
     private getCustomerService: GetCustomersBySubscriptionService,
+    private createTroubleTicketService: CreateTroubleTicketService,
     private router: Router
   ) {}
 
@@ -259,6 +262,10 @@ export class TheftComponent {
                 this.blockSimService.blockSimByPhoneNumber({ phoneNumber: this.formData.phoneNumber }).subscribe({
                   next: simResponse => {
                     console.log('Bloqueo de SIM exitoso:', simResponse);
+
+                    //Crea ticket
+                    this.createTroubleTicket();
+                    //
                     Swal.fire({
                       icon: 'success',
                       title: 'Bloqueo exitoso',
@@ -335,4 +342,33 @@ export class TheftComponent {
       event.preventDefault();
     }
   }
+  private createTroubleTicket(): void {
+    const ticketData = {
+      categoryId: '3123',
+      msisdn: this.formData.phoneNumber,
+      title: 'Bloqueo por Hurto o Extravio',
+      description: `Se bloquea el IMEI: ${this.selectedImei}`
+    };
+
+  this.createTroubleTicketService.createTroubleTicket(ticketData).subscribe({
+    next: (response) => {
+      Swal.fire({
+        icon: 'success',
+        title: 'Bloqueo exitoso',
+        text: `El bloqueo del dispositivo y la SIM se realizaron con éxito.\nSi encuentras o recuperas tu dispositivo, comunícate al 018000423690 para desbloquear tu dispositivo y usa el PIN: ${response['ser:ticketId']}`,
+        confirmButtonText: 'OK'
+      }).then(() => {
+        this.router.navigate(['/home']);
+      });
+    },
+    error: () => {
+      Swal.fire({
+        icon: 'error',
+        title: 'Error en la creación del ticket',
+        text: 'Hubo un problema al intentar registrar el ticket de bloqueo.',
+        confirmButtonText: 'OK'
+      });
+    }
+  });
+}
 }
