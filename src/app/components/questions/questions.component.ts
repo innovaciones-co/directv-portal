@@ -108,7 +108,7 @@ Los planes son recurrentes siempre que realices el pago mensual a tiempo. Una ve
             answer: `El servicio es prestado por LOV Telecomunicaciones S.A.S. en convenio con DIRECTV Colombia Ltda.`
           },
           {
-            question: '4.10 ¿Puedo usar mi SIM Kalley Móvil en cualquier equipo?',
+            question: '4.10 ¿Puedo usar mi SIM Directv Móvil en cualquier equipo?',
             answer: `Sí, siempre y cuando tu equipo esté registrado, no esté reportado como perdido o robado y esté homologado ante la CRC.`
           },
           {
