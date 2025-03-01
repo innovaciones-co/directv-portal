@@ -51,7 +51,7 @@ export class PortinRequestComponent implements OnInit {
     private getCustomersBySubscriptionService: GetCustomersBySubscriptionService,
     private getNetworkOperatorService: GetNetworkOperatorService,
     private router: Router
-  ) {}
+  ) { }
 
   ngOnInit(): void {
     // Calcular la fecha mínima para "Fecha de Solicitud": el día siguiente al día actual
@@ -105,14 +105,22 @@ export class PortinRequestComponent implements OnInit {
       });
       return;
     }
-  
+
     // Mapear el NIP al campo transparentData.nip (igual que authCode)
     this.portRequest.transparentData.nip = this.portRequest.authCode;
-  
+
     // Convertir la fecha de solicitud ingresada (portWindow) a UTC y sumarle una hora.
-    // Se asume que el usuario selecciona solo la fecha ("YYYY-MM-DD"), así que concatenamos "T00:00:00"
-    const formattedPortWindow = this.portRequest.portWindow + "T04:00:00";
- 
+    // Convertir la fecha seleccionada a un objeto Date con la hora 04:00:00 en hora local (Colombia)
+    const selectedDate = new Date(`${this.portRequest.portWindow}T04:00:00`);
+
+    // Ajustar la fecha a UTC sumando 5 horas (Colombia está en UTC-5)
+    selectedDate.setHours(selectedDate.getHours() + 5);
+
+    // Convertir a formato UTC ISO 8601 para enviarlo al backend
+    const formattedPortWindow = selectedDate.toISOString();
+
+    // Ahora `formattedPortWindow` contiene la fecha correcta en UTC
+
     // Construir el objeto de solicitud
     const requestData = {
       subscriberId: this.subscriberId,
@@ -133,7 +141,7 @@ export class PortinRequestComponent implements OnInit {
         subscriberServiceType: this.portRequest.subscriberServiceType
       }
     };
-  
+
     this.putPortInRequestService.sendPortInRequest(requestData).subscribe({
       next: response => {
         console.log('Solicitud de portabilidad enviada con éxito:', response);
