@@ -111,10 +111,10 @@ export class PortinRequestComponent implements OnInit {
 
     // Convertir la fecha de solicitud ingresada (portWindow) a UTC y sumarle una hora.
     // Convertir la fecha seleccionada a un objeto Date con la hora 04:00:00 en hora local (Colombia)
-    const selectedDate = new Date(`${this.portRequest.portWindow}T04:00:00`);
+    const selectedDate = new Date(`${this.portRequest.portWindow}T09:00:00`);
 
     // Ajustar la fecha a UTC sumando 5 horas (Colombia está en UTC-5)
-    selectedDate.setHours(selectedDate.getHours() + 5);
+    selectedDate.setHours(selectedDate.getHours());
 
     // Convertir a formato UTC ISO 8601 para enviarlo al backend
     const formattedPortWindow = selectedDate.toISOString();
@@ -159,7 +159,7 @@ export class PortinRequestComponent implements OnInit {
         Swal.fire({
           icon: 'error',
           title: 'Error',
-          text: error.message || 'Ocurrió un error al enviar la solicitud.',
+          text: 'Ocurrió un error al enviar la solicitud.',
           confirmButtonText: 'OK'
         });
       }
