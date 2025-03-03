@@ -12,6 +12,7 @@ import { TerminosCondicionesComponent } from './components/terminos-condiciones/
 import { ConsultPqrComponent } from './components/consult-pqr/consult-pqr.component';
 import { HandsetComponent } from './components/handset/handset.component';
 import { QuestionsComponent } from './components/questions/questions.component';
+import { HomologationComponent } from './components/homologation/homologation.component';
 
 const routes: Routes = [
   { path: 'port-on', component: PortOnComponent },
@@ -26,6 +27,7 @@ const routes: Routes = [
   { path: 'pqr-consult', component:ConsultPqrComponent},
   { path: 'handset', component:HandsetComponent},
   { path: 'questions', component:QuestionsComponent},
+  { path: 'homologation', component:HomologationComponent},
   { path: '', redirectTo: '/home', pathMatch: 'full' }
 ];
 
