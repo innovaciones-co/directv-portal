@@ -214,8 +214,10 @@ export class TheftComponent {
               return;
             }
             const reportDate = new Date();
+            // Ajustar la hora restando 5 horas (Colombia está en UTC-5)
+            reportDate.setHours(reportDate.getHours() - 5);
             const formattedReportDate = format(reportDate, "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'");
-
+            
             const reportTypeMapping: { [key: string]: string } = {
               'Hurto': 'THEFT_DEVICE',
               'Extravío': 'LOST_DEVICE'
