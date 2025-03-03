@@ -31,6 +31,7 @@ import { TerminosCondicionesComponent } from './components/terminos-condiciones/
 import { ConsultPqrComponent } from './components/consult-pqr/consult-pqr.component';
 import { HandsetComponent } from './components/handset/handset.component';
 import { QuestionsComponent } from './components/questions/questions.component';
+import { HomologationComponent } from './components/homologation/homologation.component';
 
 
 @NgModule({
@@ -49,7 +50,8 @@ import { QuestionsComponent } from './components/questions/questions.component';
     TerminosCondicionesComponent,
     ConsultPqrComponent,
     HandsetComponent,
-    QuestionsComponent
+    QuestionsComponent,
+    HomologationComponent
   ],
   imports: [
     BrowserModule,

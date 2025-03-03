@@ -31,20 +31,8 @@
                 Factores de limitación de la velocidad de internet
               </a>
             </li>
-            <li class="dropdown">
-              <a  href="https://lov.com.co/directv/documents/homologacion_de_equipo" (click)="toggleDropdown('homologacion', $event)">Homologación de equipo</a>
-              <ul class="submenu submenu-right" [class.show]="dropdownStates['homologacion']">
-                <li>
-                  <a href="https://www.tramitescrcom.gov.co/tramites/comun/guia.xhtml">
-                    Verifica si tu equipo está homologado
-                  </a>
-                </li>
-                <li>
-                  <a href="https://www.tramitescrcom.gov.co/tramites/comun/guia.xhtml">
-                    Homologa tu equipo
-                  </a>
-                </li>
-              </ul>
+            <li >
+              <a  routerLink="/homologation">Homologación de equipo</a>
             </li>
             <li>
               <a href="https://lov.com.co/directv/documents/procedimiento_y_tramites_pqr.pdf" target="_blank" rel="noopener noreferrer">

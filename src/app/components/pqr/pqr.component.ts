@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { CreateTroubleTicketService } from '../../services/post-create-troubleticket.service';
+import Swal from 'sweetalert2';
+import { Router } from '@angular/router';
 
 export interface CategoryOption {
   id: string;
@@ -199,7 +201,11 @@ export class PqrComponent implements OnInit {
   departments: string[] = [];
   cities: { [key: string]: string[] } = {};
 
-  constructor(private createTicketService: CreateTroubleTicketService) {}
+  constructor(private createTicketService: CreateTroubleTicketService,
+    private router: Router,
+  ) {
+    
+  }
 
   ngOnInit(): void {
     this.departments = [
@@ -303,15 +309,65 @@ Descripción: ${this.formData.complaintDescription}
 
       this.createTicketService.createTroubleTicket(ticketData).subscribe(
         response => {
-          console.log('Trouble Ticket created:', response);
-          form.resetForm();
-        },
+          if (response['ser:responseCode'] === '0'){
+          
+          
+                        Swal.fire({
+                          title: 'PQR creada',
+                          text: `Se creo la PQR`,
+                          icon: 'success',
+                          confirmButtonText: 'OK'
+                        }).then((result) => {
+                          if (result.isConfirmed) {
+                            form.resetForm();
+                            this.router.navigate(['/home']);
+                          }
+                        });
+        }
+        else {
+
+          Swal.fire({
+            title: 'Error al crear la PQR',
+            text: 'No se pudo crear la PQR por favor intenta mas tarde.',
+            icon: 'error',
+            confirmButtonText: 'OK'
+          }).then((result) => {
+            if (result.isConfirmed) {
+              form.resetForm();
+              this.router.navigate(['/home']);
+            }
+          });
+        }
+      }
+        ,
         error => {
-          console.error('Error creating Trouble Ticket:', error);
+              Swal.fire({
+                        title: 'Error al crear la PQR',
+                        text: 'No se pudo crear la PQR por favor intenta mas tarde.',
+                        icon: 'error',
+                        confirmButtonText: 'OK'
+                      }).then((result) => {
+                        if (result.isConfirmed) {
+                          form.resetForm();
+                          this.router.navigate(['/home']);
+                        }
+                      });
+
         }
       );
     } else {
-      console.error('Formulario inválido o la política no fue aceptada');
+
+      Swal.fire({
+        title: 'Error al crear la PQR',
+        text: 'No se pudo crear la PQR por favor intenta mas tarde.',
+        icon: 'error',
+        confirmButtonText: 'OK'
+      }).then((result) => {
+        if (result.isConfirmed) {
+          form.resetForm();
+          this.router.navigate(['/home']);
+        }
+      });
     }
   }
 }

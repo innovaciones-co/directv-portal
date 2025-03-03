@@ -1,6 +1,6 @@
 <!-- Encabezado -->
 <div class="header-text">
-    <h1 class="header-title">CONSULTA CUN.</h1>
+    <h1 class="header-title">CONSULTA PQR.</h1>
     <p class="header-description">
       En este formulario puedes consultar tus PQRs y el estado de las mismas.
     </p>
@@ -39,6 +39,7 @@
       <thead>
         <tr>
           <th>ID</th>
+          <th>CUN</th>
           <th>Categoría</th>
           <th>Título</th>
           <th>Estado</th>
@@ -47,6 +48,7 @@
       <tbody>
         <tr *ngFor="let ticket of pagedTickets; let i = index" [ngClass]="{'even-row': i % 2 === 0, 'odd-row': i % 2 !== 0}">
           <td>{{ ticket.id }}</td>
+          <td>{{ ticket.cun }}</td>
           <td>{{ ticket.categoria }}</td>
           <td>{{ ticket.descripcion }}</td>
           <td>{{ ticket.estado }}</td>

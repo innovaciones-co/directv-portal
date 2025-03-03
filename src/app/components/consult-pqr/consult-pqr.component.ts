@@ -64,6 +64,7 @@ export class ConsultPqrComponent implements OnInit {
           // usando el título del ticket en lugar de la descripción
           this.tickets = ticketData.map((ticket: any) => ({
             id: ticket['ser:ticketId'],
+            cun:ticket.cunId,
             categoria: ticket['ser:categoryName']?.trim(),
             descripcion: ticket['ser:title'],
             estado: ticket['ser:status']
