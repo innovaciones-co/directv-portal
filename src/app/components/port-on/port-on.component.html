@@ -9,6 +9,27 @@
   <!-- Línea divisoria que separa el encabezado del formulario -->
   <hr class="header-divider">
 </div>
+<!-- Descripción del Proceso de Portabilidad -->
+<div class="portability-info">
+  <h2 class="info-title">¿Cómo hacer la portabilidad a DirecTV?</h2>
+  <p class="info-description">
+    Portar tu número a DirecTV es un proceso rápido, seguro y sencillo. Sigue estos pasos para completar tu portabilidad sin complicaciones:
+  </p>
+
+  <ol class="portability-steps">
+    <li><strong>Solicitud de Portabilidad:</strong> Ingresa tu número actual y tu nuevo número DirecTV en el formulario de solicitud, luego digita tus datos personales.</li>
+    <li><strong>Recepción del NIP:</strong> Recibirás un SMS en el número que deseas portar con un código único.</li>
+    <li><strong>Verificación del NIP:</strong> Ingresa el NIP en el formulario para confirmar tu solicitud.</li>
+    <li><strong>Confirmación de Datos:</strong> Revisa que toda la información ingresada sea correcta antes de continuar.</li>
+    <li><strong>Procesamiento y Finalización:</strong> Recibirás una notificación cuando la portabilidad se haya completado.</li>
+  </ol>
+
+  <p class="info-footer">
+    <strong>¿Necesitas ayuda?</strong> Si saliste del formulario de solicitud de portabilidad, ¡no hay problema! Sigue tu proceso en la opción <strong>Retomar Proceso de Portabilidad</strong>.  
+    Si tienes dudas, comunícate con nuestro centro de atención al cliente al número <strong>018000423690</strong> para recibir asistencia.
+  </p>
+</div>
+
 
 <!-- Formulario principal -->
 <form (ngSubmit)="onSubmit()" #nipForm="ngForm" class="form-container">
@@ -16,7 +37,7 @@
   
   <!-- Campo: Número Telefónico a Portar -->
   <div class="form-group">
-    <label for="phoneNumber">Número Telefónico a Portar</label>
+    <label for="phoneNumber">Número Telefónico a Portar (Actual)</label>
     <input
       type="text"
       id="phoneNumber"

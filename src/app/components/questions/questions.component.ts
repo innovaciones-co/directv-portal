@@ -101,7 +101,7 @@ Los planes son recurrentes siempre que realices el pago mensual a tiempo. Una ve
           },
           {
             question: '4.8 ¿Dónde puedo hacer mis reclamaciones?',
-            answer: `Puedes hacer tus reclamaciones llamando al *888 (opción 4) o al 018000423690. También puedes consultar el <a href="https://www.lov.com.co/directv/Procedimiento_y_Tramite_de_PQR.pdf" target="_blank">Procedimiento y Trámite de PQR</a>.`
+            answer: `Puedes hacer tus reclamaciones llamando al *888 (opción 4) o al 018000423690. También puedes consultar el <a href="https://lov.com.co/directv/documents/procedimiento_y_tramites_pqr.pdf">Procedimiento y Trámite de PQR</a>.`
           },
           {
             question: '4.9 ¿Quién es el prestador del servicio?',

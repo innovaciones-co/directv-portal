@@ -153,7 +153,7 @@ export class PortOnComponent implements OnInit {
             } else {
               Swal.fire({
                 title: 'NIP solicitado',
-                text: `El NIP ha sido solicitado correctamente para el número ${this.phoneNumberToPort}`,
+                text: `El NIP ha sido solicitado correctamente para el número ${this.phoneNumberToPort}, Este NIP es un código que te llegará como SMS al número que deseas portar a DirecTV. Revisa tus mensajes de texto con tu SIM de tu operador actual.`,
                 icon: 'success',
                 confirmButtonText: 'OK'
               }).then((result) => {
