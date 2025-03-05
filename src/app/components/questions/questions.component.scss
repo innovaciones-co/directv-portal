@@ -1,60 +1,61 @@
-.faq-container {
-    max-width: 600px;
-    margin: 50px auto;
-    padding: 20px;
-    background: #fff;
-    border-radius: 8px;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-  }
+.questions-container {
+  max-width: 600px;
+  margin: 20px auto;
+  padding: 20px;
+  font-family: 'Roboto', sans-serif;
+  text-align: justify;
+}
+
+.faq-item {
+  border-bottom: 1px solid #66AADD;
+  padding: 10px 0;
+}
+
+.faq-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  cursor: pointer;
   
-  .faq-title {
-    font-size: 2.5em;
-    color: #0072C6; // Azul Directv
+  h3 {
+    color: #0072C6;  // Directv blue
+    margin: 0;
+    font-size: 1.2em;
     font-weight: bold;
-    text-align: center;
+  }
+  
+  .dropdown-icon {
+    font-size: 1.2em;
+    color: #0072C6;
+  }
+}
+
+.faq-content {
+  margin-top: 10px;
+  .faq-answer {
     margin-bottom: 10px;
+    color: #333;
+    font-size: 1em;
+    white-space: pre-line;
   }
   
-  .faq-divider {
-    border: none;
-    height: 2px;
-    background-color: #66AADD; // Azul claro
-    width: 100%;
-    margin: 0 auto 20px;
-  }
-  
-  .faq-item {
-    border-bottom: 1px solid #ddd;
-    padding: 10px 0;
-  
-    .faq-question {
-      cursor: pointer;
-      font-size: 1.2em;
-      font-weight: bold;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-    }
-  
-    .faq-answer {
-      margin-top: 10px;
-  
-      p {
-        margin: 5px 0;
-        font-size: 1em;
-        color: #333;
-      }
-  
-      .sub-question {
+  .faq-sublist {
+    list-style: none;
+    padding-left: 20px;
+    
+    li {
+      margin-bottom: 10px;
+      h4 {
+        color: #0072C6;
+        font-size: 1.1em;
+        margin: 0;
         font-weight: bold;
       }
-    }
-  
-    .arrow {
-      transition: transform 0.3s ease;
-      &.open {
-        transform: rotate(180deg);
+      .sub-answer {
+        color: #333;
+        font-size: 0.95em;
+        white-space: pre-line;
       }
     }
   }
-  
+}
