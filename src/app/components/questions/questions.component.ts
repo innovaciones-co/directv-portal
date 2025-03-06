@@ -99,7 +99,7 @@ Si necesitas más datos para seguir navegando, puedes adquirir otro plan en <a h
         {
           question: "5.8 ¿Dónde puedo hacer mis reclamaciones?",
           answer: `Las reclamaciones las puedes hacer por los canales de atención telefónico marcando desde tu línea móvil DIRECTV al *888 (opción 4), o desde cualquier teléfono al 018000423690.
-También tienes el recurso de PQR, opción que puedes encontrar en el siguiente link: <a href="https://www.lov.com.co/directv/atencion_al_usuario/procedimiento_y_tramites_pqr.pdf" target="_blank">Procedimiento y Trámites PQR</a> and the form: <a href="https://www.lov.com.co/directv/claim" target="_blank">Claim</a>.
+También tienes el recurso de PQR, opción que puedes encontrar en el siguiente link: <a href="https://www.lov.com.co/directv/atencion_al_usuario/procedimiento_y_tramites_pqr.pdf" target="_blank">Procedimiento y Trámites PQR</a> y al formulario: <a href="https://www.lov.com.co/directv/claim" target="_blank">www.lov.com.co/directv/claim</a>.
 Ten presente que el servicio es operado por LOV TELECOMUNICACIONES S.A.S.`
         },
         {
