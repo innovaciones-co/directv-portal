@@ -1,6 +1,9 @@
 <div class="fraudes-container">
   <a href="https://www.crcom.gov.co/es/micrositios/comunicados-como-es" target="_blank">
-    <img src="/directv/images/BANNER_FRAUDES_EN_PORTABILIDAD.jpg" alt="fraudes">
+    <picture>
+      <source media="(max-width: 900px)" srcset="/directv/images/FRAUDES_EN_PORTABILIDAD_V2_small.jpg">
+      <img src="/directv/images/FRAUDES_EN_PORTABILIDAD_V2.jpg" alt="fraudes">
+    </picture>
   </a>
 </div>
 <!-- Encabezado del componente -->
@@ -9,52 +12,53 @@
   <h1 class="header-title">¡Cámbiate a DIRECTV con tu mismo número!</h1>
   <!-- Descripción debajo del título -->
   <p class="header-description">
-    Con DIRECTV puedes mantener tu número celular actual. Con la portabilidad numérica, puedes cambiarte sin perder tu número telefónico. Es sencillo: solicita tu NIP, confírmalo y en pocos pasos, comienza a disfrutar de nuestro servicio de telefonía móvil. ¡Únete a DIRECTV y vive la experiencia sin complicaciones!
+    Con DIRECTV puedes mantener tu número celular actual. Con la portabilidad numérica, puedes cambiarte sin perder tu
+    número telefónico. Es sencillo: solicita tu NIP, confírmalo y en pocos pasos, comienza a disfrutar de nuestro
+    servicio de telefonía móvil. ¡Únete a DIRECTV y vive la experiencia sin complicaciones!
   </p>
   <!-- Línea divisoria que separa el encabezado del formulario -->
   <hr class="header-divider">
 </div>
 <!-- Descripción del Proceso de Portabilidad -->
-<div class="portability-info">
-  <h2 class="info-title">¿Cómo hacer la portabilidad a DIRECTV?</h2>
-  <p class="info-description">
-    Portar tu número a DIRECTV es un proceso rápido, seguro y sencillo. Sigue estos pasos para completar tu portabilidad sin complicaciones:
-  </p>
+<div class="portability">
+  <div class="portability-info">
+    <h2 class="info-title">¿Cómo hacer la portabilidad a DIRECTV?</h2>
+    <p class="info-description">
+      Portar tu número a DIRECTV es un proceso rápido, seguro y sencillo. Sigue estos pasos para completar tu
+      portabilidad sin complicaciones:
+    </p>
 
-  <ol class="portability-steps">
-    <li><strong>Solicitud de Portabilidad:</strong> Ingresa tu número actual y tu nuevo número DIRECTV en el formulario de solicitud, luego digita tus datos personales.</li>
-    <li><strong>Recepción del NIP:</strong> Recibirás un SMS desde el remitente 88892 informando el código NIP de 5 dígitos, en el número que deseas portar.</li>
-    <li><strong>Verificación del NIP:</strong> Ingresa el NIP en el formulario para confirmar tu solicitud.</li>
-    <li><strong>Confirmación de Datos:</strong> Revisa que toda la información ingresada sea correcta antes de continuar.</li>
-    <li><strong>Procesamiento y Finalización:</strong> Recibirás una notificación cuando la portabilidad se haya completado.</li>
-  </ol>
+    <ol class="portability-steps">
+      <li><strong>Solicitud de Portabilidad:</strong> Ingresa tu número actual y tu nuevo número DIRECTV en el
+        formulario de solicitud, luego digita tus datos personales.</li>
+      <li><strong>Recepción del NIP:</strong> Recibirás un SMS desde el remitente 88892 informando el código NIP de 5
+        dígitos, en el número que deseas portar.</li>
+      <li><strong>Verificación del NIP:</strong> Ingresa el NIP en el formulario para confirmar tu solicitud.</li>
+      <li><strong>Confirmación de Datos:</strong> Revisa que toda la información ingresada sea correcta antes de
+        continuar.</li>
+      <li><strong>Procesamiento y Finalización:</strong> Recibirás una notificación cuando la portabilidad se haya
+        completado.</li>
+    </ol>
 
-  <p class="info-footer">
-    <strong>¿Necesitas ayuda?</strong> Si saliste del formulario de solicitud de portabilidad, ¡no hay problema! Sigue tu proceso en la opción <strong>Retomar Proceso de Portabilidad</strong>.  
-    Si tienes dudas, comunícate con nuestro centro de atención al cliente al número <strong>018000423690</strong> para recibir asistencia.
-  </p>
+    <p class="info-footer">
+      <strong>¿Necesitas ayuda?</strong> Si saliste del formulario de solicitud de portabilidad, ¡no hay problema! Sigue
+      tu proceso en la opción <strong>Retomar Proceso de Portabilidad</strong>.
+      Si tienes dudas, comunícate con nuestro centro de atención al cliente al número <strong>018000423690</strong> para
+      recibir asistencia.
+    </p>
+  </div>
 </div>
-
 
 <!-- Formulario principal -->
 <form (ngSubmit)="onSubmit()" #nipForm="ngForm" class="form-container">
   <h2>Solicitud de NIP</h2>
-  
+
   <!-- Campo: Número Telefónico a Portar -->
   <div class="form-group">
     <label for="phoneNumber">Número Telefónico a Portar (Actual)</label>
-    <input
-      type="text"
-      id="phoneNumber"
-      name="phoneNumber"
-      [(ngModel)]="phoneNumberToPort"
-      #evaluateNumbertoPort="ngModel"
-      required
-      minlength="10"
-      maxlength="12"
-      pattern="^[0-9]*$"
-      (keypress)="onlyNumber($event)"
-    />
+    <input type="text" id="phoneNumber" name="phoneNumber" [(ngModel)]="phoneNumberToPort"
+      #evaluateNumbertoPort="ngModel" required minlength="10" maxlength="12" pattern="^[0-9]*$"
+      (keypress)="onlyNumber($event)" />
     <!-- Errores de validación -->
     <div class="error" *ngIf="evaluateNumbertoPort.touched && evaluateNumbertoPort.invalid">
       <small *ngIf="evaluateNumbertoPort.errors?.['required']">El número es obligatorio.</small>
@@ -67,42 +71,24 @@
   <!-- Campo: Número DirecTV -->
   <div class="form-group">
     <label for="phoneNumberCurrent">Número DIRECTV</label>
-    <input
-      type="text"
-      id="phoneNumberCurrent"
-      name="phoneNumberCurrent"
-      [(ngModel)]="CurrentPhoneNumber"
-      #EvaluateCurrentPhoneNumber="ngModel"
-      required
-      minlength="10"
-      maxlength="12"
-      pattern="^[0-9]*$"
-      (keypress)="onlyNumber($event)"
-    />
+    <input type="text" id="phoneNumberCurrent" name="phoneNumberCurrent" [(ngModel)]="CurrentPhoneNumber"
+      #EvaluateCurrentPhoneNumber="ngModel" required minlength="10" maxlength="12" pattern="^[0-9]*$"
+      (keypress)="onlyNumber($event)" />
     <!-- Errores de validación -->
     <div class="error" *ngIf="EvaluateCurrentPhoneNumber.touched && EvaluateCurrentPhoneNumber.invalid">
       <small *ngIf="EvaluateCurrentPhoneNumber.errors?.['required']">El número es obligatorio.</small>
       <small *ngIf="EvaluateCurrentPhoneNumber.errors?.['minlength']">El número debe tener al menos 10 dígitos.</small>
-      <small *ngIf="EvaluateCurrentPhoneNumber.errors?.['maxlength']">El número no puede tener más de 12 dígitos.</small>
+      <small *ngIf="EvaluateCurrentPhoneNumber.errors?.['maxlength']">El número no puede tener más de 12
+        dígitos.</small>
       <small *ngIf="EvaluateCurrentPhoneNumber.errors?.['pattern']">Solo se permiten números.</small>
     </div>
   </div>
-  
+
   <!-- Nuevo campo: Últimos 4 dígitos del serial de tu SIM -->
   <div class="form-group">
     <label for="simLast4">Últimos 4 dígitos del serial de tu SIM</label>
-    <input
-      type="text"
-      id="simLast4"
-      name="simLast4"
-      [(ngModel)]="simLast4"
-      #evaluateSimLast4="ngModel"
-      required
-      minlength="4"
-      maxlength="4"
-      pattern="^[0-9]*$"
-      (keypress)="onlyNumber($event)"
-    />
+    <input type="text" id="simLast4" name="simLast4" [(ngModel)]="simLast4" #evaluateSimLast4="ngModel" required
+      minlength="4" maxlength="4" pattern="^[0-9]*$" (keypress)="onlyNumber($event)" />
     <div class="error" *ngIf="evaluateSimLast4.touched && evaluateSimLast4.invalid">
       <small *ngIf="evaluateSimLast4.errors?.['required']">Este campo es obligatorio.</small>
       <small *ngIf="evaluateSimLast4.errors?.['minlength'] || evaluateSimLast4.errors?.['maxlength']">
@@ -111,7 +97,7 @@
       <small *ngIf="evaluateSimLast4.errors?.['pattern']">Solo se permiten números.</small>
     </div>
   </div>
-  
+
   <!-- Botones del formulario -->
   <div class="buttons">
     <button type="submit" [disabled]="nipForm.invalid" class="submit-button">Solicitar NIP</button>
@@ -123,9 +109,10 @@
 <div class="form-container">
   <h2>Retomar Proceso de Portabilidad</h2>
   <p class="retomar-description">
-    Este proceso es para retomar la solicitud de portabilidad que dejaste pendiente. Recuerda que solo puedes retomar el proceso si ya has recibido el NIP del operador donante.
+    Este proceso es para retomar la solicitud de portabilidad que dejaste pendiente. Recuerda que solo puedes retomar el
+    proceso si ya has recibido el NIP del operador donante.
   </p>
   <div class="retomar-buttons">
-    <button type="button" class="submit-button" (click)="onContinueProcess()">Continuar proceso</button>   
+    <button type="button" class="submit-button" (click)="onContinueProcess()">Continuar proceso</button>
   </div>
 </div>
