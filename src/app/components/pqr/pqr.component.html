@@ -38,10 +38,26 @@
              (keypress)="onlyNumber($event)">
       <mat-error *ngIf="!formData.documentNumber && pqrForm.submitted">Campo obligatorio</mat-error>
     </mat-form-field>
+    
     <mat-form-field appearance="fill">
       <mat-label>Correo electrónico</mat-label>
-      <input matInput type="email" name="email" [(ngModel)]="formData.email" required>
+      <input matInput 
+             type="email" 
+             name="email" 
+             [(ngModel)]="formData.email" 
+             required 
+             email 
+             #emailInput="ngModel">
+      <mat-error *ngIf="emailInput.invalid && (emailInput.dirty || emailInput.touched)">
+        <ng-container *ngIf="emailInput.errors?.['required']">
+          El correo es obligatorio.
+        </ng-container>
+        <ng-container *ngIf="emailInput.errors?.['email'] && !emailInput.errors?.['required']">
+          Ingresa un correo electrónico válido.
+        </ng-container>
+      </mat-error>
     </mat-form-field>
+    
     <mat-form-field appearance="fill">
       <mat-label>Tu Número Directv</mat-label>
       <input matInput 
