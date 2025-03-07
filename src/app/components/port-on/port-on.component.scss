@@ -174,3 +174,28 @@ button {
     margin-top: 10px;
   }
 }
+.fraudes-container {
+  display: flex;
+  justify-content: center; // Centrar horizontalmente
+  align-items: center; // Alinear elementos dentro del div
+  margin-bottom: 20px; // Margen respecto al footer
+  width: 100%; // Ocupar todo el ancho
+
+  a {
+    display: block;
+    width: 80%; // Ajusta el ancho de la imagen (puedes modificarlo según necesidad)
+    max-width: 1500px; // Máximo tamaño permitido
+  }
+
+  img {
+    width: 100%; // La imagen se ajusta al contenedor
+    height: auto; // Mantiene la proporción
+    border-radius: 10px; // Bordes redondeados opcionales
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2); // Sombra ligera
+    transition: transform 0.3s ease-in-out; // Efecto al pasar el mouse
+
+    &:hover {
+      transform: scale(1.05); // Efecto de zoom al pasar el cursor
+    }
+  }
+}
