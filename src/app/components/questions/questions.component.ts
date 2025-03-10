@@ -49,7 +49,8 @@ b) En cualquiera de los puntos de pago de nuestros aliados. Consulta nuestra red
           question: "3.1 ¿Qué es un plan DIRECTV?",
           answer: `Es un conjunto de recursos precargados de minutos, datos y mensajes de texto con una vigencia determinada. Al activar un plan, podrás disfrutar de todos los recursos que incluye hasta que te los consumas en su totalidad o hasta la vigencia del plan, lo que ocurra primero.
 Conoce nuestros planes en www.directvla.com (menú servicios opción telefonía móvil), donde puedes consultar los planes disponibles.
-Nuestros planes DIRECTV son recurrentes siempre y cuando realices a tiempo el pago mensual de tu línea para cubrir el valor total del plan. Una vez hayas comprado un plan, quedas inscrito en este. Conoce más acerca de los términos y condiciones de la oferta comercial en <a href="https://www.lov.com.co/directv/TyC/terminos_y_condiciones_de_la_oferta_comercial.pdf" target="_blank">www.lov.com.co/directv/TyC/terminos_y_condiciones_de_la_oferta_comercial.pdf.</a>`
+Nuestros planes DIRECTV son recurrentes siempre y cuando realices a tiempo el pago mensual de tu línea para cubrir el valor total del plan. Una vez hayas comprado un plan, quedas inscrito en este.<br>
+ Conoce más acerca de los términos y condiciones de la oferta comercial en <a href="https://www.lov.com.co/directv/TyC/terminos_y_condiciones_de_la_oferta_comercial.pdf" target="_blank">terminos_y_condiciones_de_la_oferta</a>`
         }
       ],
       expanded: false

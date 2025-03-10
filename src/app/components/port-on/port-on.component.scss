@@ -131,15 +131,20 @@ button {
 .cancel-button:hover {
   background-color: #e53935;
 }
+.portability{
+  max-width: 500px;
+  margin: 0 auto 20px;     // Centrados horizontalmente con margen inferior
+  text-align: center;
+  padding: 10px;
+}
 .portability-info {
   width: 100%;
-  max-width: 600px;       // Igual que el ancho máximo del formulario
+  max-width: 500px;       // Igual que el ancho máximo del formulario
   margin: 0 auto 20px;     // Centrados horizontalmente con margen inferior
   text-align: center;
   padding: 20px;
   border-radius: 8px;
   margin-bottom: 20px;
-  max-width: 600px;    // Ancho máximo del formulario
 
   .info-title {
     font-size: 20px;
@@ -172,5 +177,30 @@ button {
     color: #0072c6;
     font-weight: bold;
     margin-top: 10px;
+  }
+}
+.fraudes-container {
+  display: flex;
+  justify-content: center; // Centrar horizontalmente
+  align-items: center; // Alinear elementos dentro del div
+  margin-bottom: 20px; // Margen respecto al footer
+  width: 100%; // Ocupar todo el ancho
+
+  a {
+    display: block;
+    width: 80%; // Ajusta el ancho de la imagen (puedes modificarlo según necesidad)
+    max-width: 1500px; // Máximo tamaño permitido
+  }
+
+  img {
+    width: 100%; // La imagen se ajusta al contenedor
+    height: auto; // Mantiene la proporción
+    border-radius: 10px; // Bordes redondeados opcionales
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2); // Sombra ligera
+    transition: transform 0.3s ease-in-out; // Efecto al pasar el mouse
+
+    &:hover {
+      transform: scale(1.05); // Efecto de zoom al pasar el cursor
+    }
   }
 }
