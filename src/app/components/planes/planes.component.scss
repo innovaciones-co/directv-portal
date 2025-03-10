@@ -3,7 +3,7 @@
   width: 100%;
   max-width: 1200px;
   margin: 50px auto;
-  height: 500px;
+  height: 700px; // Increased height for more space
   display: flex;
   align-items: center;
   justify-content: center;
@@ -21,7 +21,7 @@
 .plan-card {
   position: absolute;
   width: 300px;
-  height: 450px;
+  height: 500px;
   background: white;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
   border: 1px solid #ccc;
@@ -52,7 +52,7 @@
 }
 
 .card-header {
-  background-color: #0072C6;  // Azul Directv
+  background-color: #0072C6; // Directv Blue
   color: white;
   padding: 10px;
   border-radius: 4px 4px 0 0;
@@ -117,4 +117,24 @@
 
 .carousel-control.next {
   right: 10px;
+}
+
+.submit-button {
+  display: block;
+  margin: 20px auto; // Centered with 20px vertical margin
+  padding: 10px 30px; // Padding for an oval effect
+  border: none;
+  border-radius: 50px; // Oval shape
+  background-color: #074b94; // Directv tone
+  color: white;
+  transition: background-color 0.3s ease;
+  width: auto; // Does not stretch full width
+}
+
+.submit-button:disabled {
+  background-color: #ccc;
+}
+
+.submit-button:hover {
+  background-color: #053261;
 }

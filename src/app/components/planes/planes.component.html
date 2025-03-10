@@ -1,7 +1,7 @@
 <div class="carousel-container">
   <button class="carousel-control prev" (click)="prevSlide()">&#9664;</button>
 
-  <div class="carousel">
+  <div class="carousel" href="https://directv.paymentez.com/pospago#no-back-button">
     <div *ngFor="let plan of plans; let i = index" class="plan-card" [ngClass]="getClass(i)">
       <div class="card-header">
         <h3>{{ plan.name }}</h3>
@@ -17,6 +17,9 @@
             <span class="feature-text"><strong>{{ feature.label }}:</strong> {{ feature.value }}</span>
           </li>
         </ul>
+        <a href="https://directv.paymentez.com/pospago#no-back-button" class="submit-button">
+          Comprar
+        </a>
       </div>
     </div>
   </div>
