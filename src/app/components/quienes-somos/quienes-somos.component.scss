@@ -1,30 +1,40 @@
 .quienes-somos {
-    text-align: center;
-    padding: 20px;
-  
-    .title {
-      font-size: 2em;
-      color: #0072C6; // Azul Directv
-      font-weight: bold;
-      margin-bottom: 10px;
-    }
-  
-    .divider {
-      width: 50%;
-      height: 2px;
-      background-color: #0072C6; // Mismo tono azul
-      border: none;
-      margin: 0 auto 20px;
-    }
-  
-    .content {
-      font-size: 1em;
-      color: #333;
-      line-height: 1.5;
-      text-align: justify;
-      
-    }
+  text-align: center;
+  padding: 20px;
+  max-width: 550px; // Changed max width to 550px
+  margin: 0 auto 20px; // Center the container horizontally and add bottom margin
+
+  .title {
+    font-size: 2em;
+    color: #0072C6; // Directv Blue
+    font-weight: bold;
+    margin-bottom: 10px;
   }
+
+  .divider {
+    width: 50%;
+    height: 2px;
+    background-color: #0072C6; // Same Directv Blue
+    border: none;
+    margin: 0 auto 20px;
+  }
+
+  .content {
+    font-size: 1em;
+    color: #333;
+    line-height: 1.5;
+  }
+}
+
+p {
+  margin-bottom: 15px;
+}
+
+.quienes-somos-content {
+  padding-left: 20px;
+  font-size: 16px;
+  text-align: justify;
+}
 
   .fraudes-container {
     display: flex;
