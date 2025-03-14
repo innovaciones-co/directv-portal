@@ -134,6 +134,11 @@ Si decides continuar con la cancelación, comunícate desde tu línea DIRECTV ma
         {
           question: "5.14 ¿Cómo registrar mi equipo?",
           answer: `Muy sencillo, lo podrás hacer registrando tu equipo marcando desde la línea móvil DIRECTV *888 opción 3.`
+        },
+        {
+          question: "5.15 ¿Qué hago en caso de pérdida o robo de dispositivo?",
+          answer: `Para reportar la pérdida o robo del celular, podrá hacerlo por vía telefónica al 018000423690 o ingresando al link <a href="https://www.lov.com.co/directv/perdida_o_hurto" target="_blank"> https://www.lov.com.co/directv/perdida_o_hurto </a>, una vez se comunique solicite el bloqueo del aparato y la suspensión de la línea telefónica.<br>
+          También debe denunciar si es robo en la plataforma de la Policía Nacional, <a href="https://urldefense.com/v3/__https://adenunciar.policia.gov.co/adenunciar/frm_salas.aspx__;!!ChWRnQ646yhd!WwABEa4HoyzPPyDU3YcBzfJLjTDMh3ncfAf4a9GHEEyQVaIUIljRA33-JIBbTitNzW2cUVBiX7wkpS_wPK06Dp0h$" target="_blank">adenunciar.policia.gov.co </a> o en cualquier estación de Policía`
         }
       ],
       expanded: false
