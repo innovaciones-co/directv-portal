@@ -15,7 +15,13 @@ export class ConfigService {
   }
   // Métodos para obtener la configuración
   get apiBaseUrl(){
-    return this.config.apiBaseUrl;
+    return this.config.apiBaseUrl;   
+  }
+  get usertJWT(){
+    return this.config.userJWT;
+  }
+  get passwordtJWT(){
+    return this.config.passwordJWT;
   }
 
 }

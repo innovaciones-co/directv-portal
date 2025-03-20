@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import Swal from 'sweetalert2';
+import { ConfigService } from '../../services/config.service';
 
 @Component({
   selector: 'app-consult-pqr',
@@ -8,6 +9,7 @@ import Swal from 'sweetalert2';
   styleUrls: ['./consult-pqr.component.scss']
 })
 export class ConsultPqrComponent implements OnInit {
+  public apiBaseUrl!: string;
   // Renombramos la propiedad para evitar conflictos con index signature
   directvNumber: string = '';
   // Arreglo para almacenar los tickets obtenidos
@@ -19,7 +21,11 @@ export class ConsultPqrComponent implements OnInit {
   currentPage: number = 1;
   pageSize: number = 6;
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient, private configService: ConfigService) {
+        // La URL base se carga desde la configuración
+        this.apiBaseUrl = configService.apiBaseUrl;
+  }
+  
 
   ngOnInit(): void {}
 
@@ -30,9 +36,11 @@ export class ConsultPqrComponent implements OnInit {
       event.preventDefault();
     }
   }
+ 
 
   // Método para consultar PQRs a partir del número Directv ingresado
   onConsult(): void {
+ 
     // Validación: el número debe tener entre 10 y 12 dígitos; si tiene 10 se le agrega '57'
     if (this.directvNumber.length < 10 || this.directvNumber.length > 12) {
       Swal.fire({
@@ -48,7 +56,7 @@ export class ConsultPqrComponent implements OnInit {
     }
 
     this.loading = true;
-    const url = `https://lov.com.co/api-dtv/getTickedByMsisdn?msisdn=${this.directvNumber}`;
+    const url = `${this.apiBaseUrl}/api-dtv/getTickedByMsisdn?msisdn=${this.directvNumber}`;
 
     this.http.get<any>(url).subscribe({
       next: (response) => {
@@ -64,7 +72,7 @@ export class ConsultPqrComponent implements OnInit {
           // usando el título del ticket en lugar de la descripción
           this.tickets = ticketData.map((ticket: any) => ({
             id: ticket['ser:ticketId'],
-            cun:ticket.cunId,
+            cun:ticket['ser:CUNId'],
             categoria: ticket['ser:categoryName']?.trim(),
             descripcion: ticket['ser:title'],
             estado: ticket['ser:status']

@@ -9,7 +9,7 @@ import { FooterComponent } from './components/footer/footer.component';
 import { PortOnComponent } from './components/port-on/port-on.component';
 import { FormsModule,ReactiveFormsModule  } from '@angular/forms';
 
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { GetCustomersBySubscriptionService } from './services/get-customers-by-subscription.service';
 import { GetNetworkOperatorService } from './services/get-network-operator-code.service';
 import { PostSendAuthenticationService } from './services/post-send-authentication.service';
@@ -32,6 +32,9 @@ import { ConsultPqrComponent } from './components/consult-pqr/consult-pqr.compon
 import { HandsetComponent } from './components/handset/handset.component';
 import { QuestionsComponent } from './components/questions/questions.component';
 import { HomologationComponent } from './components/homologation/homologation.component';
+
+
+import { AuthInterceptor  } from './interceptors/jwt.interceptor';
 
 
 @NgModule({
@@ -72,7 +75,8 @@ import { HomologationComponent } from './components/homologation/homologation.co
     GetCustomersBySubscriptionService,
     GetNetworkOperatorService,
     PostSendAuthenticationService,
-    provideAnimationsAsync('noop')
+    provideAnimationsAsync('noop'),
+    { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true }
   ],
   bootstrap: [AppComponent]
 })
