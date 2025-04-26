@@ -1,0 +1,9 @@
+services:
+  directv-portal:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: directv-portal
+    image: sdtorresl/directv-portal:0.0.1
+    ports:
+      - "80:80"
