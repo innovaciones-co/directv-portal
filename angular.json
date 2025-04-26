@@ -68,8 +68,7 @@
                   "maximumError": "4kB"
                 }
               ],
-              "outputHashing": "all",
-              "baseHref": "/directv/"
+              "outputHashing": "all"
             },
             "development": {
               "optimization": false,
@@ -123,5 +122,8 @@
         }
       }
     }
+  },
+  "cli": {
+    "analytics": "cc298fec-43db-44c9-99b5-14f304ebd821"
   }
 }

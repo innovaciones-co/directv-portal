@@ -1,5 +1,5 @@
 {
-    "apiBaseUrl": "https://lov.com.co",
-    "userJWT":"lovDirectv",
-    "passwordJWT":"asdnbOasdASUDASND0213SD65S" 
-  }
+  "apiBaseUrl": "https://lov.com.co",
+  "userJWT": "lovDirectv",
+  "passwordJWT": "asdnbOasdASUDASND0213SD65S"
+}
