@@ -1,6 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject, signal } from '@angular/core';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { Router } from '@angular/router';
-import Swal from 'sweetalert2';
+import Swal, { SweetAlertResult } from 'sweetalert2';
 import { GetCustomersBySubscriptionService } from '../../services/get-customers-by-subscription.service';
 import { GetNetworkOperatorService } from '../../services/get-network-operator-code.service';
 import { PostSendAuthenticationService } from '../../services/post-send-authentication.service';
@@ -9,183 +10,122 @@ import { PostSendAuthenticationService } from '../../services/post-send-authenti
   selector: 'app-port-on',
   templateUrl: './port-on.component.html',
   styleUrls: ['./port-on.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class PortOnComponent implements OnInit {
-  phoneNumberToPort: string = '';
-  CurrentPhoneNumber: string = '';
-  // Campo para los últimos 4 dígitos del serial de la SIM
-  simLast4: string = '';
+export class PortOnComponent {
+  phoneNumberToPort = '';
+  CurrentPhoneNumber = '';
+  simLast4 = '';
 
-  subscriberId: number | null = null;
-  operatorCode: string | null = null;
+  private readonly subscriberId = signal<number | null>(null);
+  private readonly operatorCode = signal<string | null>(null);
 
-  constructor(
-    private router: Router,
-    private getCustomersBySubscriptionService: GetCustomersBySubscriptionService,
-    private getNetworkOperatorService: GetNetworkOperatorService,
-    private postSendAuthenticationService: PostSendAuthenticationService
-  ) { }
+  private readonly router = inject(Router);
+  private readonly customersService = inject(GetCustomersBySubscriptionService);
+  private readonly networkOperatorService = inject(GetNetworkOperatorService);
+  private readonly authService = inject(PostSendAuthenticationService);
 
-  ngOnInit(): void {
-    // Suscribirse para obtener el Subscriber ID
-    this.getCustomersBySubscriptionService.subscriberId$.subscribe((id) => {
-      this.subscriberId = id;
-      // Si ya tenemos un número a portar, llamamos a getOperator
+  constructor() {
+    this.customersService.subscriberId$.pipe(takeUntilDestroyed()).subscribe((id) => {
+      this.subscriberId.set(id);
       if (id !== null && this.phoneNumberToPort) {
-        this.getNetworkOperatorService.getOperator(this.phoneNumberToPort).subscribe();
+        this.networkOperatorService.getOperator(this.phoneNumberToPort).subscribe();
       }
     });
 
-    // Suscribirse para obtener el Operator Code
-    this.getNetworkOperatorService.operatorCode$.subscribe((code) => {
-      this.operatorCode = code;
-    });
+    this.networkOperatorService.operatorCode$
+      .pipe(takeUntilDestroyed())
+      .subscribe((code) => this.operatorCode.set(code));
   }
 
   onSubmit(): void {
-    // Validar formato del número a portar
-    if (this.phoneNumberToPort.length >= 10 && this.phoneNumberToPort.length <= 12) {
-      if (this.phoneNumberToPort.length === 10) {
-        this.phoneNumberToPort = '57' + this.phoneNumberToPort;
-      }
-    } else {
-      Swal.fire({
-        title: 'Error',
-        text: 'El número a portar debe tener entre 10 y 12 dígitos.',
-        icon: 'error',
-        confirmButtonText: 'OK'
-      });
+    const normalizedPort = this.normalizePhone(this.phoneNumberToPort);
+    if (!normalizedPort) {
+      this.showError('El número a portar debe tener entre 10 y 12 dígitos.');
       return;
     }
+    this.phoneNumberToPort = normalizedPort;
 
-    // Validar formato del número DirecTV
-    if (this.CurrentPhoneNumber.length >= 10 && this.CurrentPhoneNumber.length <= 12) {
-      if (this.CurrentPhoneNumber.length === 10) {
-        this.CurrentPhoneNumber = '57' + this.CurrentPhoneNumber;
-      }
-    } else {
-      Swal.fire({
-        title: 'Error',
-        text: 'El número DirecTV debe tener entre 10 y 12 dígitos.',
-        icon: 'error',
-        confirmButtonText: 'OK'
-      }).then(() => this.resetFormData());
+    const normalizedCurrent = this.normalizePhone(this.CurrentPhoneNumber);
+    if (!normalizedCurrent) {
+      this.showError('El número DirecTV debe tener entre 10 y 12 dígitos.').then(() => this.resetFormData());
       return;
     }
+    this.CurrentPhoneNumber = normalizedCurrent;
 
-    // 1. Validar que el usuario exista (getCustomerData)
-    this.getCustomersBySubscriptionService.getCustomerData(this.CurrentPhoneNumber).subscribe({
+    this.customersService.getCustomerData(this.CurrentPhoneNumber).subscribe({
       next: (response) => {
         const subscriptions = response.payload?.subscriptions;
-        if (!subscriptions || subscriptions.length === 0 || !subscriptions[0].iccid) {
-          Swal.fire({
-            title: 'Error',
-            text: 'No se pudo obtener la información del cliente.',
-            icon: 'error',
-            confirmButtonText: 'OK'
-          }).then(() => this.resetFormData());
+        if (!subscriptions?.length || !subscriptions[0].iccid) {
+          this.showError('No se pudo obtener la información del cliente.').then(() => this.resetFormData());
           return;
         }
-        // 2. Validar que los 4 últimos dígitos del ICCID coincidan
-        const iccid: string = subscriptions[0].iccid;
-        const expectedSimLast4 = iccid.slice(-4);
-        if (this.simLast4 !== expectedSimLast4) {
-          Swal.fire({
-            title: 'Identificación fallida',
-            text: 'Los últimos 4 dígitos del serial de tu SIM no coinciden, por favor verifica e intenta de nuevo.',
-            icon: 'error',
-            confirmButtonText: 'OK'
-          }).then(() => this.resetFormData());
+
+        if (this.simLast4 !== (subscriptions[0].iccid as string).slice(-4)) {
+          this.showError(
+            'Los últimos 4 dígitos del serial de tu SIM no coinciden, por favor verifica e intenta de nuevo.',
+            'Identificación fallida'
+          ).then(() => this.resetFormData());
           return;
         }
-        // 3. Validar que el número a portar retorne un operator code
-        this.getNetworkOperatorService.getOperator(this.phoneNumberToPort).subscribe({
+
+        this.networkOperatorService.getOperator(this.phoneNumberToPort).subscribe({
           next: () => {
-            if (!this.operatorCode) {
-              Swal.fire({
-                title: 'Error',
-                text: 'No podemos reconocer el número que quieres portar a DirecTV, verifica nuevamente.',
-                icon: 'error',
-                confirmButtonText: 'OK'
-              }).then(() => this.resetFormData());
+            if (!this.operatorCode()) {
+              this.showError('No podemos reconocer el número que quieres portar a DirecTV, verifica nuevamente.')
+                .then(() => this.resetFormData());
               return;
             }
-            // Si todo es correcto, proceder a enviar la autenticación
             this.trySendAuthentication();
           },
-          error: (err) => {
-            if (err.message === 'Error al obtener operador de red') {
-              Swal.fire({
-                title: 'Error',
-                text: 'No podemos reconocer el número que quieres portar a DirecTV, verifica nuevamente.',
-                icon: 'error',
-                confirmButtonText: 'OK'
-              }).then(() => this.resetFormData());
-            } else {
-              Swal.fire({
-                title: 'Error',
-                text: 'Ocurrió un error al obtener el operador de red.',
-                icon: 'error',
-                confirmButtonText: 'OK'
-              }).then(() => this.resetFormData());
-            }
-          }
+          error: () => {
+            this.showError('No podemos reconocer el número que quieres portar a DirecTV, verifica nuevamente.')
+              .then(() => this.resetFormData());
+          },
         });
       },
-      error: (err) => {
-        Swal.fire({
-          title: 'Error',
-          text: 'No se pudo obtener la información del cliente.',
-          icon: 'error',
-          confirmButtonText: 'OK'
-        }).then(() => this.resetFormData());
+      error: () => {
+        this.showError('No se pudo obtener la información del cliente.').then(() => this.resetFormData());
       },
     });
   }
 
   trySendAuthentication(): void {
-    if (this.subscriberId !== null && this.operatorCode !== null && this.phoneNumberToPort) {
-      this.postSendAuthenticationService.sendAuthentication(this.subscriberId, this.phoneNumberToPort, this.operatorCode)
-        .subscribe({
-          next: (response) => {
-            if (response.message === 'Error al enviar autenticación NIP') {
-              this.handleErrorResponse(response);
-            } else {
-              Swal.fire({
-                title: 'NIP solicitado',
-                text: `El NIP ha sido solicitado correctamente para el número ${this.phoneNumberToPort}, Este NIP es un código que te llegará como SMS al número que deseas portar a DirecTV. Revisa tus mensajes de texto con tu SIM de tu operador actual.`,
-                icon: 'success',
-                confirmButtonText: 'OK'
-              }).then((result) => {
-                if (result.isConfirmed) {
-                  this.resetFormData();
-                  this.router.navigate(['/portin-request']);
-                }
-              });
+    const subscriberId = this.subscriberId();
+    const operatorCode = this.operatorCode();
+    if (subscriberId === null || operatorCode === null || !this.phoneNumberToPort) return;
+
+    this.authService.sendAuthentication(subscriberId, this.phoneNumberToPort, operatorCode).subscribe({
+      next: (response) => {
+        if (response.message === 'Error al enviar autenticación NIP') {
+          this.handleErrorResponse(response);
+        } else {
+          Swal.fire({
+            title: 'NIP solicitado',
+            text: `El NIP ha sido solicitado correctamente para el número ${this.phoneNumberToPort}, Este NIP es un código que te llegará como SMS al número que deseas portar a DirecTV. Revisa tus mensajes de texto con tu SIM de tu operador actual.`,
+            icon: 'success',
+            confirmButtonText: 'OK',
+          }).then((result) => {
+            if (result.isConfirmed) {
+              this.resetFormData();
+              this.router.navigate(['/portin-request']);
             }
-          },
-          error: (response) => {
-            const err = response.error;
-            console.log(JSON.stringify(err)) // Asegurarse de que estamos recibiendo el error correctamente
-            console.log("Message: ", err.message) // Asegurarse de que estamos manejando el error correctamente
-            if (err.message === 'Error al reenviar autenticación NIP') {
-              this.handleErrorResponse(err);
-            } else {
-              console.error('***Error al enviar autenticación:', err);
-              Swal.fire({
-                title: 'Error en la solicitud de NIP',
-                text: 'Ocurrió un problema al procesar la solicitud.',
-                icon: 'error',
-                confirmButtonText: 'OK'
-              });
-            }
-          },
-        });
-    }
+          });
+        }
+      },
+      error: (response) => {
+        const err = response.error;
+        if (err.message === 'Error al reenviar autenticación NIP') {
+          this.handleErrorResponse(err);
+        } else {
+          this.showError('Ocurrió un problema al procesar la solicitud.', 'Error en la solicitud de NIP');
+        }
+      },
+    });
   }
 
   handleErrorResponse(response: any): void {
-    const errorMessages: { [key: number]: string } = {
+    const errorMessages: Record<number, string> = {
       1020080013: 'La solicitud de portabilidad ya está en curso o ya se ha solicitado el número máximo permitido de NIP.',
       1000000000: 'Error desconocido del servidor.',
       1000000001: 'Acceso denegado.',
@@ -204,22 +144,12 @@ export class PortOnComponent implements OnInit {
       1024030001: 'Solicitud inválida.',
       1024030002: 'Error interno.',
       1024039999: 'Error ORA desconocido.',
-      1037000001: 'No existe suscripción para el proveedor.'
+      1037000001: 'No existe suscripción para el proveedor.',
     };
 
     const responseCode = response.error.responseCode;
-    console.log('Código de respuesta del error:', responseCode);
-    const errorMessage =
-      errorMessages[responseCode] ||
-      response.error?.message ||
-      'Ocurrió un error desconocido.';
-
-    Swal.fire({
-      title: 'Error en la solicitud de NIP',
-      text: errorMessage,
-      icon: 'error',
-      confirmButtonText: 'OK',
-    });
+    const errorMessage = errorMessages[responseCode] ?? response.error?.message ?? 'Ocurrió un error desconocido.';
+    this.showError(errorMessage, 'Error en la solicitud de NIP');
   }
 
   onCancel(): void {
@@ -229,7 +159,7 @@ export class PortOnComponent implements OnInit {
       icon: 'warning',
       showCancelButton: true,
       confirmButtonText: 'Sí, cancelar',
-      cancelButtonText: 'No, regresar'
+      cancelButtonText: 'No, regresar',
     }).then((result) => {
       if (result.isConfirmed) {
         this.resetFormData();
@@ -239,13 +169,22 @@ export class PortOnComponent implements OnInit {
   }
 
   onlyNumber(event: KeyboardEvent): void {
-    const charCode = event.charCode;
-    if (charCode < 48 || charCode > 57) {
+    if (!/^\d$/.test(event.key)) {
       event.preventDefault();
     }
   }
+
   onContinueProcess(): void {
     this.router.navigate(['/port-on-continue']);
+  }
+
+  private normalizePhone(phone: string): string | null {
+    if (phone.length < 10 || phone.length > 12) return null;
+    return phone.length === 10 ? '57' + phone : phone;
+  }
+
+  private showError(text: string, title = 'Error'): Promise<SweetAlertResult> {
+    return Swal.fire({ title, text, icon: 'error', confirmButtonText: 'OK' });
   }
 
   private resetFormData(): void {
