@@ -9,7 +9,7 @@ import { FooterComponent } from './components/footer/footer.component';
 import { PortOnComponent } from './components/port-on/port-on.component';
 import { FormsModule,ReactiveFormsModule  } from '@angular/forms';
 
-import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
+import { provideHttpClient, withFetch, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { GetCustomersBySubscriptionService } from './services/get-customers-by-subscription.service';
 import { GetNetworkOperatorService } from './services/get-network-operator-code.service';
 import { PostSendAuthenticationService } from './services/post-send-authentication.service';
@@ -61,7 +61,6 @@ import { AuthInterceptor  } from './interceptors/jwt.interceptor';
     AppRoutingModule,
     FormsModule,
     ReactiveFormsModule,
-    HttpClientModule,
     MatSelectModule,
     MatFormFieldModule,
     MatSelectModule,   
@@ -72,6 +71,7 @@ import { AuthInterceptor  } from './interceptors/jwt.interceptor';
   providers: [
     provideClientHydration(),
     provideAnimationsAsync(),
+    provideHttpClient(withFetch()),
     GetCustomersBySubscriptionService,
     GetNetworkOperatorService,
     PostSendAuthenticationService,

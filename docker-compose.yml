@@ -7,3 +7,7 @@ services:
     image: sdtorresl/directv-portal:0.0.1
     ports:
       - "80:80"
+    environment:
+      - API_BASE_URL=http://localhost:3000
+      - JWT_USER=user
+      - JWT_PASSWORD=password

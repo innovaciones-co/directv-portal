@@ -1,7 +1,7 @@
-import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable, throwError, BehaviorSubject } from 'rxjs';
-import { catchError, map } from 'rxjs/operators';
+import { Injectable } from '@angular/core';
+import { BehaviorSubject, Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
 import { ConfigService } from './config.service';
 
 @Injectable({
@@ -15,7 +15,7 @@ export class PostSendAuthenticationService {
   private phoneNumberToPortSubject = new BehaviorSubject<string>('');
   // Observable público al que se pueden suscribir otros componentes
   phoneNumberToPort$ = this.phoneNumberToPortSubject.asObservable();
-  
+
   constructor(private http: HttpClient, private configService: ConfigService) {
     this.apiBaseUrl = configService.apiBaseUrl;
   }
@@ -33,8 +33,8 @@ export class PostSendAuthenticationService {
     const url = `${this.apiBaseUrl}/api-dtv/postSendAuthentication`;
     const body = {
       phoneNumber: phoneNumber,
-      subscriberId: subscriberId,    
-      operatorCode: operatorCode      
+      subscriberId: subscriberId,
+      operatorCode: operatorCode
     };
 
     // Actualiza el BehaviorSubject con el número telefónico
@@ -47,19 +47,15 @@ export class PostSendAuthenticationService {
         } else {
           throw new Error(response.responseDetail || 'Error desconocido en la solicitud de NIP');
         }
-      }),
-      catchError(error => {
-        console.error('Error en postSendAuthentication:', error);
-        return throwError(() => new Error(error.message || 'Error en la solicitud de NIP'));
       })
     );
   }
-    // Método para actualizar el donorOperator
-    updateDonorOperator(operatorCode: string): void {
-      this.donorOperatorSubject.next(operatorCode);
-    }
-    updatephoneNumber(phoneNumber: string): void {
-      this.donorOperatorSubject.next(phoneNumber);
-      this.phoneNumberToPortSubject.next(phoneNumber);
-    }
+  // Método para actualizar el donorOperator
+  updateDonorOperator(operatorCode: string): void {
+    this.donorOperatorSubject.next(operatorCode);
+  }
+  updatephoneNumber(phoneNumber: string): void {
+    this.donorOperatorSubject.next(phoneNumber);
+    this.phoneNumberToPortSubject.next(phoneNumber);
+  }
 }

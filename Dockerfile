@@ -1,33 +1,26 @@
-# ---------- Build Stage ----------
+# Stage 1: Build all environments
 FROM node:20-alpine AS builder
 
 WORKDIR /app
 
-COPY package*.json ./
+COPY package.json package-lock.json ./
 RUN npm ci
 
 COPY . .
-RUN npm run build --prod -c production
 
-# ---------- Runtime Stage ----------
-FROM alpine:3.19
+RUN npm run build -- --configuration=production --output-path=dist/production
+RUN npm run build -- --configuration=development --output-path=dist/development
 
-# Install Node, Nginx, Tini, and Supervisor
-RUN apk add --no-cache nodejs nginx tini supervisor
+# Stage 2: Runtime image
+FROM node:20-alpine
 
-# Create working directories
 WORKDIR /app
-RUN mkdir -p /run/nginx /app/server /usr/share/nginx/html
 
-# Copy SSR build output
-COPY --from=builder /app/dist/directv-portal/browser /usr/share/nginx/html
-COPY --from=builder /app/dist/directv-portal/server /app/server
+COPY --from=builder /app/dist /app/dist
 
-# Copy configs
-COPY nginx.conf /etc/nginx/nginx.conf
-COPY supervisord.conf /etc/supervisord.conf
+# Default to production; override at runtime with -e APP_ENV=staging|development
+ENV APP_ENV=production
 
-EXPOSE 80
+EXPOSE 4000
 
-ENTRYPOINT ["/sbin/tini", "--"]
-CMD ["/usr/bin/supervisord", "-c", "/etc/supervisord.conf"]
+CMD ["sh", "-c", "node dist/${APP_ENV}/server/server.mjs"]

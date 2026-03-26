@@ -24,7 +24,7 @@ export class PortOnComponent implements OnInit {
     private getCustomersBySubscriptionService: GetCustomersBySubscriptionService,
     private getNetworkOperatorService: GetNetworkOperatorService,
     private postSendAuthenticationService: PostSendAuthenticationService
-  ) {}
+  ) { }
 
   ngOnInit(): void {
     // Suscribirse para obtener el Subscriber ID
@@ -87,7 +87,7 @@ export class PortOnComponent implements OnInit {
           return;
         }
         // 2. Validar que los 4 últimos dígitos del ICCID coincidan
-        const iccid: string = subscriptions[0].iccid;       
+        const iccid: string = subscriptions[0].iccid;
         const expectedSimLast4 = iccid.slice(-4);
         if (this.simLast4 !== expectedSimLast4) {
           Swal.fire({
@@ -164,13 +164,21 @@ export class PortOnComponent implements OnInit {
               });
             }
           },
-          error: (err) => {
-            Swal.fire({
-              title: 'Error en la solicitud de NIP',
-              text: 'Ocurrió un problema al procesar la solicitud.',
-              icon: 'error',
-              confirmButtonText: 'OK'
-            });
+          error: (response) => {
+            const err = response.error;
+            console.log(JSON.stringify(err)) // Asegurarse de que estamos recibiendo el error correctamente
+            console.log("Message: ", err.message) // Asegurarse de que estamos manejando el error correctamente
+            if (err.message === 'Error al reenviar autenticación NIP') {
+              this.handleErrorResponse(err);
+            } else {
+              console.error('***Error al enviar autenticación:', err);
+              Swal.fire({
+                title: 'Error en la solicitud de NIP',
+                text: 'Ocurrió un problema al procesar la solicitud.',
+                icon: 'error',
+                confirmButtonText: 'OK'
+              });
+            }
           },
         });
     }
@@ -178,7 +186,7 @@ export class PortOnComponent implements OnInit {
 
   handleErrorResponse(response: any): void {
     const errorMessages: { [key: number]: string } = {
-      1020080013: 'La solicitud de portabilidad ya está en curso.',
+      1020080013: 'La solicitud de portabilidad ya está en curso o ya se ha solicitado el número máximo permitido de NIP.',
       1000000000: 'Error desconocido del servidor.',
       1000000001: 'Acceso denegado.',
       1000000002: 'La operación no está soportada.',
@@ -199,8 +207,10 @@ export class PortOnComponent implements OnInit {
       1037000001: 'No existe suscripción para el proveedor.'
     };
 
+    const responseCode = response.error.responseCode;
+    console.log('Código de respuesta del error:', responseCode);
     const errorMessage =
-      errorMessages[response.responseCode] ||
+      errorMessages[responseCode] ||
       response.error?.message ||
       'Ocurrió un error desconocido.';
 

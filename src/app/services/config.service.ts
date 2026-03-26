@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
 
-import { Observable } from 'rxjs';
-import config from '../../assets/config.json';
+import { environment } from '../../environments/environment';
 
 
 @Injectable({
@@ -11,16 +10,17 @@ export class ConfigService {
   private config: any;
 
   constructor() {
-    this.config = config;
+    this.config = environment;
   }
   // Métodos para obtener la configuración
-  get apiBaseUrl(){
-    return this.config.apiBaseUrl;   
+  get apiBaseUrl() {
+    return this.config.apiBaseUrl;
   }
-  get usertJWT(){
+  get userJWT() {
     return this.config.userJWT;
   }
-  get passwordtJWT(){
+
+  get passwordJWT() {
     return this.config.passwordJWT;
   }
 

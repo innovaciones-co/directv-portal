@@ -1,6 +1,6 @@
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { BehaviorSubject, Observable, switchMap } from 'rxjs';
+import { BehaviorSubject, Observable } from 'rxjs';
 import { map, tap } from 'rxjs/operators';
 import { ConfigService } from '../services/config.service';
 
@@ -16,11 +16,8 @@ export class AuthService {
   constructor(private http: HttpClient, private configService: ConfigService) {
     // La URL base se carga desde la configuración
     this.apiBaseUrl = configService.apiBaseUrl;
-    this.userJWT = configService.usertJWT;
-    this.passwordJWT = configService.passwordtJWT;
-
-
-    
+    this.userJWT = configService.userJWT;
+    this.passwordJWT = configService.passwordJWT;
   }
 
   // Se construye la URL de generación de token dinámicamente
@@ -32,8 +29,8 @@ export class AuthService {
   initializeToken(): void {
     const url = this.getTokenUrl();
     this.http.post<{ token: string }>(url, {
-      username: "lovDirectv",
-      password: "asdnbOasdASUDASND0213SD65S"
+      username: this.userJWT,
+      password: this.passwordJWT
     }).pipe(
       map(response => response.token),
       tap(token => {
@@ -46,8 +43,8 @@ export class AuthService {
   getToken(): Observable<string> {
     const url = this.getTokenUrl();
     return this.http.post<{ token: string }>(url, {
-      username: "lovDirectv",
-      password: "asdnbOasdASUDASND0213SD65S"
+      username: this.userJWT,
+      password: this.passwordJWT
     }).pipe(
       map(response => response.token), // Extraer solo el token
       tap(token => this.tokenSubject.next(token)) // Guardar el token en la memoria
