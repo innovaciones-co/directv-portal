@@ -1,46 +1,125 @@
 {
-    "plans": [
-      {
-        "name": "DIRECTV MOBILE 55GB",
-        "duration": "30 días",
-        "price": "$39.900",
-        "features": [
-          { "label": "Minutos Nacionales", "value": "Ilimitados", "icon": "phone.png" },
-          { "label": "SMS Nacionales", "value": "Ilimitados", "icon": "sms.png" },
-          { "label": "GB", "value": "55", "icon": "data.png" },
-          { "label": "WhatsApp", "value": "Ilimitado", "icon": "whatsapp.png" },
-          { "label": "Facebook", "value": "Ilimitado", "icon": "facebook.png" },
-          { "label": "Instagram", "value": "Ilimitado", "icon": "instagram.png" }
-        ]
-      },
-      {
-        "name": "DIRECTV MOBILE 110GB",
-        "duration": "30 días",
-        "price": "$59.900",
-        "features": [
-          { "label": "Minutos Nacionales", "value": "Ilimitados", "icon": "phone.png" },
-          { "label": "SMS Nacionales", "value": "Ilimitados", "icon": "sms.png" },
-          { "label": "GB", "value": "110", "icon": "data.png" },
-          { "label": "WhatsApp", "value": "Ilimitado", "icon": "whatsapp.png" },
-          { "label": "Facebook", "value": "Ilimitado", "icon": "facebook.png" },
-          { "label": "Instagram", "value": "Ilimitado", "icon": "instagram.png" }
-        ]
-      },
-      {
-        "name": "DIRECTV MOBILE 150GB",
-        "duration": "30 días",
-        "price": "$99.900",
-        "features": [
-          { "label": "Minutos Nacionales", "value": "Ilimitados", "icon": "phone.png" },
-          { "label": "SMS Nacionales", "value": "Ilimitados", "icon": "sms.png" },
-          { "label": "GB", "value": "150", "icon": "data.png" },
-          { "label": "WhatsApp", "value": "Ilimitado", "icon": "whatsapp.png" },
-          { "label": "Facebook", "value": "Ilimitado", "icon": "facebook.png" },
-          { "label": "Instagram", "value": "Ilimitado", "icon": "instagram.png" },
-          { "label": "Waze", "value": "Ilimitado", "icon": "waze.png" },
-          { "label": "X", "value": "Ilimitado", "icon": "x.png" }
-        ]
-      }
-    ]
-  }
-  
+  "plans": [
+    {
+      "name": "DIRECTV MOBILE 55GB",
+      "duration": "30 días",
+      "price": "$39.900",
+      "features": [
+        {
+          "label": "Minutos Nacionales",
+          "value": "Ilimitados",
+          "icon": "phone.png"
+        },
+        {
+          "label": "SMS Nacionales",
+          "value": "Ilimitados",
+          "icon": "sms.png"
+        },
+        {
+          "label": "GB",
+          "value": "55",
+          "icon": "data.png"
+        },
+        {
+          "label": "WhatsApp",
+          "value": "Ilimitado",
+          "icon": "whatsapp.png"
+        },
+        {
+          "label": "Facebook",
+          "value": "Ilimitado",
+          "icon": "facebook.png"
+        },
+        {
+          "label": "Instagram",
+          "value": "Ilimitado",
+          "icon": "instagram.png"
+        }
+      ]
+    },
+    {
+      "name": "DIRECTV MOBILE 110GB",
+      "duration": "30 días",
+      "price": "$59.700",
+      "features": [
+        {
+          "label": "Minutos Nacionales",
+          "value": "Ilimitados",
+          "icon": "phone.png"
+        },
+        {
+          "label": "SMS Nacionales",
+          "value": "Ilimitados",
+          "icon": "sms.png"
+        },
+        {
+          "label": "GB",
+          "value": "110",
+          "icon": "data.png"
+        },
+        {
+          "label": "WhatsApp",
+          "value": "Ilimitado",
+          "icon": "whatsapp.png"
+        },
+        {
+          "label": "Facebook",
+          "value": "Ilimitado",
+          "icon": "facebook.png"
+        },
+        {
+          "label": "Instagram",
+          "value": "Ilimitado",
+          "icon": "instagram.png"
+        }
+      ]
+    },
+    {
+      "name": "DIRECTV MOBILE 150GB",
+      "duration": "30 días",
+      "price": "$99.900",
+      "features": [
+        {
+          "label": "Minutos Nacionales",
+          "value": "Ilimitados",
+          "icon": "phone.png"
+        },
+        {
+          "label": "SMS Nacionales",
+          "value": "Ilimitados",
+          "icon": "sms.png"
+        },
+        {
+          "label": "GB",
+          "value": "150",
+          "icon": "data.png"
+        },
+        {
+          "label": "WhatsApp",
+          "value": "Ilimitado",
+          "icon": "whatsapp.png"
+        },
+        {
+          "label": "Facebook",
+          "value": "Ilimitado",
+          "icon": "facebook.png"
+        },
+        {
+          "label": "Instagram",
+          "value": "Ilimitado",
+          "icon": "instagram.png"
+        },
+        {
+          "label": "Waze",
+          "value": "Ilimitado",
+          "icon": "waze.png"
+        },
+        {
+          "label": "X",
+          "value": "Ilimitado",
+          "icon": "x.png"
+        }
+      ]
+    }
+  ]
+}
