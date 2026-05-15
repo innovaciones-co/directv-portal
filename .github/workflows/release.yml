@@ -17,12 +17,12 @@ jobs:
 
     steps:
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
         with:
           fetch-depth: 0
 
       - name: Setup Node
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@v6
         with:
           node-version: 22
 
@@ -59,13 +59,13 @@ jobs:
       - name: Build image
         run: |
           docker build \
-          -t sdtorresl/directv-postal:${{ needs.release.outputs.new_version }} \
-          -t sdtorresl/directv-postal:latest .
+          -t sdtorresl/directv-portal:${{ needs.release.outputs.new_version }} \
+          -t sdtorresl/directv-portal:latest .
 
       - name: Push image
         run: |
-          docker push sdtorresl/directv-postal:${{ needs.release.outputs.new_version }}
-          docker push sdtorresl/directv-postal:latest
+          docker push sdtorresl/directv-portal:${{ needs.release.outputs.new_version }}
+          docker push sdtorresl/directv-portal:latest
 
   azure:
     needs: 
@@ -82,6 +82,6 @@ jobs:
       - name: Deploy container app
         run: |
           az containerapp update \
-            --name directv-postal \
+            --name directv-portal \
             --resource-group RG-LOV_DEV \
-            --image sdtorresl/directv-postal:${{ needs.release.outputs.new_version }}
+            --image sdtorresl/directv-portal:${{ needs.release.outputs.new_version }}
