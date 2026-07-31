@@ -21,20 +21,15 @@
           "icon": "data.png"
         },
         {
-          "label": "WhatsApp",
-          "value": "Ilimitado",
-          "icon": "whatsapp.png"
-        },
-        {
-          "label": "Facebook",
-          "value": "Ilimitado",
-          "icon": "facebook.png"
-        },
-        {
-          "label": "Instagram",
-          "value": "Ilimitado",
-          "icon": "instagram.png"
+          "label": "El uso básico de las siguientes apps no se acaba",
+          "value": "WhatsApp, Facebook e Instagram.",
+          "icon": "info.png"
         }
+      ],
+      "apps": [
+        "whatsapp.png",
+        "facebook.png",
+        "instagram.png"
       ]
     },
     {
@@ -58,20 +53,15 @@
           "icon": "data.png"
         },
         {
-          "label": "WhatsApp",
-          "value": "Ilimitado",
-          "icon": "whatsapp.png"
-        },
-        {
-          "label": "Facebook",
-          "value": "Ilimitado",
-          "icon": "facebook.png"
-        },
-        {
-          "label": "Instagram",
-          "value": "Ilimitado",
-          "icon": "instagram.png"
+          "label": "El uso básico de las siguientes apps no se acaba",
+          "value": "WhatsApp, Facebook e Instagram.",
+          "icon": "info.png"
         }
+      ],
+      "apps": [
+        "whatsapp.png",
+        "facebook.png",
+        "instagram.png"
       ]
     },
     {
@@ -95,30 +85,17 @@
           "icon": "data.png"
         },
         {
-          "label": "WhatsApp",
-          "value": "Ilimitado",
-          "icon": "whatsapp.png"
-        },
-        {
-          "label": "Facebook",
-          "value": "Ilimitado",
-          "icon": "facebook.png"
-        },
-        {
-          "label": "Instagram",
-          "value": "Ilimitado",
-          "icon": "instagram.png"
-        },
-        {
-          "label": "Waze",
-          "value": "Ilimitado",
-          "icon": "waze.png"
-        },
-        {
-          "label": "X",
-          "value": "Ilimitado",
-          "icon": "x.png"
+          "label": "El uso básico de las siguientes apps no se acaba",
+          "value": "WhatsApp, Facebook e Instagram.",
+          "icon": "info.png"
         }
+      ],
+      "apps": [
+        "whatsapp.png",
+        "facebook.png",
+        "instagram.png",
+        "waze.png",
+        "x.png"
       ]
     }
   ]

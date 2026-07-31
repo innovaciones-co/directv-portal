@@ -1,9 +1,12 @@
+:host {
+  display: block;
+}
+
 .carousel-container {
   position: relative;
-  width: 100%;
-  max-width: 1200px;
-  margin: 50px auto;
-  height: 700px; // Increased height for more space
+  width: min(100%, 1200px);
+  margin: 2rem auto 3rem;
+  padding: 1.5rem 0 2rem;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -11,26 +14,33 @@
 
 .carousel {
   position: relative;
-  width: 80%;
-  height: 100%;
-  overflow: hidden;
+  width: min(90%, 860px);
+  min-height: 560px;
+  overflow: visible;
   display: flex;
   justify-content: center;
+  align-items: center;
 }
 
 .plan-card {
   position: absolute;
-  width: 300px;
-  height: 500px;
-  background: white;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
-  border: 1px solid #ccc;
-  border-radius: 8px;
-  padding: 20px;
+  width: min(320px, 82vw);
+  min-height: 520px;
+  background: linear-gradient(145deg, #ffffff 0%, #f7fbff 100%);
+  box-shadow: 0 16px 40px rgba(7, 75, 148, 0.16);
+  border: 1px solid rgba(7, 75, 148, 0.12);
+  border-radius: 24px;
+  padding: 1.2rem;
   text-align: center;
-  transition: transform 0.5s ease, opacity 0.5s ease;
+  transition: transform 0.45s ease, opacity 0.45s ease, box-shadow 0.3s ease;
   opacity: 0;
-  transform: scale(0.7);
+  transform: scale(0.8);
+  display: flex;
+  flex-direction: column;
+}
+
+.plan-card:hover {
+  box-shadow: 0 20px 44px rgba(7, 75, 148, 0.22);
 }
 
 .plan-card.active {
@@ -40,101 +50,248 @@
 }
 
 .plan-card.prev {
-  transform: translateX(-110%) scale(0.7);
-  opacity: 0.5;
+  transform: translateX(-110%) scale(0.84);
+  opacity: 0.6;
   z-index: 1;
 }
 
 .plan-card.next {
-  transform: translateX(110%) scale(0.7);
-  opacity: 0.5;
+  transform: translateX(110%) scale(0.84);
+  opacity: 0.6;
   z-index: 1;
 }
 
 .card-header {
-  background-color: #0072C6; // Directv Blue
+  background: linear-gradient(135deg, #0072c6 0%, #074b94 100%);
   color: white;
-  padding: 10px;
-  border-radius: 4px 4px 0 0;
-  margin-bottom: 15px;
-  font-weight: bold;
+  padding: 1rem 1rem 0.85rem;
+  border-radius: 16px;
+  margin-bottom: 1rem;
+  box-shadow: inset 0 -1px 0 rgba(255, 255, 255, 0.16);
+}
+
+.plan-badge {
+  display: inline-block;
+  font-size: 0.7rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  padding: 0.3rem 0.6rem;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.2);
+  margin-bottom: 0.55rem;
 }
 
 .card-header h3 {
   margin: 0;
+  font-size: 1.2rem;
 }
 
 .vigencia {
   display: block;
-  margin-top: 5px;
-  font-weight: bold;
+  margin-top: 0.35rem;
+  font-size: 0.9rem;
+  font-weight: 600;
+  opacity: 0.95;
+}
+
+.card-body {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  gap: 0.9rem;
+}
+
+.valor {
+  background: #f3f8ff;
+  border-radius: 14px;
+  padding: 0.8rem;
+}
+
+.price-label {
+  display: block;
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: #4b6a8a;
+  margin-bottom: 0.25rem;
 }
 
 .valor h4 {
-  font-size: 1.8em;
-  margin: 10px 0;
-  font-weight: bold;
+  font-size: 1.8rem;
+  margin: 0;
+  font-weight: 800;
+  color: #0b3c70;
 }
 
 .features-list {
   list-style: none;
   padding: 0;
   margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+  flex: 1;
 }
 
-.features-list li {
+.feature-item {
   display: flex;
-  align-items: center;
-  gap: 10px;
-  margin: 5px 0;
+  align-items: flex-start;
+  gap: 0.65rem;
+  padding: 0.6rem 0.7rem;
+  border-radius: 12px;
+  background: #ffffff;
+  border: 1px solid #e7eef7;
 }
 
 .feature-icon {
-  width: 24px;
-  height: 24px;
+  width: 22px;
+  height: 22px;
+  flex-shrink: 0;
+  margin-top: 0.1rem;
 }
 
 .feature-text {
-  font-weight: bold;
+  font-size: 0.92rem;
+  text-align: left;
+  color: #23435c;
+  line-height: 1.4;
+}
+
+.feature-text a {
+  color: #0072c6;
+  font-weight: 700;
+  text-decoration: none;
+}
+
+.feature-text a:hover {
+  text-decoration: underline;
+}
+
+.apps-item {
+  align-items: center;
+  justify-content: space-between;
+}
+
+.app-label p {
+  margin: 0;
+  font-size: 0.9rem;
+  font-weight: 700;
+  color: #23435c;
+}
+
+.app-icons {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+  justify-content: flex-end;
 }
 
 .carousel-control {
-  font-size: 2rem;
-  background: none;
+  font-size: 1.6rem;
+  background: #ffffff;
   border: none;
   cursor: pointer;
-  color: black;
+  color: #074b94;
   position: absolute;
   top: 50%;
   transform: translateY(-50%);
   z-index: 10;
-  padding: 10px;
+  padding: 0.7rem 0.9rem;
+  border-radius: 50%;
+  box-shadow: 0 8px 20px rgba(7, 75, 148, 0.18);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.carousel-control:hover {
+  transform: translateY(-50%) scale(1.05);
+  box-shadow: 0 10px 22px rgba(7, 75, 148, 0.24);
 }
 
 .carousel-control.prev {
-  left: 10px;
+  left: 0.35rem;
 }
 
 .carousel-control.next {
-  right: 10px;
+  right: 0.35rem;
 }
 
 .submit-button {
-  display: block;
-  margin: 20px auto; // Centered with 20px vertical margin
-  padding: 10px 30px; // Padding for an oval effect
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: auto;
+  padding: 0.8rem 1.2rem;
   border: none;
-  border-radius: 50px; // Oval shape
-  background-color: #074b94; // Directv tone
+  border-radius: 999px;
+  background: linear-gradient(135deg, #074b94 0%, #0072c6 100%);
   color: white;
-  transition: background-color 0.3s ease;
-  width: auto; // Does not stretch full width
+  text-decoration: none;
+  font-weight: 700;
+  transition: transform 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
+  box-shadow: 0 10px 20px rgba(7, 75, 148, 0.2);
 }
 
 .submit-button:disabled {
-  background-color: #ccc;
+  background: #ccc;
+  box-shadow: none;
 }
 
 .submit-button:hover {
-  background-color: #053261;
+  transform: translateY(-1px);
+  background: linear-gradient(135deg, #053261 0%, #074b94 100%);
+}
+
+@media (max-width: 768px) {
+  .carousel-container {
+    padding: 1rem 0 2rem;
+  }
+
+  .carousel {
+    min-height: 620px;
+    width: 100%;
+  }
+
+  .plan-card {
+    width: min(300px, 88vw);
+    padding: 0.95rem;
+  }
+
+  .carousel-control {
+    top: auto;
+    bottom: -0.6rem;
+    transform: none;
+  }
+
+  .carousel-control:hover {
+    transform: scale(1.05);
+  }
+
+  .carousel-control.prev {
+    left: 50%;
+    margin-left: -3rem;
+  }
+
+  .carousel-control.next {
+    right: 50%;
+    margin-right: -3rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .carousel {
+    min-height: 660px;
+  }
+
+  .plan-card {
+    width: min(280px, 90vw);
+  }
+
+  .card-header h3 {
+    font-size: 1.05rem;
+  }
+
+  .feature-text {
+    font-size: 0.86rem;
+  }
 }
