@@ -2,7 +2,9 @@
 <div class="header-text">
   <h1 class="header-title">Escribe tu Petición, Queja/Reclamo o Recurso</h1>
   <p class="header-description">
-    Tu nos ayudas a mejorar y crecer cada día. Escucharte es muy importante para nosotros. Por eso, si tienes alguna petición, queja/reclamo o recurso deberás llenar todo el formulario. Tus PQRs serán dirigidas a LOV Telecomunicaciones S.A.S. como prestador del servicio, ellos se encargarán de darte una respuesta.
+    Tu nos ayudas a mejorar y crecer cada día. Escucharte es muy importante para nosotros. Por eso, si tienes alguna
+    petición, queja/reclamo o recurso deberás llenar todo el formulario. Tus PQRs serán dirigidas a LOV
+    Telecomunicaciones S.A.S. como prestador del servicio, ellos se encargarán de darte una respuesta.
   </p>
   <hr class="header-divider">
 </div>
@@ -29,25 +31,14 @@
     </mat-form-field>
     <mat-form-field appearance="fill">
       <mat-label>Número de documento</mat-label>
-      <input matInput 
-             type="text" 
-             name="documentNumber" 
-             [(ngModel)]="formData.documentNumber" 
-             required 
-             pattern="^[0-9]+$"
-             (keypress)="onlyNumber($event)">
+      <input matInput type="text" name="documentNumber" [(ngModel)]="formData.documentNumber" required
+        pattern="^[0-9]+$" (keypress)="onlyNumber($event)">
       <mat-error *ngIf="!formData.documentNumber && pqrForm.submitted">Campo obligatorio</mat-error>
     </mat-form-field>
-    
+
     <mat-form-field appearance="fill">
       <mat-label>Correo electrónico</mat-label>
-      <input matInput 
-             type="email" 
-             name="email" 
-             [(ngModel)]="formData.email" 
-             required 
-             email 
-             #emailInput="ngModel">
+      <input matInput type="email" name="email" [(ngModel)]="formData.email" required email #emailInput="ngModel">
       <mat-error *ngIf="emailInput.invalid && (emailInput.dirty || emailInput.touched)">
         <ng-container *ngIf="emailInput.errors?.['required']">
           El correo es obligatorio.
@@ -57,16 +48,11 @@
         </ng-container>
       </mat-error>
     </mat-form-field>
-    
+
     <mat-form-field appearance="fill">
       <mat-label>Tu Número Directv</mat-label>
-      <input matInput 
-             type="text" 
-             name="contactPhone" 
-             [(ngModel)]="formData.contactPhone" 
-             required 
-             pattern="^[0-9]+$"
-             (keypress)="onlyNumber($event)">
+      <input matInput type="text" name="contactPhone" [(ngModel)]="formData.contactPhone" required pattern="^[0-9]+$"
+        (keypress)="onlyNumber($event)">
       <mat-error *ngIf="!formData.contactPhone && pqrForm.submitted">Campo obligatorio</mat-error>
     </mat-form-field>
     <mat-form-field appearance="fill">
@@ -90,7 +76,7 @@
       <input matInput type="text" name="address" [(ngModel)]="formData.address" required>
     </mat-form-field>
   </div>
-  
+
   <h2 class="section-title">Queja</h2>
   <div class="complaint-grid">
     <mat-form-field appearance="fill" class="full-width">
@@ -107,11 +93,13 @@
         ¿Qué quieres presentar?<br>
         1. Petición: Solicitud de servicio, información o derechos.<br>
         2. Queja / Reclamo: Manifestación de inconformidad.<br>
-        3. Recurso: Manifestación de inconformidad frente a una decisión de LOV Telecomunicaciones S.A.S. prestador del servicio.
+        3. Recurso: Manifestación de inconformidad frente a una decisión de LOV Telecomunicaciones S.A.S. prestador del
+        servicio.
       </p>
       <mat-form-field appearance="fill" class="full-width">
         <mat-label>Selecciona una opción</mat-label>
-        <mat-select name="presentationType" [(ngModel)]="formData.presentationType" (selectionChange)="onPresentationChange()" required>
+        <mat-select name="presentationType" [(ngModel)]="formData.presentationType"
+          (selectionChange)="onPresentationChange()" required>
           <mat-option *ngFor="let opt of presentationTypes" [value]="opt.value">
             {{ opt.label }}
           </mat-option>
@@ -127,11 +115,12 @@
       </mat-select>
     </mat-form-field>
   </div>
-  
+
   <mat-checkbox name="acceptPolicy" [(ngModel)]="formData.acceptPolicy" required>
-    Acepto la <a href="https://lov.com.co/directv/legales/politica_de_tratamiento_de_datos_personales.pdf" target="_blank">política de tratamiento de datos personales</a>
+    Acepto la <a href="./legales/politica_de_tratamiento_de_datos_personales.pdf" target="_blank">política de
+      tratamiento de datos personales</a>
   </mat-checkbox>
-  
+
   <button mat-raised-button color="primary" type="submit" [disabled]="!pqrForm.valid || !formData.acceptPolicy">
     Enviar
   </button>
