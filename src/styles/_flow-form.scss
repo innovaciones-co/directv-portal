@@ -1,0 +1,541 @@
+// Guided forms (portability): one card per step, big digit fields with live counters, chips
+// instead of selects and a progress bar. Global so every step looks the same. DIRECTV colors.
+$dtv-blue: #0072C6;
+$dtv-sky: #03A9F4;
+$dtv-navy: #053261;
+$dtv-gray: #5f6b7a;
+$dtv-error: #c62828;
+$tablet: 768px;
+
+.flow-steps {
+    display: flex;
+    gap: 8px;
+    margin: 0 0 18px;
+    padding: 0;
+    list-style: none;
+}
+
+.flow-steps__item {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    font-size: 0.8rem;
+    font-weight: 700;
+    color: #9aa7b8;
+
+    &::before {
+        content: '';
+        height: 6px;
+        border-radius: 999px;
+        background: #e1e8f0;
+    }
+
+    &--done,
+    &--current {
+        color: $dtv-navy;
+
+        &::before {
+            background: linear-gradient(90deg, $dtv-blue, $dtv-sky);
+        }
+    }
+}
+
+.flow-back {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    margin: 0 0 12px;
+    padding: 6px 0;
+    border: none;
+    background: none;
+    color: $dtv-blue;
+    font: inherit;
+    font-weight: 700;
+    cursor: pointer;
+
+    .material-icons {
+        font-size: 20px;
+    }
+}
+
+.flow-step {
+    display: grid;
+    gap: 28px;
+    margin-bottom: 18px;
+    padding: 26px 20px;
+    border: 1px solid #d6e4f2;
+    border-radius: 20px;
+    background: #fff;
+    box-shadow: 0 12px 30px rgba($dtv-navy, 0.08);
+
+    @media (min-width: $tablet) {
+        padding: 34px 36px;
+    }
+
+    &--guide {
+        @media (min-width: $tablet) {
+            grid-template-columns: minmax(0, 1fr) 270px;
+            align-items: center;
+        }
+    }
+}
+
+.flow-step__eyebrow {
+    margin: 0;
+    font-size: 0.78rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: $dtv-blue;
+}
+
+// ".flow-step" in front: Material's .mat-typography h2 (on <body>) would win otherwise.
+.flow-step .flow-step__title {
+    margin: 2px 0 4px;
+    line-height: 1.25;
+    font-family: inherit;
+    font-size: 1.45rem;
+    font-weight: 700;
+    color: $dtv-navy;
+}
+
+.flow-step__hint {
+    margin: 0 0 20px;
+    color: $dtv-gray;
+}
+
+.flow-grid {
+    display: grid;
+    gap: 0 20px;
+
+    @media (min-width: $tablet) {
+        grid-template-columns: 1fr 1fr;
+    }
+}
+
+.flow-field {
+    display: block;
+    margin-bottom: 20px;
+}
+
+.flow-field__label {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 8px;
+    font-weight: 700;
+    color: $dtv-navy;
+
+    > .material-icons {
+        font-size: 20px;
+        color: $dtv-blue;
+    }
+}
+
+.flow-tag {
+    display: grid;
+    place-items: center;
+    flex-shrink: 0;
+    width: 26px;
+    height: 26px;
+    border-radius: 8px;
+    background: $dtv-blue;
+    color: #fff;
+
+    .material-icons {
+        font-size: 17px;
+    }
+
+    &--accent {
+        background: $dtv-sky;
+    }
+}
+
+.flow-affix,
+.flow-input {
+    box-sizing: border-box;
+    border: 2px solid #c8d6e5;
+    border-radius: 12px;
+    background: #fff;
+    transition: border-color 0.15s ease, box-shadow 0.15s ease;
+
+    &:focus-within,
+    &:focus {
+        border-color: $dtv-blue;
+        box-shadow: 0 0 0 4px rgba($dtv-blue, 0.15);
+        outline: none;
+    }
+
+    &--error {
+        border-color: $dtv-error;
+    }
+}
+
+.flow-affix {
+    display: flex;
+    align-items: stretch;
+    overflow: hidden;
+}
+
+.flow-affix__prefix {
+    display: flex;
+    align-items: center;
+    padding: 0 12px;
+    background: #eef3f8;
+    color: $dtv-gray;
+    font-family: monospace;
+    font-size: 1.05rem;
+    user-select: none;
+}
+
+.flow-affix__input,
+.flow-input {
+    min-width: 0;
+    height: 52px;
+    font-family: inherit;
+    font-size: 1.05rem;
+    font-weight: 500;
+    color: $dtv-navy;
+
+    &::placeholder {
+        font-weight: 400;
+        color: #9aa7b8;
+    }
+}
+
+// Numbers: monospace and spaced, easy to compare with the card or the SMS.
+.flow-input--digits {
+    font-family: monospace;
+    font-size: 1.3rem;
+    font-weight: 700;
+    letter-spacing: 0.18em;
+
+    &::placeholder {
+        font-family: Roboto, 'Helvetica Neue', sans-serif;
+        font-size: 1rem;
+        letter-spacing: normal;
+    }
+}
+
+.flow-field--short {
+    max-width: 260px;
+}
+
+.flow-affix__input {
+    flex: 1;
+    width: 100%;
+    padding: 0 14px;
+    border: none;
+    outline: none;
+    background: transparent;
+}
+
+.flow-input {
+    width: 100%;
+    padding: 0 16px;
+}
+
+.flow-date {
+    display: block;
+    max-width: 280px;
+    margin-top: 14px;
+}
+
+.flow-help {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: 4px 12px;
+    margin-top: 6px;
+    font-size: 0.85rem;
+    color: $dtv-gray;
+}
+
+.flow-error {
+    color: $dtv-error;
+    font-weight: 600;
+}
+
+.flow-count {
+    font-weight: 700;
+    color: $dtv-blue;
+}
+
+.flow-ok {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    font-weight: 700;
+    color: #12805c;
+
+    .material-icons {
+        font-size: 18px;
+    }
+}
+
+.flow-chips {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.flow-chip {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    min-height: 46px;
+    padding: 0 18px;
+    border: 2px solid #c8d6e5;
+    border-radius: 999px;
+    background: #fff;
+    color: $dtv-navy;
+    font: inherit;
+    font-weight: 700;
+    cursor: pointer;
+    transition: border-color 0.15s ease, background-color 0.15s ease;
+
+    .material-icons {
+        font-size: 18px;
+    }
+
+    &:hover {
+        border-color: $dtv-blue;
+    }
+
+    &[aria-checked='true'] {
+        border-color: $dtv-blue;
+        background: $dtv-blue;
+        color: #fff;
+    }
+}
+
+.flow-operator {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 8px;
+    min-height: 52px;
+    margin: 0;
+    padding: 0 16px;
+    border: 2px dashed #c8d6e5;
+    border-radius: 12px;
+    color: $dtv-gray;
+
+    strong {
+        color: $dtv-navy;
+        font-size: 1.05rem;
+    }
+
+    > .material-icons {
+        color: $dtv-blue;
+    }
+}
+
+.flow-note,
+.flow-alert {
+    display: flex;
+    gap: 10px;
+    margin: 0 0 20px;
+    padding: 12px 16px;
+    border-radius: 12px;
+    font-size: 0.92rem;
+    line-height: 1.45;
+}
+
+.flow-note {
+    background: #eaf4fc;
+    color: $dtv-navy;
+
+    .material-icons {
+        color: $dtv-blue;
+    }
+}
+
+.flow-alert {
+    background: #fdecec;
+    color: #8e1c1c;
+
+    .material-icons {
+        color: $dtv-error;
+    }
+}
+
+.flow-check {
+    display: flex;
+    gap: 10px;
+    align-items: flex-start;
+    margin: 4px 0 20px;
+    color: $dtv-gray;
+    font-size: 0.92rem;
+    line-height: 1.45;
+    cursor: pointer;
+
+    input {
+        flex-shrink: 0;
+        width: 20px;
+        height: 20px;
+        margin: 1px 0 0;
+        accent-color: $dtv-blue;
+    }
+
+    a {
+        color: $dtv-blue;
+        font-weight: 700;
+    }
+
+    &--error {
+        color: $dtv-error;
+    }
+}
+
+.flow-actions {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 12px 20px;
+}
+
+.flow-button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    width: 100%;
+    min-height: 52px;
+    padding: 0 28px;
+    border: none;
+    border-radius: 999px;
+    background: $dtv-blue;
+    color: #fff;
+    font: inherit;
+    font-size: 1rem;
+    font-weight: 700;
+    text-decoration: none;
+    cursor: pointer;
+    transition: background-color 0.15s ease;
+
+    &:hover:not(:disabled) {
+        background: #005ea3;
+    }
+
+    &:disabled {
+        opacity: 0.7;
+        cursor: progress;
+    }
+
+    @media (min-width: $tablet) {
+        width: auto;
+        min-width: 240px;
+    }
+}
+
+.flow-link {
+    padding: 8px 4px;
+    border: none;
+    background: none;
+    color: $dtv-blue;
+    font: inherit;
+    font-weight: 700;
+    text-decoration: underline;
+    cursor: pointer;
+}
+
+.flow-spinner {
+    width: 18px;
+    height: 18px;
+    border: 2.5px solid rgba(#fff, 0.4);
+    border-top-color: #fff;
+    border-radius: 50%;
+    animation: flow-spin 0.8s linear infinite;
+
+    &--dark {
+        border-color: rgba($dtv-blue, 0.25);
+        border-top-color: $dtv-blue;
+    }
+}
+
+@keyframes flow-spin {
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+// Step 1: where the serial's last digits are, on the card the SIM came in.
+.sim-guide {
+    display: grid;
+    gap: 12px;
+    justify-items: center;
+    // On a phone, first where to find the number, then the fields.
+    order: -1;
+
+    @media (min-width: $tablet) {
+        order: 0;
+    }
+}
+
+.sim-guide__caption {
+    max-width: 240px;
+    margin: 0;
+    text-align: center;
+    font-size: 0.82rem;
+    color: $dtv-gray;
+}
+
+.sim-card {
+    position: relative;
+    width: 250px;
+    height: 150px;
+    border: 1px solid #d6e4f2;
+    border-radius: 16px;
+    background: linear-gradient(135deg, #fff 55%, #e6f3fd);
+    box-shadow: 0 12px 26px rgba($dtv-navy, 0.15);
+}
+
+.sim-card__logo {
+    position: absolute;
+    top: 12px;
+    left: 16px;
+    width: 92px;
+}
+
+.sim-card__chip {
+    position: absolute;
+    top: 44px;
+    left: 16px;
+    width: 40px;
+    height: 30px;
+    border-radius: 7px;
+    background: linear-gradient(135deg, #f6d77a, #c9a13b);
+}
+
+.sim-card__barcode {
+    position: absolute;
+    bottom: 34px;
+    left: 16px;
+    right: 16px;
+    height: 22px;
+    background: repeating-linear-gradient(90deg, $dtv-navy 0 2px, transparent 2px 4px, $dtv-navy 4px 5px, transparent 5px 8px);
+}
+
+.sim-card__serial {
+    position: absolute;
+    bottom: 11px;
+    left: 16px;
+    font-family: monospace;
+    font-size: 0.72rem;
+    color: $dtv-navy;
+
+    b {
+        padding: 1px 3px;
+        border-radius: 4px;
+        background: $dtv-sky;
+        color: #fff;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .flow-spinner {
+        animation-duration: 2s;
+    }
+}
