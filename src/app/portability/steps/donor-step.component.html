@@ -1,0 +1,100 @@
+<form class="flow-step" (submit)="$event.preventDefault(); requestNip()" novalidate>
+    <div>
+        <p class="flow-step__eyebrow">Paso 2 de 3</p>
+        <h2 class="flow-step__title">El número que quieres traer</h2>
+        <p class="flow-step__hint">Es tu número de siempre, el que hoy tienes con otro operador.</p>
+
+        <div class="flow-grid">
+            <label class="flow-field" for="donor-number">
+                <span class="flow-field__label">Número a traer</span>
+                <span class="flow-affix" [class.flow-affix--error]="(touched() && !numberOk()) || sameAsDirectv() || operatorMissing()">
+                    <span class="flow-affix__prefix">+57</span>
+                    <input id="donor-number" class="flow-affix__input flow-input--digits" type="text" inputmode="numeric"
+                        autocomplete="tel-national" placeholder="3__ ___ ____" maxlength="13" [value]="number()"
+                        (input)="onNumber('number', $any($event.target))">
+                </span>
+                <span class="flow-help">
+                    @if (sameAsDirectv()) {
+                    <span class="flow-error">Ese es tu número DIRECTV. Escribe el que tienes con tu operador actual.</span>
+                    } @else if (operatorMissing()) {
+                    <span class="flow-error">No pudimos detectar el operador de este número. Revísalo.</span>
+                    } @else if (touched() && !numberOk()) {
+                    <span class="flow-error">Escribe los 10 dígitos; empieza por 3.</span>
+                    } @else {
+                    <span>10 dígitos, empieza por 3</span>
+                    <span class="flow-count">{{ number().length }} de 10</span>
+                    }
+                </span>
+            </label>
+
+            <label class="flow-field" for="donor-number-confirm">
+                <span class="flow-field__label">Escríbelo otra vez</span>
+                <span class="flow-affix" [class.flow-affix--error]="(touched() || confirm().length === 10) && !matches()">
+                    <span class="flow-affix__prefix">+57</span>
+                    <input id="donor-number-confirm" class="flow-affix__input flow-input--digits" type="text"
+                        inputmode="numeric" autocomplete="off" placeholder="3__ ___ ____" maxlength="13" [value]="confirm()"
+                        (input)="onNumber('confirm', $any($event.target))">
+                </span>
+                <span class="flow-help">
+                    @if ((touched() || confirm().length === 10) && !matches()) {
+                    <span class="flow-error">No coincide con el número de arriba.</span>
+                    } @else if (matches()) {
+                    <span class="flow-ok"><span class="material-icons" aria-hidden="true">check_circle</span> Coinciden</span>
+                    } @else {
+                    <span>Para evitar errores al digitar</span>
+                    }
+                </span>
+            </label>
+        </div>
+
+        <div class="flow-field">
+            <span class="flow-field__label">Operador actual</span>
+            <p class="flow-operator" aria-live="polite">
+                @if (lookingUp()) {
+                <span class="flow-spinner flow-spinner--dark" aria-hidden="true"></span> Buscando el operador de tu número...
+                } @else if (operator()) {
+                <span class="material-icons" aria-hidden="true">cell_tower</span>
+                <strong>{{ operator()!.name }}</strong>
+                <span class="flow-ok"><span class="material-icons" aria-hidden="true">check_circle</span> Detectado</span>
+                } @else {
+                <span class="material-icons" aria-hidden="true">cell_tower</span>
+                Lo detectamos al escribir tu número.
+                }
+            </p>
+        </div>
+
+        <div class="flow-field" role="radiogroup" aria-labelledby="donor-plan-label">
+            <span class="flow-field__label" id="donor-plan-label">¿Ese número es prepago o pospago?</span>
+            <div class="flow-chips">
+                @for (option of plans; track option.value) {
+                <button type="button" class="flow-chip" role="radio" [attr.aria-checked]="plan() === option.value"
+                    (click)="plan.set(option.value)">{{ option.label }}</button>
+                }
+            </div>
+            @if (touched() && !plan()) {
+            <span class="flow-help"><span class="flow-error">Elige una opción.</span></span>
+            }
+        </div>
+
+        <p class="flow-note">
+            <span class="material-icons" aria-hidden="true">sms</span>
+            <span>Ten la SIM de tu operador actual en un celular encendido: allí te llega por SMS, desde el
+                <strong>88892</strong>, el código NIP de 5 dígitos que autoriza la portabilidad.</span>
+        </p>
+
+        @if (error()) {
+        <p class="flow-alert" role="alert"><span class="material-icons" aria-hidden="true">error_outline</span>{{ error() }}</p>
+        }
+
+        <div class="flow-actions">
+            <button class="flow-button" type="submit" [disabled]="loading()">
+                @if (loading()) {
+                <span class="flow-spinner" aria-hidden="true"></span> Enviando el código NIP...
+                } @else {
+                Enviarme el código NIP
+                }
+            </button>
+            <button class="flow-link" type="button" [disabled]="loading()" (click)="haveNip()">Ya tengo mi NIP</button>
+        </div>
+    </div>
+</form>

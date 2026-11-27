@@ -1,0 +1,66 @@
+<div class="fraudes-container">
+    <a href="/legales/fraude_en_portabilidad.pdf" target="_blank" rel="noopener">
+        <picture>
+            <source media="(max-width: 900px)" srcset="/images/FRAUDES_EN_PORTABILIDAD_V2_small.jpg">
+            <img src="/images/FRAUDES_EN_PORTABILIDAD_V2.jpg" alt="Cuidado con los fraudes en la portabilidad">
+        </picture>
+    </a>
+</div>
+
+<div class="page" id="portabilidad">
+    <header class="page__header">
+        <p class="page__eyebrow">Portabilidad</p>
+        <h1 class="page__title">¡Cámbiate a DIRECTV con tu mismo número!</h1>
+        <p class="page__lead">Trae tu número de siempre en tres pasos, sin perderlo. Para empezar necesitas tu SIM DIRECTV
+            activa y la SIM de tu operador actual en un celular encendido.</p>
+    </header>
+
+    @if (sent(); as done) {
+    <section class="flow-step done" aria-live="polite">
+        <span class="done__icon material-icons" aria-hidden="true">check_circle</span>
+        <h2 class="flow-step__title">¡Solicitud enviada!</h2>
+        <p>Estamos trayendo el <strong>{{ done.number }}</strong> a DIRECTV. La portabilidad se hace en la noche del
+            <strong>{{ done.date }}</strong>.</p>
+        <p>Recibirás una notificación cuando se complete y tu número funcione en tu SIM DIRECTV. Si tienes dudas,
+            llama a la línea de atención <a href="tel:018000423690">01 8000 423 690</a>.</p>
+        <div class="flow-actions">
+            <a class="flow-button" routerLink="/home">Volver al inicio</a>
+            <button class="flow-link" type="button" (click)="restart()">Portar otro número</button>
+        </div>
+    </section>
+    } @else {
+    <ol class="flow-steps" aria-label="Progreso de tu portabilidad">
+        @for (name of steps; track name; let i = $index) {
+        <li class="flow-steps__item" [class.flow-steps__item--done]="i < step()" [class.flow-steps__item--current]="i === step()"
+            [attr.aria-current]="i === step() ? 'step' : null">{{ name }}</li>
+        }
+    </ol>
+
+    @if (step() > 0) {
+    <button type="button" class="flow-back" (click)="back()">
+        <span class="material-icons" aria-hidden="true">arrow_back</span> Atrás
+    </button>
+    }
+
+    <div class="page__step">
+        @switch (step()) {
+        @case (0) {
+        <dtv-sim-step [initial]="sim()" (done)="onSim($event)" />
+        }
+        @case (1) {
+        <dtv-donor-step [sim]="sim()!" [initial]="donor()" (done)="onDonor($event)" />
+        }
+        @case (2) {
+        <dtv-customer-step [sim]="sim()!" [donor]="donor()!" [initial]="customer()"
+            (draftChange)="customer.set($event)" (done)="onSent($event)" />
+        }
+        }
+    </div>
+
+    <p class="page__help">
+        <span class="material-icons" aria-hidden="true">support_agent</span>
+        <span>¿Necesitas ayuda? Llama a la línea de atención <a href="tel:018000423690">01 8000 423 690</a>. Si
+            sales de la página, al volver sigues donde ibas.</span>
+    </p>
+    }
+</div>

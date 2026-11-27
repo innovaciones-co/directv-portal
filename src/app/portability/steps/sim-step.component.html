@@ -1,0 +1,70 @@
+<form class="flow-step flow-step--guide" (submit)="$event.preventDefault(); submit()" novalidate>
+    <div>
+        <p class="flow-step__eyebrow">Paso 1 de 3</p>
+        <h2 class="flow-step__title">Tu SIM DIRECTV activa</h2>
+        <p class="flow-step__hint">Tu número de siempre llegará a esta SIM DIRECTV, que ya debe estar activa.</p>
+
+        <label class="flow-field" for="directv-number">
+            <span class="flow-field__label">
+                <span class="flow-tag"><span class="material-icons" aria-hidden="true">phone_iphone</span></span>
+                Tu número DIRECTV
+            </span>
+            <span class="flow-affix" [class.flow-affix--error]="touched() && !numberOk()">
+                <span class="flow-affix__prefix">+57</span>
+                <input id="directv-number" class="flow-affix__input flow-input--digits" type="text" inputmode="numeric"
+                    autocomplete="off" placeholder="3__ ___ ____" maxlength="13" [value]="number()"
+                    (input)="onNumber($any($event.target))" aria-describedby="directv-number-help">
+            </span>
+            <span class="flow-help" id="directv-number-help">
+                @if (touched() && !numberOk()) {
+                <span class="flow-error">Escribe los 10 dígitos de tu número DIRECTV; empieza por 3.</span>
+                } @else {
+                <span>El número de tu SIM DIRECTV</span>
+                <span class="flow-count">{{ number().length }} de 10</span>
+                }
+            </span>
+        </label>
+
+        <label class="flow-field" for="sim-digits">
+            <span class="flow-field__label">
+                <span class="flow-tag flow-tag--accent"><span class="material-icons" aria-hidden="true">sim_card</span></span>
+                Últimos {{ simDigitsLength }} dígitos del serial de tu SIM
+            </span>
+            <input id="sim-digits" class="flow-input flow-input--digits" [class.flow-input--error]="touched() && !simDigitsOk()"
+                type="text" inputmode="numeric" autocomplete="off" placeholder="{{ simDigitsLength }} dígitos"
+                maxlength="25" [value]="simDigits()" (input)="onSimDigits($any($event.target))"
+                aria-describedby="sim-digits-help">
+            <span class="flow-help" id="sim-digits-help">
+                @if (touched() && !simDigitsOk()) {
+                <span class="flow-error">Escribe los últimos {{ simDigitsLength }} dígitos del serial.</span>
+                } @else {
+                <span>Están al final del número bajo el código de barras</span>
+                <span class="flow-count">{{ simDigits().length }} de {{ simDigitsLength }}</span>
+                }
+            </span>
+        </label>
+
+        @if (error()) {
+        <p class="flow-alert" role="alert"><span class="material-icons" aria-hidden="true">error_outline</span>{{ error() }}</p>
+        }
+
+        <button class="flow-button" type="submit" [disabled]="loading()">
+            @if (loading()) {
+            <span class="flow-spinner" aria-hidden="true"></span> Validando tu SIM...
+            } @else {
+            Continuar
+            }
+        </button>
+    </div>
+
+    <!-- Where to find the serial's last digits on the card the SIM came in. -->
+    <div class="sim-guide" aria-hidden="true">
+        <div class="sim-card">
+            <img class="sim-card__logo" src="/logos/dtv-logo-blue.svg" alt="">
+            <span class="sim-card__chip"></span>
+            <span class="sim-card__barcode"></span>
+            <span class="sim-card__serial">8957 0000 0000 000<b>####</b></span>
+        </div>
+        <p class="sim-guide__caption">Los últimos {{ simDigitsLength }} dígitos del serial, en la tarjeta donde venía tu SIM</p>
+    </div>
+</form>

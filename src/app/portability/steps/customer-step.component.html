@@ -1,0 +1,155 @@
+<form (submit)="$event.preventDefault(); submit()" novalidate>
+    <section class="flow-step">
+        <div>
+            <p class="flow-step__eyebrow">Paso 3 de 3</p>
+            <h2 class="flow-step__title">Autoriza tu portabilidad</h2>
+            <p class="flow-step__hint">
+                El código NIP llega por SMS desde el 88892 al <strong>{{ donorNumber() }}</strong>. Tenlo a la mano.
+            </p>
+
+            <label class="flow-field flow-field--short" for="nip">
+                <span class="flow-field__label"><span class="material-icons" aria-hidden="true">sms</span> Código NIP</span>
+                <input id="nip" class="flow-input flow-input--digits" [class.flow-input--error]="invalid('nip')"
+                    type="text" inputmode="numeric" autocomplete="one-time-code" placeholder="5 dígitos" maxlength="5"
+                    [value]="form().nip" (input)="onDigits('nip', $any($event.target), 5)">
+                <span class="flow-help">
+                    @if (invalid('nip')) {
+                    <span class="flow-error">El NIP tiene 5 dígitos.</span>
+                    } @else {
+                    <span>Llega en unos minutos</span>
+                    <span class="flow-count">{{ form().nip.length }} de 5</span>
+                    }
+                </span>
+            </label>
+
+            <!-- Most customers want it as soon as possible: that's chosen already; a date is optional. -->
+            <div class="flow-field" role="radiogroup" aria-labelledby="portin-date-label">
+                <span class="flow-field__label" id="portin-date-label">
+                    <span class="material-icons" aria-hidden="true">event</span>
+                    ¿Cuándo quieres tu número en DIRECTV?
+                </span>
+                <div class="flow-chips">
+                    <button type="button" class="flow-chip" role="radio" [attr.aria-checked]="dateChoice() === 'soonest'"
+                        (click)="chooseSoonest()">
+                        <span class="material-icons" aria-hidden="true">bolt</span>
+                        Lo antes posible · {{ tomorrowLabel }}
+                    </button>
+                    <button type="button" class="flow-chip" role="radio" [attr.aria-checked]="dateChoice() === 'other'"
+                        (click)="dateChoice.set('other')">
+                        <span class="material-icons" aria-hidden="true">calendar_month</span>
+                        Otra fecha
+                    </button>
+                </div>
+                @if (dateChoice() === 'other') {
+                <label class="flow-date" for="portin-date">
+                    <span class="flow-help">Elige el día</span>
+                    <input id="portin-date" class="flow-input" [class.flow-input--error]="invalid('portinDate')" type="date"
+                        [min]="tomorrow" [value]="form().portinDate" (change)="set('portinDate', $any($event.target).value)">
+                </label>
+                @if (invalid('portinDate')) {
+                <span class="flow-help"><span class="flow-error">Elige un día a partir de mañana.</span></span>
+                }
+                }
+                <span class="flow-help">La portabilidad se hace en la noche del día que elijas.</span>
+            </div>
+        </div>
+    </section>
+
+    <section class="flow-step">
+        <div>
+            <h2 class="flow-step__title">Datos del titular</h2>
+            <p class="flow-note">
+                <span class="material-icons" aria-hidden="true">edit_note</span>
+                <span>Deben ser los mismos con los que tienes el número en tu operador actual. Si los traemos de tu línea
+                    DIRECTV y algo no está bien, corrígelo aquí. Lo que escribas se guarda mientras terminas.</span>
+            </p>
+
+            <div class="flow-field" role="radiogroup" aria-labelledby="holder-type-label">
+                <span class="flow-field__label" id="holder-type-label">El número está a nombre de</span>
+                <div class="flow-chips">
+                    @for (option of holderTypes; track option.value) {
+                    <button type="button" class="flow-chip" role="radio" [attr.aria-checked]="form().subscriberType === option.value"
+                        (click)="set('subscriberType', option.value)">{{ option.label }}</button>
+                    }
+                </div>
+            </div>
+
+            <label class="flow-field" for="full-name">
+                <span class="flow-field__label">{{ form().subscriberType === 'COMPANY' ? 'Razón social' : 'Nombre completo' }}</span>
+                <input id="full-name" class="flow-input" [class.flow-input--error]="invalid('fullName')" type="text"
+                    [attr.autocomplete]="form().subscriberType === 'COMPANY' ? 'organization' : 'name'"
+                    placeholder="Como aparece en el documento" [value]="form().fullName"
+                    (input)="set('fullName', $any($event.target).value)">
+                @if (invalid('fullName')) {
+                <span class="flow-help"><span class="flow-error">{{ form().subscriberType === 'COMPANY' ? 'Escribe la razón social.' : 'Escribe tu nombre y apellido.' }}</span></span>
+                }
+            </label>
+
+            <div class="flow-field" role="radiogroup" aria-labelledby="document-type-label">
+                <span class="flow-field__label" id="document-type-label">Tipo de documento</span>
+                <div class="flow-chips">
+                    @for (option of documentTypes; track option.value) {
+                    <button type="button" class="flow-chip" role="radio" [attr.aria-checked]="form().documentType === option.value"
+                        (click)="set('documentType', option.value)">{{ option.label }}</button>
+                    }
+                </div>
+                @if (invalid('documentType')) {
+                <span class="flow-help"><span class="flow-error">Elige el tipo de documento.</span></span>
+                }
+            </div>
+
+            <div class="flow-grid">
+                <label class="flow-field" for="document-id">
+                    <span class="flow-field__label">Número de documento</span>
+                    <input id="document-id" class="flow-input flow-input--digits" [class.flow-input--error]="invalid('documentId')"
+                        type="text" [attr.inputmode]="form().documentType === 'PASSPORT' ? 'text' : 'numeric'" autocomplete="off"
+                        placeholder="Sin puntos" maxlength="15" [value]="form().documentId"
+                        (input)="onDigits('documentId', $any($event.target), 15)">
+                    @if (invalid('documentId')) {
+                    <span class="flow-help"><span class="flow-error">Entre 5 y 15 caracteres, sin puntos ni guiones.</span></span>
+                    }
+                </label>
+
+                <label class="flow-field" for="issue-date">
+                    <span class="flow-field__label">Fecha de expedición</span>
+                    <input id="issue-date" class="flow-input" [class.flow-input--error]="invalid('documentIssueDate')" type="date"
+                        [max]="today" [value]="form().documentIssueDate"
+                        (change)="set('documentIssueDate', $any($event.target).value)">
+                    @if (invalid('documentIssueDate')) {
+                    <span class="flow-help"><span class="flow-error">Debe ser una fecha anterior a hoy.</span></span>
+                    }
+                </label>
+            </div>
+
+            <label class="flow-field" for="address">
+                <span class="flow-field__label">Dirección</span>
+                <input id="address" class="flow-input" [class.flow-input--error]="invalid('address')" type="text"
+                    autocomplete="street-address" placeholder="Cra 00 # 00-00" [value]="form().address"
+                    (input)="set('address', $any($event.target).value)">
+                @if (invalid('address')) {
+                <span class="flow-help"><span class="flow-error">Escribe tu dirección.</span></span>
+                }
+            </label>
+
+            <label class="flow-check" [class.flow-check--error]="touched() && !terms()">
+                <input type="checkbox" [checked]="terms()" (change)="terms.set($any($event.target).checked)">
+                <span>He leído y acepto las <a href="/legales/condiciones_generales_del_servicio_en_modalidad_prepago.pdf"
+                        target="_blank" rel="noopener">Condiciones del servicio</a> y la <a
+                        href="/legales/politica_de_tratamiento_de_datos_personales.pdf" target="_blank" rel="noopener">Política
+                        de Tratamiento de Datos Personales</a>.</span>
+            </label>
+
+            @if (error()) {
+            <p class="flow-alert" role="alert"><span class="material-icons" aria-hidden="true">error_outline</span>{{ error() }}</p>
+            }
+
+            <button class="flow-button" type="submit" [disabled]="loading()">
+                @if (loading()) {
+                <span class="flow-spinner" aria-hidden="true"></span> Enviando tu solicitud...
+                } @else {
+                Solicitar portabilidad
+                }
+            </button>
+        </div>
+    </section>
+</form>
