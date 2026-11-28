@@ -2,7 +2,6 @@ import { Component } from '@angular/core';
 import { QueryImeiService } from '../../services/query-imei.service';
 import { PutBlockDeviceByImeiService } from '../../services/put-block-device-by-imei.service';
 import { PutBlockSimByNumberService } from '../../services/put-block-sim-by-number.service';
-import { GetCustomersBySubscriptionService } from '../../services/get-customers-by-subscription.service';
 import { CreateTroubleTicketService } from '../../services/post-create-troubleticket.service';
 
 import Swal from 'sweetalert2';
@@ -82,19 +81,10 @@ export class TheftComponent {
   imeiList: { imei: string }[] = [];
   selectedImei: string | null = null;
 
-  // Mapeo para convertir el valor ingresado en "Tipo de documento" a lo que retorna el servicio
-  private documentTypeMapping: { [key: string]: string } = {
-    "C.C": "ID",
-    "NIT": "NIT",
-    "C.E": "FOREIGN_ID",
-    "PASSPORT": "PASSPORT"
-  };
-
   constructor(
     private queryImeiService: QueryImeiService,
     private blockDeviceService: PutBlockDeviceByImeiService,
     private blockSimService: PutBlockSimByNumberService,
-    private getCustomerService: GetCustomersBySubscriptionService,
     private createTroubleTicketService: CreateTroubleTicketService,
     private router: Router
   ) {}
@@ -194,134 +184,102 @@ export class TheftComponent {
   }
 
   onSubmit(): void {
-    // Consumir el servicio para obtener la información del cliente
-    this.getCustomerService.getCustomerData(this.formData.phoneNumber).subscribe({
+    if (!this.selectedImei) {
+      Swal.fire({
+        icon: 'error',
+        title: 'Error',
+        text: 'Debes seleccionar un IMEI antes de continuar.',
+        confirmButtonText: 'OK'
+      });
+      return;
+    }
+
+    const reportDate = new Date();
+    // Ajustar la hora restando 5 horas (Colombia está en UTC-5)
+    reportDate.setHours(reportDate.getHours() - 5);
+    const formattedReportDate = format(reportDate, "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'");
+
+    const reportTypeMapping: { [key: string]: string } = {
+      'Hurto': 'THEFT_DEVICE',
+      'Extravío': 'LOST_DEVICE'
+    };
+
+    const documentTypeMapping: { [key: string]: number } = {
+      'C.C': 1,
+      'NIT': 2,
+      'C.E': 3,
+      'PASSPORT': 4
+    };
+
+    const weaponTypeMapping: { [key: string]: string } = {
+      'Arma de fuego': 'FIREARM',
+      'Arma blanca': 'BLADE'
+    };
+
+    // El backend verifica que el documento sea el del titular de la línea y bloquea el IMEI que
+    // la plataforma tiene para ella (aquí solo se ve enmascarado).
+    const requestData = {
+      phoneNumber: this.formData.phoneNumber,
+      imei: this.selectedImei,
+      eventDate: this.formData.reportDate ? format(new Date(this.formData.reportDate), "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'") : null,
+      reportDate: formattedReportDate,
+      reportType: reportTypeMapping[this.formData.reportType] || 'ADMINISTRATIVE_BLOCKING',
+      reporter: {
+        address: this.formData.address,
+        city: this.formData.city,
+        name: this.formData.name,
+        phone: this.formData.phone,
+        state: this.formData.state
+      },
+      reporterDocument: {
+        id: this.formData.id,
+        type: documentTypeMapping[this.formData.type] || 1
+      },
+      victimEmail: this.formData.email,
+      victimMinor: this.formData.minorVictim === 'SI',
+      violenceApplied: this.formData.violenceApplied === 'SI',
+      weaponApplied: weaponTypeMapping[this.formData.weaponApplied] || null
+    };
+
+    this.blockDeviceService.blockDeviceByImei(requestData).subscribe({
       next: response => {
-        if (response && response.payload && response.payload.document) {
-          const customerDocument = response.payload.document;
-          const expectedDocType = this.documentTypeMapping[this.formData.type] || this.formData.type;
-          if (customerDocument.id === this.formData.id && customerDocument.type === expectedDocType) {
-            // Validación correcta, proceder con el proceso de bloqueo
-            if (!this.selectedImei) {
-              Swal.fire({
-                icon: 'error',
-                title: 'Error',
-                text: 'Debes seleccionar un IMEI antes de continuar.',
-                confirmButtonText: 'OK'
-              }).then(() => {
-                this.resetFormData();
-              });
-              return;
-            }
-            const reportDate = new Date();
-            // Ajustar la hora restando 5 horas (Colombia está en UTC-5)
-            reportDate.setHours(reportDate.getHours() - 5);
-            const formattedReportDate = format(reportDate, "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'");
-            
-            const reportTypeMapping: { [key: string]: string } = {
-              'Hurto': 'THEFT_DEVICE',
-              'Extravío': 'LOST_DEVICE'
-            };
-
-            const documentTypeMapping: { [key: string]: number } = {
-              'C.C': 1,
-              'NIT': 2,
-              'FOREIGN_ID': 3,
-              'PASSPORT': 4
-            };
-
-            const weaponTypeMapping: { [key: string]: string } = {
-              'Arma de fuego': 'FIREARM',
-              'Arma blanca': 'BLADE'
-            };
-
-            const requestData = {
-              phoneNumber: this.formData.phoneNumber,
-              imei: this.selectedImei,
-              eventDate: this.formData.reportDate ? format(new Date(this.formData.reportDate), "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'") : null,
-              reportDate: formattedReportDate,
-              reportType: reportTypeMapping[this.formData.reportType] || 'ADMINISTRATIVE_BLOCKING',
-              reporter: {
-                address: this.formData.address,
-                city: this.formData.city,
-                name: this.formData.name,
-                phone: this.formData.phone,
-                state: this.formData.state
-              },
-              reporterDocument: {
-                id: this.formData.id,
-                type: documentTypeMapping[this.formData.type] || 1
-              },
-              victimEmail: this.formData.email,
-              victimMinor: this.formData.minorVictim === 'SI',
-              violenceApplied: this.formData.violenceApplied === 'SI',
-              weaponApplied: weaponTypeMapping[this.formData.weaponApplied] || null
-            };
-
-            this.blockDeviceService.blockDeviceByImei(requestData).subscribe({
-              next: response => {
-                console.log('Bloqueo de dispositivo exitoso:', response);
-                this.blockSimService.blockSimByPhoneNumber({ phoneNumber: this.formData.phoneNumber }).subscribe({
-                  next: simResponse => {
-                    console.log('Bloqueo de SIM exitoso:', simResponse);
-
-                    //Crea ticket
-                    this.createTroubleTicket();
-                    //
-                   
-                  },
-                  error: simError => {
-                    console.error('Error en el bloqueo de la SIM:', simError);
-                    Swal.fire({
-                      icon: 'error',
-                      title: 'Error en el bloqueo de la SIM',
-                      text: 'No se puedo bloquear, por favor llama al número 018000423690',
-                      confirmButtonText: 'OK'
-                    }).then(() => {
-                      this.resetFormData();
-                      this.router.navigate(['/home']);
-                    });
-                  }
-                });
-              },
-              error: error => {
-                Swal.fire({
-                  icon: 'error',
-                  title: 'Error en el bloqueo',
-                  text: 'Hubo un problema al intentar bloquear el dispositivo.',
-                  confirmButtonText: 'OK'
-                }).then(() => {
-                  this.resetFormData();
-                });
-              }
-            });
-          } else {
-            // Identificación fallida: reinicia todos los campos
+        console.log('Bloqueo de dispositivo exitoso:', response);
+        this.blockSimService.blockSimByPhoneNumber({ phoneNumber: this.formData.phoneNumber, documentId: this.formData.id }).subscribe({
+          next: simResponse => {
+            console.log('Bloqueo de SIM exitoso:', simResponse);
+            this.createTroubleTicket();
+          },
+          error: simError => {
+            console.error('Error en el bloqueo de la SIM:', simError);
             Swal.fire({
               icon: 'error',
-              title: 'Identificación fallida',
-              text: 'Los datos de identificación no coinciden, por favor verifica e intenta de nuevo.',
+              title: 'Error en el bloqueo de la SIM',
+              text: 'No se puedo bloquear, por favor llama al número 018000423690',
               confirmButtonText: 'OK'
             }).then(() => {
               this.resetFormData();
+              this.router.navigate(['/home']);
             });
           }
-        } else {
+        });
+      },
+      error: error => {
+        const code = error?.error?.code;
+        if (code === 'DOCUMENT_MISMATCH') {
           Swal.fire({
             icon: 'error',
-            title: 'Error',
-            text: 'No se pudo obtener la información del cliente.',
+            title: 'Identificación fallida',
+            text: 'Los datos de identificación no coinciden, por favor verifica e intenta de nuevo.',
             confirmButtonText: 'OK'
-          }).then(() => {
-            this.resetFormData();
           });
+          return;
         }
-      },
-      error: err => {
         Swal.fire({
           icon: 'error',
-          title: 'Error',
-          text: 'No se pudo obtener la información del cliente.',
+          title: 'Error en el bloqueo',
+          text: (code === 'LINE_LOCKED' || code === 'TOO_MANY_ATTEMPTS')
+            ? error.error.message
+            : 'Hubo un problema al intentar bloquear el dispositivo.',
           confirmButtonText: 'OK'
         }).then(() => {
           this.resetFormData();

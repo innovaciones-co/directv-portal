@@ -9,7 +9,6 @@ import { FooterComponent } from './components/footer/footer.component';
 import { FormsModule,ReactiveFormsModule  } from '@angular/forms';
 
 import { provideHttpClient, withFetch, HTTP_INTERCEPTORS } from '@angular/common/http';
-import { GetCustomersBySubscriptionService } from './services/get-customers-by-subscription.service';
 import { GetNetworkOperatorService } from './services/get-network-operator-code.service';
 import { PostSendAuthenticationService } from './services/post-send-authentication.service';
 import { TheftComponent } from './components/theft/theft.component';
@@ -66,7 +65,6 @@ import { AuthInterceptor  } from './interceptors/jwt.interceptor';
     provideClientHydration(),
     provideAnimationsAsync(),
     provideHttpClient(withFetch()),
-    GetCustomersBySubscriptionService,
     GetNetworkOperatorService,
     PostSendAuthenticationService,
     provideAnimationsAsync('noop'),

@@ -14,7 +14,7 @@ export class PutBlockSimByNumberService {
     this.apiBaseUrl = configService.apiBaseUrl;
   }
 
-  blockSimByPhoneNumber(data: { phoneNumber: string }): Observable<any> {
+  blockSimByPhoneNumber(data: { phoneNumber: string; documentId: string }): Observable<any> {
     const url = `${this.apiBaseUrl}/api-dtv/blockSimByPhoneNumber`;
     const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
 
@@ -22,7 +22,7 @@ export class PutBlockSimByNumberService {
       map(response => response),
       catchError(error => {
         console.error('Error en blockSimByPhoneNumber:', error);
-        return throwError(() => new Error(error.message || 'Error al bloquear la SIM por número de teléfono'));
+        return throwError(() => error);
       })
     );
   }

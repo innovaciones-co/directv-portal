@@ -22,7 +22,7 @@ export class PutBlockDeviceByImeiService {
       map(response => response),
       catchError(error => {
         console.error('Error en blockDeviceByImei:', error);
-        return throwError(() => new Error(error.message || 'Error al bloquear el dispositivo por IMEI'));
+        return throwError(() => error); // keeps the backend's code (DOCUMENT_MISMATCH, LINE_LOCKED...)
       })
     );
   }

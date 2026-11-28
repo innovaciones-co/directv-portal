@@ -8,8 +8,21 @@ export interface SimData {
   directvNumber: string;   // 10 digits, without 57
   simDigits: string;       // last 4 digits of the SIM serial
   subscriberId: number;
+  /** Signed by the backend once the SIM is proved; the NIP and the port-in need it. */
+  portPass: string;
   // From the line's owner, to fill step 3 in (always editable there).
   holder?: { fullName?: string; documentType?: string; documentId?: string; address?: string };
+}
+
+/** Whether the SIM proof is there and still has a few minutes left (read from the pass itself). */
+export function portPassValid(sim: SimData | null | undefined): boolean {
+  if (!sim?.portPass) return false;
+  try {
+    const payload = JSON.parse(atob(sim.portPass.split('.')[1].replace(/-/g, '+').replace(/_/g, '/')));
+    return typeof payload.exp === 'number' && payload.exp * 1000 > Date.now() + 5 * 60 * 1000;
+  } catch {
+    return false;
+  }
 }
 
 /** The number being brought, from step 2. */
@@ -43,9 +56,15 @@ const PLATFORM_ERRORS: Record<number, string> = {
 
 const GENERIC_ERROR = 'No pudimos procesar tu solicitud. Intenta de nuevo en unos minutos o comunícate con la línea de atención 01 8000 423 690.';
 
+// The backend's own refusals (attempt limits, SIM proof missing or expired): its message is
+// already written for the customer.
+const BACKEND_CODES = ['TOO_MANY_ATTEMPTS', 'LINE_LOCKED', 'PORT_PASS_REQUIRED', 'PORT_PASS_EXPIRED'];
+
 /** A customer-facing message for a failed call: never the platform's technical text. */
 export function portabilityError(error: any): string {
-  const code = Number(error?.responseCode ?? error?.error?.responseCode ?? error?.error?.error?.responseCode);
+  const body = error?.error;
+  if (BACKEND_CODES.includes(body?.code) && typeof body?.message === 'string') return body.message;
+  const code = Number(error?.responseCode ?? body?.responseCode ?? body?.error?.responseCode);
   return PLATFORM_ERRORS[code] ?? GENERIC_ERROR;
 }
 
@@ -57,26 +76,24 @@ export class PortabilityService {
 
   /** The line with that number whose SIM serial ends in those digits, or null. */
   async validateSim(directvNumber: string, simDigits: string): Promise<SimData | null> {
-    const response = await firstValueFrom(
-      this.http.get<any>(`${this.api}/getCustomersBySubscription`, { params: { phoneNumber: '57' + directvNumber } })
-    );
-    const customer = response?.payload;
-    const subscriptions: any[] = customer?.subscriptions ?? [];
-    // The customer may have several lines: the one typed, else any of theirs.
-    const line = subscriptions.find(s => String(s?.msisdn ?? '').endsWith(directvNumber));
-    const match = (line ? [line] : subscriptions).find(s => String(s?.iccid ?? '').endsWith(simDigits));
-    if (!match || match.id == null) return null;
+    // The backend checks the serial digits and only then returns the owner (and the port pass).
+    let response: any;
+    try {
+      response = await firstValueFrom(
+        this.http.post<any>(`${this.api}/validateSim`, { phoneNumber: '57' + directvNumber, simDigits })
+      );
+    } catch (error: any) {
+      if (error?.status === 404) return null;
+      throw error;
+    }
+    if (response?.subscriberId == null || !response?.portPass) return null;
 
     return {
       directvNumber,
       simDigits,
-      subscriberId: Number(match.id),
-      holder: {
-        fullName: [customer?.givenName, customer?.familyName].filter(Boolean).join(' ') || undefined,
-        documentType: customer?.document?.type || undefined,
-        documentId: customer?.document?.id || undefined,
-        address: customer?.address?.line1 || undefined,
-      },
+      subscriberId: Number(response.subscriberId),
+      portPass: response.portPass,
+      holder: response.holder ?? undefined,
     };
   }
 
@@ -100,6 +117,7 @@ export class PortabilityService {
       phoneNumber: '57' + donor.donorNumber,
       subscriberId: sim.subscriberId,
       operatorCode: donor.operatorCode,
+      portPass: sim.portPass,
     }));
     if (Number(response?.responseCode) !== 0) throw response;
   }
@@ -111,6 +129,7 @@ export class PortabilityService {
 
     const response = await firstValueFrom(this.http.put<any>(`${this.api}/portInRequest`, {
       subscriberId: String(sim.subscriberId),
+      portPass: sim.portPass,
       authCode: customer.nip,
       donorOperator: donor.operatorCode,
       newMsisdn: '57' + donor.donorNumber,

@@ -1,7 +1,7 @@
 import { Component, effect, inject, PLATFORM_ID, signal } from '@angular/core';
 import { isPlatformBrowser } from '@angular/common';
 import { RouterLink } from '@angular/router';
-import { CustomerData, DonorData, SimData } from './portability.service';
+import { CustomerData, DonorData, SimData, portPassValid } from './portability.service';
 import { SimStepComponent } from './steps/sim-step.component';
 import { DonorStepComponent } from './steps/donor-step.component';
 import { CustomerStepComponent } from './steps/customer-step.component';
@@ -99,8 +99,9 @@ export class PortabilityComponent {
     this.sim.set(draft.sim ?? null);
     this.donor.set(draft.donor ?? null);
     this.customer.set(draft.customer ?? null);
-    // Never past a step whose earlier data is missing.
-    const reachable = !draft.sim ? 0 : !draft.donor ? 1 : 2;
+    // Never past a step whose earlier data is missing; a SIM proof that expired is redone.
+    const simProved = !!draft.sim && portPassValid(draft.sim);
+    const reachable = !simProved ? 0 : !draft.donor ? 1 : 2;
     this.step.set(Math.min(draft.step ?? 0, reachable));
   }
 }
